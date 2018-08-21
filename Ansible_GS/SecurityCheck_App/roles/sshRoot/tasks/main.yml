@@ -1,5 +1,5 @@
 - name: Desactivar acceso a ROOT por ssh
   vars:
-    motd_value: "{{ lookup('permit_root', "{{properties_path}}") }}"
+    motd_value: "{{ lookup('permit_root', '/var/lib/awx/projects/_17__securitycheck_app/Ansible_GS/SecurityCheck_App/roles/properties') }}"
   debug:
     msg: Permit Root "{{ motd_value }}"
