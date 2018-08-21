@@ -1,1 +1,2 @@
-permit_root: no
+properties_path: '/var/lib/awx/projects/_17__securitycheck_app/Ansible_GS/SecurityCheck_App/roles/properties'
+permit_root: 'no'
