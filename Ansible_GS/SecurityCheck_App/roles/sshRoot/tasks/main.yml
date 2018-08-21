@@ -1,5 +1,5 @@
 - name: Desactivar acceso a ROOT por ssh
   vars:
-    motd_value: "{{ lookup('permit_root', '../properties') }}"
+    motd_value: "{{ lookup('permit_root', 'properties') }}"
   debug:
     msg: Permit Root "{{ permit_root }}"
