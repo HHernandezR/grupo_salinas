@@ -1,0 +1,15 @@
+- name: Instalar NTP
+  yum:
+    name: 'ntp'
+    state: latest
+- name: Eliminar configuracion por defecto de hora y fecha
+  lineinfile:
+    path: '/etc/ntp.conf'
+    regexp: '^server.*$'
+    state: absent
+- name: Activar syncronizacion de hora y fecha
+  lineinfile:
+    path: '/etc/ntp.conf'
+    line: 'server 10.53.21.136 iburst'
+    insertafter: '^.*http://www.pool.ntp.org/join.html.*$'
+  notify: Iniciar-Ntp
