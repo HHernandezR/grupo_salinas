@@ -11,7 +11,7 @@
   loop: "{{ lista_ficheros_copiar_etc }}"
   ignore_errors: yes
 - name: Copiar Ficheros sshd_config a Certifi-servicios
-shell: cat /etc/ssh/sshd_config >> {{ nombre_directorio_certifi }}/sshd_config
+  shell: cat /etc/ssh/sshd_config >> "{{ nombre_directorio_certifi }}"/sshd_config
   # shell: cat /etc/ssh/sshd_config >> /Certifi-servicios/sshd_config
 - name: Crear Fichero Certifi-servicios
   copy:
