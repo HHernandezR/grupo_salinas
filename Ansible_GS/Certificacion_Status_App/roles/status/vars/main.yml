@@ -1,7 +1,3 @@
-nombre_directorio_certifi: "/Certifi-servicios"
-nombre_fichero_certifi: "Certifi-servicios.txt"
-path_certifi: "{{ nombre_directorio_certifi }}/{{ nombre_fichero_certifi }}"
-
 lista_ficheros_copiar_etc:
   - /etc/hosts
   - /etc/sysconfig/iptables
