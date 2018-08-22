@@ -26,10 +26,9 @@
   lineinfile:
     path: /{{ path_certificacion }}
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS ACTIVOS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-      # line: '############################################ SERVICIOS ACTIVOS #################################################################################'
 - name: Obtener Hostname
   debug:
-    msg: HOSTNAME: "{{ ansible_fqdn }}"
+    msg: "HOSTNAME: {{ ansible_fqdn }}"
 
 #
 #
