@@ -17,9 +17,3 @@
     name: ntpd
     enabled: true
     state: started
-- name: Esperar a que Inicie el Serivicio
-  pause:
-    seconds: 5
-- name: Sincronizar Ntp
-  shell: /etc/ntp ntpdate -u "{{ item }}"
-  loop: "{{ ntp_servers }}"
