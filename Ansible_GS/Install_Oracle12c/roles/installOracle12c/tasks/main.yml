@@ -4,20 +4,20 @@
     state: directory
     force: yes
 
-- name: Copiar Oracle DataBase ZIP
-  copy:
-    src:
-    dest: /var/tmp/
-    owner: root
-    group: root
-    mode: 0777
-    force: yes
-- pause:
-    seconds: 2
+# - name: Copiar Oracle DataBase ZIP
+#   copy:
+#     src: linuxx64_12201_database.zip
+#     dest: /var/tmp/
+#     owner: root
+#     group: root
+#     mode: 0777
+#     force: yes
+# - pause:
+#     seconds: 2
 
 - name: Descomprimir DataBase ZIP
   unarchive:
-      src:
+      src:  /var/tmp/linuxx64_12201_database.zip
       dest: {{ oracle_installer_directory }}
 
 - name: Cambiar Permisos Directorio de Instalacion
