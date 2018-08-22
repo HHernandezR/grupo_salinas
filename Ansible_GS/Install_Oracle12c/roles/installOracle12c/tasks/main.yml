@@ -1,6 +1,6 @@
 - name: Crear Directorio Installacion
   file:
-    path: {{ oracle_installer_directory }}
+    path: "{{ oracle_installer_directory }}"
     state: directory
     force: yes
 
@@ -22,7 +22,7 @@
 
 - name: Cambiar Permisos Directorio de Instalacion
   file:
-    path: {{ oracle_installer_directory }}
+    path: "{{ oracle_installer_directory }}"
     owner: {{ usaurio_oracle }}
     group: {{ grupo_oracle }}
     mode: {{ permisos_installer_directory }}
