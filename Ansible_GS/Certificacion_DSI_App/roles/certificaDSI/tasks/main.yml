@@ -1,7 +1,7 @@
 - name: Cambiar Umask a login.defs
   replace:
     path: /etc/login.defs
-    regexp: '.UMASK.'
+    regexp: '.*UMASK.*'
     replace: 'UMASK           {{ umask }}'
 - name: Cambiar Permisos a login.defs
   file:
@@ -89,21 +89,25 @@
     path: "{{ path_salida }}"
     line: "======================= yum check-update  ======================="
 - name: Verificar Actualzaciones
-  command: yum check-update
+  yum:
+    list: updates
   register: yumupdate_out
-- name: Imprimir Actualzaciones
+- name: Imprimir Actualizaciones
   lineinfile:
     path: "{{ path_salida }}"
-    line: "{{ yumupdate_out.stdout }}"
-
-# - name: Imprimir Actualizaciones
-#   lineinfile:
-#     path: "{{ path_salida }}"
-#     line: "{{ item.name }} -- {{ item.version }} -- {{ item.release }} -- {{ item.repo }}"
-#   loop: "{{ yumupdate_out.results }}"
+    line: "{{ item.name }} -- {{ item.version }} -- {{ item.release }} -- {{ item.repo }}"
+  loop: "{{ yumupdate_out.results }}"
 # - name: ---- Data ----
 #   debug:
 #     msg: "Actualizaciones: {{ yumupdate_out.results }}"
+
+# - name: Verificar Actualzaciones
+#   command: echo yum check-update
+#   register: yumupdate_out
+# - name: Imprimir Actualzaciones
+#   lineinfile:
+#     path: "{{ path_salida }}"
+#     line: "{{ yumupdate_out.stdout }}"
 
 
 
