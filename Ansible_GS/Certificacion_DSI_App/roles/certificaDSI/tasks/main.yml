@@ -91,15 +91,16 @@
 - name: Verificar Actualzaciones
   yum:
     list: updates
+    security: no
   register: yumupdate_out
 - name: Imprimir Actualizaciones
   lineinfile:
     path: "{{ path_salida }}"
     line: "{{ item.name }} -- {{ item.version }} -- {{ item.release }} -- {{ item.repo }}"
   loop: "{{ yumupdate_out.results }}"
-# - name: ---- Data ----
-#   debug:
-#     msg: "Actualizaciones: {{ yumupdate_out.results }}"
+# # - name: ---- Data ----
+# #   debug:
+# #     msg: "Actualizaciones: {{ yumupdate_out.results }}"
 - name: Agregar Cabecero Parches de Seguridad
   lineinfile:
     path: "{{ path_salida }}"
@@ -117,7 +118,7 @@
   lineinfile:
     path: "{{ path_salida }}"
     line: "{{ item.name }} -- {{ item.version }} -- {{ item.release }} -- {{ item.repo }}"
-  loop: "{{ yumupdatesec.results }}"
+  loop: "{{ yumupdatesec_out.results }}"
 
 
 
