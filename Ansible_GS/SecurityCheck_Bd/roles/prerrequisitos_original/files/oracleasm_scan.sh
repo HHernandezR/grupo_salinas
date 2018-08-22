@@ -1,5 +1,6 @@
 #!/bin/bash
 ORACLEASM_SCAN=`grep "^ORACLEASM_SCANORDER" /etc/sysconfig/oracleasm`
+echo $ORACLEASM_SCAN
 if [[ -z "$ORACLEASM_SCAN" ]];
 then
 echo "ORACLEASM_SCANORDER=\"emcpower\"" >> /etc/sysconfig/oracleasm

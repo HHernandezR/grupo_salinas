@@ -2,10 +2,12 @@
   yum:
     name: '*'
     state: latest
+- pause:
+    seconds: 2
 - name: Instalar Paquetes
   yum:
     name: "{{ item }}"
-    state: present
+    state: latest
   loop: "{{ paquetes_prerrequisitos }}"
 - name: Copiar RPM Oracleasm Lib
   copy:
@@ -46,42 +48,41 @@
     seconds: 2
 - name: Ejecutar Oracleasm Config
   command: expect /var/tmp/oracleasm_config.exp
-- name: Detener IpTables
-  service:
-    name: iptables
-    state: stopped
-  ignore_errors: yes
-- name: Cambiar Parametros de Kernel
-  sysctl:
-    name: "{{ item.key }}"
-    value: "{{ item.value }}"
-    state: present
-  kernel_params: oracle_database_kernel_params
+- name: Copiar Shell Oracleasm Scan
+  copy:
+    src: oracleasm_scan.sh
+    dest: /var/tmp/
+    owner: root
+    group: root
+    mode: 0777
+    force: yes
+- pause:
+    seconds: 2
+- name: Ejecutar Shell Oracleasm Scan
+  command: /var/tmp/oracleasm_scan.sh
+
+
+
+
+- name: Agregar Configuracion de Kernel y Profile
+  lineinfile:
+    path: /etc/sysctl.conf
+    line: "{{ item }}"
+  loop: "{{ lista_config_sysctl }}"
 - name: Ejecutar Sysctl -p
   command: /sbin/sysctl -p
-- name: Agregar Limits Usuario Oracle
+- pause:
+    seconds: 2
+- name: Agregar Configuracion de Limits
   lineinfile:
-    dest: /etc/security/limits.conf
-    line: "{{ usaurio_oracle }} {{ item.limit }} {{ item.type}} {{ item.value }}"
-  with_items:
-    - { limit: 'soft', type: nproc, value: '{{ oracle_limits_soft_nproc }}' }
-    - { limit: 'hard', type: nproc, value: '{{ oracle_limits_hard_nproc }}' }
-    - { limit: 'soft', type: nofile, value: '{{ oracle_limits_soft_nofile }}' }
-    - { limit: 'hard', type: nofile, value: '{{ oracle_limits_hard_nofile }}' }
-- name: Agregar Limits Usuario Grid
-  lineinfile:
-    dest: /etc/security/limits.conf
-    line: "{{ usuario_grid }} {{ item.limit }} {{ item.type}} {{ item.value }}"
-  with_items:
-    - { limit: 'soft', type: nproc, value: '{{ grid_limits_soft_nproc }}' }
-    - { limit: 'hard', type: nproc, value: '{{ grid_limits_hard_nproc }}' }
-    - { limit: 'soft', type: nofile, value: '{{ grid_limits_soft_nofile }}' }
-    - { limit: 'hard', type: nofile, value: '{{ grid_limits_hard_nofile }}' }
+    path: /etc/security/limits.conf
+    line: "{{ item }}"
+  loop: "{{ lista_config_limits }}"
 - name: Agregar Configuracion a Pam
   lineinfile:
     path: /etc/pam.d/login
     line: "{{ item }}"
-  loop: "{{ config_pamd }}"
+  loop: "{{ lista_config_pamd }}"
 - name: Agregar Configuracion a Profile
   blockinfile:
     path: /etc/profile
@@ -90,15 +91,33 @@
   blockinfile:
     path: /etc/csh.login
     block: "{{ config_cshlogin }}"
+  ###########################
+  #Tarea debe ser eliminada, se uso solo para pruebas
+# - name: Crear Directorios de Chown / Chmod
+#   file:
+#     path: "{{ item }}"
+#     state: directory
+#   loop: "{{ lista_crear_directorios}}"
+  ###########################
+# - name: Cambiar Propietario a Directorios de Oracle
+#   file:
+#     path: "{{ item }}"
+#     owner: oracle
+#     group: oinstall
+#     mode: 0775
+#     recurse : yes
+#   loop: "{{ lista_directorios_permisos_oracle }}"
+# - name: Cambiar Directorios de Propietario Root
+#   file:
+#     path: "{{ item }}"
+#     owner: root
+#     group: oinstall
+#     mode: 0775
+#     recurse : yes
+#   loop: "{{ lista_directorios_permisos_root }}"
 - name: Iniciar Configuracion Rlogin
   service:
     name: "{{ item }}"
     enabled: yes
     state: restarted
-  loop: "{{ servicios_rsh }}"
-- name: Crear Directorios Base
-  file:
-    state: directory
-    path: "{{ oracle_base }}"
-    owner: "{{ usaurio_oracle }}"
-    group: "{{ grupo_oracle }}"
+  loop: "{{ lista_servicios_rsh }}"
