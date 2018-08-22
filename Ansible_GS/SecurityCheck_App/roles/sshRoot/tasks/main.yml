@@ -10,10 +10,14 @@
     seconds: 2
 - name: Leer Archivo CSV Properties
   command: /usr/bin/awk -F',' '!/^#/ && !/^$/ { print $1 }' /var/tmp/properties.csv
-  register: properties.out
+  register: properties_out
 - name: Desactivar acceso a ROOT por ssh
   replace:
     path: /etc/ssh/sshd_config
     regexp: '.PermitRootLogin'
-    replace: "{{ lookup('csvfile', item + ' file=monitorUsers.csv col=0 delimiter=,') }}"
-  notify: Reiniciar-Sshd
+    replace: "{{ lookup('csvfile', 'file=properties.csv delimiter=, col=0') }}"
+  loop: "{{ properties_out.stdout_lines }}"
+- name: Reiniciar-Sshd
+  service:
+    name: sshd
+    state: reloaded
