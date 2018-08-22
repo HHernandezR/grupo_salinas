@@ -6,7 +6,7 @@
 
 - name: Elimiar Template Existente
   file:
-      path: db-install.rsp
+      path: /var/tmp/db-install.rsp
       state: absent
 
 # - name: Copiar Oracle DataBase ZIP
