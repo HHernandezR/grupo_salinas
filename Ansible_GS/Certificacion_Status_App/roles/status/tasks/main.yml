@@ -26,18 +26,24 @@
   lineinfile:
     path: /{{ path_certificacion }}
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS ACTIVOS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-- name: Obtener Hostname
+- name: Obtener Hostname Server
   command: hostname
   register: hostname_out
-- name: Imprimir Hostname
+- name: Imprimir Hostname Server
   lineinfile:
     path: /{{ path_certificacion }}
-    line: "{{ hostname_out }}"
-  # lineinfile:
-  #   path: /{{ path_certificacion }}
-  #   line: "{{ ansible_fqdn }}"
-  # debug:
-  #   msg: "HOSTNAME: {{ ansible_fqdn }}"
+    line: "{{ hostname_out.stdout }}"
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  IP SERVER  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+- name: Obtener IP Server
+  shell: nmcli | grep "inet4"
+  register: ip_out
+- name: Imprimir IP Server
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: "{{ ip.stdout }}"
 
 
 #
