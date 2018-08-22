@@ -43,7 +43,7 @@
 - name: Imprimir IP Server
   lineinfile:
     path: /{{ path_certificacion }}
-    line: "{{ ip.stdout }}"
+    line: "{{ ip_out.stdout }}"
 
 
 #
