@@ -16,7 +16,7 @@
   debug:
     var: command_result
 
-- name: setear Oracle Home
+- name: Setear Variable de Entorno Oracle Home
   lineinfile:
    dest: "/home/oracle/.bash_profile"
    regexp: "{{ item.regexp }}"
@@ -32,3 +32,11 @@
     -
       regexp: ^export ORACLE_HOME
       line: export ORACLE_HOME
+
+- name: Ejecutar Post-Installation Scripts
+  become: yes
+  become_user: root
+  shell: "{{ item }}"
+  loop:
+    - "{{ oracle_inventory }}/orainstRoot.sh"
+    - "{{ oracle_home }}/root.sh"
