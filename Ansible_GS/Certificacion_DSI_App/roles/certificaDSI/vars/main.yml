@@ -3,6 +3,7 @@ nombre_archivo_salida: "salida_parches_seguridad.txt"
 path_salida: "{{ nombre_directorio_salida }}{{ nombre_archivo_salida }}"
 
 umask: "022"
+permit_root_login: "PermitRootLogin no"
 syslog_auth: "SyslogFacility AUTH"
 syslog_authpriv: "#SyslogFacility AUTHPRIV"
 log_level: "LogLevel INFO"
