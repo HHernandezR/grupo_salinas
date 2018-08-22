@@ -6,7 +6,7 @@
     - serviciosOff
     - loginEncrypt
     - configNtp
-    # - usersUnix
+    - usersUnix
     # - usersMonitor
     # - configSelinux
     # - prerrequisitos
