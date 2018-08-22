@@ -36,7 +36,7 @@
 - name: Imprimir Linea Inicial
   lineinfile:
     path: /{{ path_certificacion }}
-    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  IP SERVER  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  IP SERVER  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 - name: Obtener IP Server
   shell: nmcli | grep "inet4"
   register: ip_out
@@ -44,6 +44,67 @@
   lineinfile:
     path: /{{ path_certificacion }}
     line: "{{ ip_out.stdout }}"
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIO IPTABLES  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+- name: Obtener Servicio IpTables
+  command: systemctl status iptables
+  register: iptables_out
+- name: Imprimir IP Server
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: "{{ iptables_out.stdout }}"
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  FILESYSTEM MONTADOS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+- name: Obtener FyleSystem
+  command: df -h
+  register: df_out
+- name: Imprimir FyleSystem
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: "{{ df_out.stdout }}"
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS ACTIVOS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+- name: Obtener Servicios Activos
+  shell: systemctl list-units --type service --all | grep -w "active"
+  register: services_out
+- name: Imprimir Servicios Activos
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: "{{ services_out.stdout }}"
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS NFS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+- name: Obtener Servicios NFS
+  command: systemctl status nfs
+  register: nfs_out
+  ignore_errors: yes
+- name: Imprimir Servicios NFS
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: "{{ nfs_out.stdout }}"
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS JAVA  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+- name: Obtener Servicios Java
+  shell: ps -fea | grep "java"
+  register: java_out
+- name: Imprimir Servicios Java
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: "{{ java_out.stdout }}"
+- name: Eliminar Resultado Extra
+  lineinfile:
+    path: /{{ path_certificacion }}
+    state: absent
+    regexp: './bin/sh.'
 
 
 #
