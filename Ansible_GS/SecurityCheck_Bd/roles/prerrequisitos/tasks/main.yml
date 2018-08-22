@@ -109,8 +109,9 @@
     name: "{{ item }}"
     enabled: yes
     state: restarted
-  loop: "{{ servicios_rsh }}"
-  
+  loop: "{{ servicios_rlogin }}"
+  ignore_errors: yes
+
 - name: Crear Directorios Base
   file:
     state: directory

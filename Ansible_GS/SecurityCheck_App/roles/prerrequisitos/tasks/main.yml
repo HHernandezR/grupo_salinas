@@ -12,7 +12,27 @@
   loop: "{{ lista_paquetes }}"
 - pause:
     seconds: 2
-    
+
+- name: Agregar Limits Usuario Jboss
+  lineinfile:
+    dest: /etc/security/limits.conf
+    line: "{{ usuario_jboss }} {{ item.limit }} {{ item.type}} {{ item.value }}"
+  with_items:
+    - { limit: 'soft', type: nproc, value: '{{ jboss_limits_soft_nproc }}' }
+    - { limit: 'hard', type: nproc, value: '{{ jboss_limits_hard_nproc }}' }
+    - { limit: 'soft', type: nofile, value: '{{ jboss_limits_soft_nofile }}' }
+    - { limit: 'hard', type: nofile, value: '{{ jboss_limits_hard_nofile }}' }
+
+- name: Agregar Limits Usuario Root
+  lineinfile:
+    dest: /etc/security/limits.conf
+    line: "{{ usuario_root }} {{ item.limit }} {{ item.type}} {{ item.value }}"
+  with_items:
+    - { limit: 'soft', type: nproc, value: '{{ root_limits_soft_nproc }}' }
+    - { limit: 'hard', type: nproc, value: '{{ root_limits_hard_nproc }}' }
+    - { limit: 'soft', type: nofile, value: '{{ root_limits_soft_nofile }}' }
+    - { limit: 'hard', type: nofile, value: '{{ root_limits_hard_nofile }}' }
+
 - name: Agregar Pam Limits
   lineinfile:
     path: '/etc/security/limits.conf'

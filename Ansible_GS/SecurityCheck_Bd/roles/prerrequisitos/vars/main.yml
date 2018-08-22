@@ -7,10 +7,21 @@ oracle_base: "/home/oracle/product"
 oracle_home: "{{ oracle_base }}/oracle_home"
 
 paquetes_prerrequisitos:
-  - compat-libcap1
-  - gcc
-  - gcc-c++
-  - glibc
+  - elfutils-*
+  - glibc-*
+  - gcc-4*
+  - gcc-c++*
+  - glibc-headers*
+  - libgomp*
+  - compat-libstdc++*
+  - unixODBC*
+  - rsh-*
+  - ksh
+  - compat-libcap*
+  #- compat-libcap1
+  #- gcc
+  #- gcc-c++
+  #- glibc
   - glibc.i686
   - glibc-devel
   - glibc-devel.i686
@@ -18,7 +29,6 @@ paquetes_prerrequisitos:
   - libaio.i686
   - libaio-devel
   - libaio-devel.i686
-  #- libgcc.i686
   - libstdc++.i686
   - libstdc++-devel
   - libstdc++-devel.i686
@@ -93,7 +103,7 @@ config_cshlogin: |
   umask 022
   endif
 
-servicios_rsh:
+servicios_rlogin:
   - rsh.socket
   - rlogin.socket
   - rexec.socket

@@ -10,5 +10,5 @@
     - usersMonitor
     - configSelinux
     - prerrequisitos
-    - ipTables
-    - sshRoot
+    #- ipTables
+    #- sshRoot

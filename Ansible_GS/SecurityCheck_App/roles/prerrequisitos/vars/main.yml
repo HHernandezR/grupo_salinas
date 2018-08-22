@@ -1,3 +1,6 @@
+usuario_jboss: jboss
+usuario_root: root
+
 lista_paquetes:
   - xorg-x11-apps
   - compat-libcap*
@@ -20,12 +23,12 @@ lista_grupos_paquetes:
   #- X Window System
   - gnome-desktop-environment
 
-lista_limits:
-  - jboss soft  nofile  65536
-  - jboss hard  nofile  65536
-  - jboss soft  nproc 65536
-  - jboss hard  nproc 65536
-  - root  soft  nofile  65536
-  - root  hard  nofile  65536
-  - root  soft  nproc 65536
-  - root  hard  nproc 65536
+jboss_limits_soft_nproc: 65536
+jboss_limits_hard_nproc: 65536
+jboss_limits_soft_nofile: 65536
+jboss_limits_hard_nofile: 65536
+
+root_limits_soft_nproc: 65536
+root_limits_hard_nproc: 65536
+root_limits_soft_nofile: 65536
+root_limits_hard_nofile: 65536
