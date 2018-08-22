@@ -47,50 +47,50 @@ oracle_kernel_params:
   kernel.panic_on_oops: 1
   net.ipv6.conf.all.disable_ipv6: 1
 
-  oracle_limits_soft_nproc: 2047
-  oracle_limits_hard_nproc: 16384
-  oracle_limits_soft_nofile: 1024
-  oracle_limits_hard_nofile: 65536
+oracle_limits_soft_nproc: 2047
+oracle_limits_hard_nproc: 16384
+oracle_limits_soft_nofile: 1024
+oracle_limits_hard_nofile: 65536
 
-  grid_limits_soft_nproc: 2047
-  grid_limits_hard_nproc: 16384
-  grid_limits_soft_nofile: 1024
-  grid_limits_hard_nofile: 65536
+grid_limits_soft_nproc: 2047
+grid_limits_hard_nproc: 16384
+grid_limits_soft_nofile: 1024
+grid_limits_hard_nofile: 65536
 
-  config_pamd:
-    - session required pam_limits.so
+config_pamd:
+  - session required pam_limits.so
 
-  config_profile: |
-    if [ \$USER = "oracle" ]; then
-    if [ \$SHELL = "/bin/ksh" ]; then
-    ulimit -p 16384
-    ulimit -n 65536
-    else
-    ulimit -u 16384 -n 65536
-    fi
-    umask 022
-    fi
-    if [ \$USER = "grid" ]; then
-    if [ \$SHELL = "/bin/ksh" ]; then
-    ulimit -p 16384
-    ulimit -n 65536
-    else
-    ulimit -u 16384 -n 65536
-    fi
-    umask 022
-    fi
+config_profile: |
+  if [ \$USER = "oracle" ]; then
+  if [ \$SHELL = "/bin/ksh" ]; then
+  ulimit -p 16384
+  ulimit -n 65536
+  else
+  ulimit -u 16384 -n 65536
+  fi
+  umask 022
+  fi
+  if [ \$USER = "grid" ]; then
+  if [ \$SHELL = "/bin/ksh" ]; then
+  ulimit -p 16384
+  ulimit -n 65536
+  else
+  ulimit -u 16384 -n 65536
+  fi
+  umask 022
+  fi
 
-  config_cshlogin: |
-    if ( \$USER == "oracle" ) then
-    limit maxproc 16384
-    limit descriptors 65536
-    umask 022
-    endif
-    if ( \$USER == "grid" ) then
-    limit maxproc 16384
-    limit descriptors 65536
-    umask 022
-    endif
+config_cshlogin: |
+  if ( \$USER == "oracle" ) then
+  limit maxproc 16384
+  limit descriptors 65536
+  umask 022
+  endif
+  if ( \$USER == "grid" ) then
+  limit maxproc 16384
+  limit descriptors 65536
+  umask 022
+  endif
 
 servicios_rsh:
   - rsh.socket

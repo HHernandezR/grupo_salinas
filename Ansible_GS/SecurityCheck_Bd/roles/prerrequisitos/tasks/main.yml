@@ -2,11 +2,13 @@
   yum:
     name: '*'
     state: latest
+
 - name: Instalar Paquetes
   yum:
     name: "{{ item }}"
     state: present
   loop: "{{ paquetes_prerrequisitos }}"
+
 - name: Copiar RPM Oracleasm Lib
   copy:
     src: oracleasmlib-2.0.4-1.el6.x86_64.rpm
@@ -17,6 +19,7 @@
     force: yes
 - pause:
     seconds: 2
+
 - name: Copiar RPM Oracleasm Support
   copy:
     src: oracleasm-support-2.1.8-1.el6.x86_64.rpm
@@ -27,6 +30,7 @@
     force: yes
 - pause:
     seconds: 2
+
 - name: Instalar Oracleasm
   yum:
     name: "{{ item }}"
@@ -34,6 +38,7 @@
   loop:
     - /var/tmp/oracleasmlib-2.0.4-1.el6.x86_64.rpm
     - /var/tmp/oracleasm-support-2.1.8-1.el6.x86_64.rpm
+
 - name: Copiar Expect Oracleasm Config
   copy:
     src: oracleasm_config.exp
@@ -44,6 +49,7 @@
     force: yes
 - pause:
     seconds: 2
+
 - name: Ejecutar Oracleasm Config
   command: expect /var/tmp/oracleasm_config.exp
 - name: Detener IpTables
@@ -51,14 +57,17 @@
     name: iptables
     state: stopped
   ignore_errors: yes
+
 - name: Cambiar Parametros de Kernel
   sysctl:
     name: "{{ item.key }}"
     value: "{{ item.value }}"
     state: present
   with_dict: "{{ oracle_kernel_params }}"
+
 - name: Ejecutar Sysctl -p
   command: /sbin/sysctl -p
+
 - name: Agregar Limits Usuario Oracle
   lineinfile:
     dest: /etc/security/limits.conf
@@ -68,6 +77,7 @@
     - { limit: 'hard', type: nproc, value: '{{ oracle_limits_hard_nproc }}' }
     - { limit: 'soft', type: nofile, value: '{{ oracle_limits_soft_nofile }}' }
     - { limit: 'hard', type: nofile, value: '{{ oracle_limits_hard_nofile }}' }
+
 - name: Agregar Limits Usuario Grid
   lineinfile:
     dest: /etc/security/limits.conf
@@ -77,25 +87,30 @@
     - { limit: 'hard', type: nproc, value: '{{ grid_limits_hard_nproc }}' }
     - { limit: 'soft', type: nofile, value: '{{ grid_limits_soft_nofile }}' }
     - { limit: 'hard', type: nofile, value: '{{ grid_limits_hard_nofile }}' }
+
 - name: Agregar Configuracion a Pam
   lineinfile:
     path: /etc/pam.d/login
     line: "{{ item }}"
   loop: "{{ config_pamd }}"
+
 - name: Agregar Configuracion a Profile
   blockinfile:
     path: /etc/profile
     block: "{{ config_profile }}"
+
 - name: Agregar Configuracion a csh.login
   blockinfile:
     path: /etc/csh.login
     block: "{{ config_cshlogin }}"
+
 - name: Iniciar Configuracion Rlogin
   service:
     name: "{{ item }}"
     enabled: yes
     state: restarted
   loop: "{{ servicios_rsh }}"
+  
 - name: Crear Directorios Base
   file:
     state: directory
