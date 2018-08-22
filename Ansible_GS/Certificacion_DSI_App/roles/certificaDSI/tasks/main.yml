@@ -86,6 +86,7 @@
 - name: ---- Data ----
   debug:
     msg: "Actualizaciones: {{ yumupdate_out.results }}"
+
 # - name: Agregar Cabecero Parches de Seguridad
 #   shell: echo '============== yum check-update security ================' >> /salida_parches_seguridad.txt
 # - name: Verificar Parches de Seguridad
