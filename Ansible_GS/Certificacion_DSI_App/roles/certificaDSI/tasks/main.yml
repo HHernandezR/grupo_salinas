@@ -83,6 +83,7 @@
   yum:
     list: updates
   register: yumupdate_out
+- name: ---- Data ----
   debug:
     msg: "Actualizaciones: {{ yumupdate_out.results }}"
 # - name: Agregar Cabecero Parches de Seguridad
