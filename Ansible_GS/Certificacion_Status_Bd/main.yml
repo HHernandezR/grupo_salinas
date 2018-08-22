@@ -1,4 +1,4 @@
-- name: "Ejecucion de Certificacion STATUS APP"
+- name: "Ejecucion de Certificacion STATUS BD"
   hosts: all
   remote_user: hhernandez
   become: true
