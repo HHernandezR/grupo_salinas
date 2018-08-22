@@ -15,7 +15,7 @@
   replace:
     path: /etc/ssh/sshd_config
     regexp: '.PermitRootLogin'
-    replace: "{{ lookup('csvfile', item + ' file=properties.csv col=0 delimiter=,') }}"
+    replace: "{{ lookup('csvfile', item + ' file=properties_sshroot.csv col=0 delimiter=,') }}"
   loop: "{{ properties_out.stdout_lines }}"
 - name: Reiniciar-Sshd
   service:
