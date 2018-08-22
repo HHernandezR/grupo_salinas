@@ -1,0 +1,5 @@
+- name: Reiniciar-sshd
+  service:
+    name: sshd
+    enabled: true
+    state: restarted

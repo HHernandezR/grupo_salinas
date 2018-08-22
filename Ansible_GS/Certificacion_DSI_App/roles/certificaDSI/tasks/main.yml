@@ -1,0 +1,171 @@
+# - name: Cambiar Umask a login.defs
+#   lineinfile:
+#     path: /etc/login.defs
+#     regexp: '^UMASK.*$'
+#     line: 'UMASK           022'
+# - name: Cambiar Permisos a login.defs
+#   file:
+#     path: /etc/login.defs
+#     owner: root
+#     group: root
+#     mode: 0600
+# - name: Cambiar Permisos a wtmp
+#   file:
+#     path: /var/log/wtmp
+#     mode: 0644
+# - name: Cambiar Permisos a hosts.allow
+#   file:
+#     path: /etc/hosts.allow
+#     mode: 0750
+# - name: Cambiar Permisos a xinetd.d
+#   file:
+#     path: /etc/xinetd.d/
+#     mode: 0600
+#     recurse: yes
+# - name: Deshabilitar Servicios
+#   service:
+#     name: "{{ item }}"
+#     state: stopped
+#     enabled: no
+#   ignore_errors: yes
+#   loop: "{{ lista_servicios }}"
+# - name: Editar Fichero sshd_config PermitRootLogin
+#   shell: 'sed -i s/".PermitRootLogin [a-z]*$"/"PermitRootLogin no"/g /etc/ssh/sshd_config'
+# - name: Editar Fichero sshd_config SyslogFacility AUTH
+#   shell: 'sed -i s/".SyslogFacility AUTH"/"SyslogFacility AUTH"/g /etc/ssh/sshd_config'
+# - name: Editar Fichero sshd_config SyslogFacility AUTHPRIV
+#   shell: 'sed -i s/"SyslogFacility AUTHPRIV"/"#SyslogFacility AUTHPRIV"/g /etc/ssh/sshd_config'
+# - name: Editar Fichero sshd_config LogLevel
+#   shell: 'sed -i s/".LogLevel INFO"/"LogLevel INFO"/g /etc/ssh/sshd_config'
+# - name: Editar Fichero sshd_config PubkeyAuthentication
+#   shell: 'sed -i s/".PubkeyAuthentication [a-z]*$"/"PubkeyAuthentication no"/g /etc/ssh/sshd_config'
+# - name: Elimiar Usuarios
+#   user:
+#     name: "{{ item }}"
+#     state: absent
+#     force: yes
+#     remove: yes
+#   ignore_errors: yes
+#   loop: "{{ lista_usuarios }}"
+# - name: Configurar Sistema de Logs audit.log
+#   shell: /usr/sbin/auditctl -w /etc/passwd -p wa -k passwd_changes
+#   ignore_errors: yes
+# - name: Cambiar Perisos a Directorio Services
+#   file:
+#     path: /etc/services
+#     owner: root
+#     group: root
+#     mode: 0600
+# - name: Eliminar Fichero hosts.equiv
+#   file:
+#     path: /etc/hosts.equiv
+#     state: absent
+#   ignore_errors: yes
+# - name: Agregar Parametros SFTP a sshd_config
+#   lineinfile:
+#     path: /etc/ssh/sshd_config
+#     line: "{{ item }}"
+#   loop: "{{ lista_parametros_sftp }}"
+
+
+
+
+
+  ###########################################
+- name: Crear Fichero salida_parches_seguridad
+  copy:
+    content: ""
+    dest: /salida_parches_seguridad.txt
+    force: yes
+- name: Copiar Yum Update Check
+  copy:
+    src: yum_update_check.sh
+    dest: /var/tmp/
+    owner: root
+    group: root
+    mode: 0777
+    force: yes
+- pause:
+    seconds: 2
+- name: Copiar Yum Update Security Check
+  copy:
+    src: yum_update_check_sec.sh
+    dest: /var/tmp/
+    owner: root
+    group: root
+    mode: 0777
+    force: yes
+- pause:
+    seconds: 2
+- name: Agregar Cabecero Parches de Seguridad
+  shell: echo '============== yum check-update =========================' >> salida_parches_seguridad.txt
+- name: Ejecutar Yum Update Check
+  shell: /var/tmp/yum_update_check.sh >> salida_parches_seguridad.txt
+  register: salida_checkupdate
+  ignore_errors: yes
+- debug:
+    var: salida_checkupdate
+    verbosity: 1
+- name: Agregar Cabecero Parches de Seguridad
+  shell: echo '============== yum check-update security ================' >> /salida_parches_seguridad.txt
+- name: Ejecutar Yum Update Security Check
+  shell: /var/tmp/yum_update_check_sec.sh >> salida_parches_seguridad.txt
+  register: salida_checkupdate_sec
+  ignore_errors: yes
+- debug:
+    var: salida_checkupdate_sec
+    verbosity: 1
+# - name: Agregar Cabecero Parches de Seguridad
+#   shell: echo '============== yum check-update security ================' >> /salida_parches_seguridad.txt
+# - name: Verificar Parches de Seguridad
+#   shell: 'yum check-update --security'
+#   register: salida_checkupdate_sec
+#   ignore_errors: yes
+# - debug:
+#     var: salida_checkupdate_sec
+#     verbosity: 1
+# - name: Agregar Cabecero Actualizaciones
+#   shell: echo '============== yum check-update =========================' >> salida_parches_seguridad.txt
+# - name: Verificar Actualzaciones
+#   shell: 'yum check-update'
+#   register: salida_checkupdate
+#   ignore_errors: yes
+# - debug:
+#     var: salida_checkupdate
+#     verbosity: 1
+ ###########################################
+
+
+
+
+
+#
+# - name: Cambiar Permisos a Fichero Security
+#   file:
+#     path: /etc/security
+#     owner: root
+#     group: root
+#     mode: 0600
+# - name: Borrar Banner
+#   lineinfile:
+#     path: /etc/motd
+#     line: 'Fal'
+# - name: Agregar local5 a Fichero rsyslog.conf
+#   lineinfile:
+#     path: /etc/rsyslog.conf
+#     line: "{{ item }}"
+#   loop: "{{ lista_local5 }}"
+# - name: Agregar Usuarios Permitidos
+#   blockinfile:
+#     path: /etc/ssh/sshd_config
+#     block: "{{ usuarios_permitidos }}"
+# - name: Agregar Hosts
+#   blockinfile:
+#     path: /etc/hosts
+#     block: "{{ lista_hosts }}"
+# - name: Reiniciar-sshd
+#   service:
+#     name: sshd
+#     enabled: true
+#     state: restarted
+#   ignore_errors: yes
