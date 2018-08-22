@@ -35,14 +35,16 @@
     regexp: '.*PermitRootLogin.*'
     replace: "{{ permit_root_login }}"
 - name: Editar Fichero sshd_config SyslogFacility AUTH
-  path: /etc/ssh/sshd_config
-  regexp: '.*SyslogFacility AUTH$'
-  replace: '{{ syslog_auth }}'
+  replace:
+    path: /etc/ssh/sshd_config
+    regexp: '.*SyslogFacility AUTH$'
+    replace: '{{ syslog_auth }}'
 - name: Editar Fichero sshd_config SyslogFacility AUTHPRIV
-  path: /etc/ssh/sshd_config
-  regexp: '.*SyslogFacility AUTHPRIV$'
-  # regexp: '.*SyslogFacility [AUTHPRIV]{8}'
-  replace: '{{ syslog_authpriv }}'
+  replace:
+    path: /etc/ssh/sshd_config
+    regexp: '.*SyslogFacility AUTHPRIV$'
+    # regexp: '.*SyslogFacility [AUTHPRIV]{8}'
+    replace: '{{ syslog_authpriv }}'
 - name: Editar Fichero sshd_config LogLevel INFO
   replace:
     path: /etc/ssh/sshd_config
