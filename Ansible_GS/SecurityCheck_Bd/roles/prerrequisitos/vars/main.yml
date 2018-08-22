@@ -34,7 +34,7 @@ paquetes_prerrequisitos:
   - kmod-oracleasm #Paquete necesario para Oraclesm
   - expect #Paquete necesario para Iniciar Configuración de Oraclesm
 
-kernel_params:
+oracle_kernel_params:
   kernel.sem: 250 32000 100 128
   fs.file-max: 6815744
   fs.aio-max-nr: 1048576
