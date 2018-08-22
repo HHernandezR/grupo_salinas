@@ -1,26 +1,26 @@
-# - name: Cambiar Umask a login.defs
-#   lineinfile:
-#     path: /etc/login.defs
-#     regexp: '.UMASK.'
-#     line: 'UMASK           {{ umask }}'
-# - name: Cambiar Permisos a login.defs
-#   file:
-#     path: /etc/login.defs
-#     owner: root
-#     group: root
-#     mode: 0600
-# - name: Cambiar Permisos a wtmp
-#   file:
-#     path: /var/log/wtmp
-#     mode: 0644
+- name: Cambiar Umask a login.defs
+  lineinfile:
+    path: /etc/login.defs
+    regexp: '.UMASK.'
+    line: 'UMASK           {{ umask }}'
+- name: Cambiar Permisos a login.defs
+  file:
+    path: /etc/login.defs
+    owner: {{ usuario_logindefs }}
+    group: {{ grupo_logindefs }}
+    mode: {{ permisos_logindefs }}
+- name: Cambiar Permisos a wtmp
+  file:
+    path: /var/log/wtmp
+    mode: {{ permisos_wtmp }}
 # - name: Cambiar Permisos a hosts.allow
 #   file:
 #     path: /etc/hosts.allow
-#     mode: 0750
+#     mode: {{ permisos_hostsallow }}
 # - name: Cambiar Permisos a xinetd.d
 #   file:
 #     path: /etc/xinetd.d/
-#     mode: 0600
+#     mode: {{ permisos_xinetd }}
 #     recurse: yes
 # - name: Deshabilitar Servicios
 #   service:
@@ -66,9 +66,9 @@
 # - name: Cambiar Perisos a Directorio Services
 #   file:
 #     path: /etc/services
-#     owner: root
-#     group: root
-#     mode: 0600
+#     owner: {{ usuario_services }}
+#     group: {{ grupo_services }}
+#     mode: {{ permisos_services }}
 # - name: Eliminar Fichero hosts.equiv
 #   file:
 #     path: /etc/hosts.equiv
@@ -89,22 +89,21 @@
     path: "{{ path_salida }}"
     line: "======================= yum check-update  ======================="
 - name: Verificar Actualzaciones
-  yum:
-    list: updates
+  command: yum check-update
   register: yumupdate_out
-- name: Imprimir Actualizaciones
+- name: Imprimir Actualzaciones
   lineinfile:
     path: "{{ path_salida }}"
-    line: "{{ item.name }} -- {{ item.version }} -- {{ item.release }} -- {{ item.repo }}"
-  loop: "{{ yumupdate_out.results }}"
-# - name: ---- Data ----
-#   debug:
-#     msg: "Actualizaciones: {{ yumupdate_out.results }}"
+    line: "{{ yumupdate_out.stdout }}"
+
 # - name: Imprimir Actualizaciones
 #   lineinfile:
 #     path: "{{ path_salida }}"
-#     line: "{{ yumupdate_out.results }}"
-
+#     line: "{{ item.name }} -- {{ item.version }} -- {{ item.release }} -- {{ item.repo }}"
+#   loop: "{{ yumupdate_out.results }}"
+# - name: ---- Data ----
+#   debug:
+#     msg: "Actualizaciones: {{ yumupdate_out.results }}"
 
 
 

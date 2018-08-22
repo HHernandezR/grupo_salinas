@@ -1,4 +1,4 @@
-nombre_directorio_certificacion: "Certifi-servicios"
+nombre_directorio_certificacion: "/Certifi-servicios"
 nombre_fichero_certificacion: "Certifi-servicios.txt"
 path_certificacion: "{{nombre_directorio_certificacion}}/{{nombre_fichero_certificacion}}"
 

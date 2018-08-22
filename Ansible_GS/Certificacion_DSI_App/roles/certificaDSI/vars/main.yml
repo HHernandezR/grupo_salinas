@@ -3,12 +3,23 @@ nombre_archivo_salida: "salida_parches_seguridad.txt"
 path_salida: "{{ nombre_directorio_salida }}{{ nombre_archivo_salida }}"
 
 umask: "022"
+
+permisos_logindefs: 0600
+usuario_logindefs: "root"
+grupo_logindefs: "root"
+
+permisos_wtmp: 0644
+permisos_hostsallow: 0750
+permisos_xinetd: 0600
+permisos_services: 0600
+usuario_services: "root"
+grupo_services: "root"
+
 permit_root_login: "PermitRootLogin no"
 syslog_auth: "SyslogFacility AUTH"
 syslog_authpriv: "#SyslogFacility AUTHPRIV"
 log_level: "LogLevel INFO"
 public_key: "PubkeyAuthentication no"
-
 
 lista_servicios:
   - cups
