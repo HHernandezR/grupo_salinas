@@ -30,9 +30,10 @@
   ignore_errors: yes
   loop: "{{ lista_servicios }}"
 - name: Editar Fichero sshd_config PermitRootLogin
-  path: /etc/ssh/sshd_config
-  regexp: '.*PermitRootLogin.*'
-  replace: "{{ permit_root_login }}"
+  replace:
+    path: /etc/ssh/sshd_config
+    regexp: '.*PermitRootLogin.*'
+    replace: "{{ permit_root_login }}"
 # - name: Editar Fichero sshd_config SyslogFacility AUTH
 #   path: /etc/ssh/sshd_config
 #   regexp: '.*SyslogFacility AUTH.*'
@@ -42,13 +43,15 @@
 #   regexp: '.*SyslogFacility AUTHPRIV.*'
 #   replace: '{{ syslog_authpriv }}'
 - name: Editar Fichero sshd_config LogLevel INFO
-  path: /etc/ssh/sshd_config
-  regexp: '.*LogLevel.*'
-  replace: '{{ log_level }}'
+  replace:
+    path: /etc/ssh/sshd_config
+    regexp: '.*LogLevel.*'
+    replace: '{{ log_level }}'
 - name: Editar Fichero sshd_config PubkeyAuthentication
-  path: /etc/ssh/sshd_config
-  regexp: '.*PubkeyAuthentication.*'
-  replace: '{{ public_key }}'
+  replace:
+    path: /etc/ssh/sshd_config
+    regexp: '.*PubkeyAuthentication.*'
+    replace: '{{ public_key }}'
 - name: Elimiar Usuarios
   user:
     name: "{{ item }}"
