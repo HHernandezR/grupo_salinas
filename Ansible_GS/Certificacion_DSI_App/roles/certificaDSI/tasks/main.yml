@@ -6,8 +6,8 @@
 - name: Cambiar Permisos a login.defs
   file:
     path: /etc/login.defs
-    owner: {{ usuario_logindefs }}
-    group: {{ grupo_logindefs }}
+    owner: "{{ usuario_logindefs }}"
+    group: "{{ grupo_logindefs }}"
     mode: {{ permisos_logindefs }}
 - name: Cambiar Permisos a wtmp
   file:
