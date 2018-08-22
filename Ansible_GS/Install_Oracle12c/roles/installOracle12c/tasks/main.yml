@@ -4,6 +4,11 @@
     state: directory
     force: yes
 
+- name: Elimiar Template Existente
+  file:
+      path: db-install.rsp
+      state: absent
+
 # - name: Copiar Oracle DataBase ZIP
 #   copy:
 #     src: linuxx64_12201_database.zip
