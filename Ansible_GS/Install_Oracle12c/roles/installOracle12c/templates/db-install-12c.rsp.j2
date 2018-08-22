@@ -40,7 +40,7 @@ oracle.install.option=INSTALL_DB_SWONLY
 #-------------------------------------------------------------------------------
 # Specify the Unix group to be set for the inventory directory.
 #-------------------------------------------------------------------------------
-UNIX_GROUP_NAME=oinstall
+UNIX_GROUP_NAME={{ grupo_oracle }}
 
 #-------------------------------------------------------------------------------
 # Specify the location which holds the inventory files.
@@ -102,7 +102,7 @@ ORACLE_BASE={{ oracle_base }}
 #   - EE     : Enterprise Edition
 
 #-------------------------------------------------------------------------------
-oracle.install.db.InstallEdition=12c
+oracle.install.db.InstallEdition={{ oracle_edition }}
 
 ###############################################################################
 #                                                                             #
@@ -120,28 +120,28 @@ oracle.install.db.InstallEdition=12c
 #------------------------------------------------------------------------------
 # The DBA_GROUP is the OS group which is to be granted OSDBA privileges.
 #-------------------------------------------------------------------------------
-oracle.install.db.DBA_GROUP=oinstall
+oracle.install.db.DBA_GROUP={{ grupo_oracle }}
 
 #------------------------------------------------------------------------------
 # The OPER_GROUP is the OS group which is to be granted OSOPER privileges.
 # The value to be specified for OSOPER group is optional.
 #------------------------------------------------------------------------------
 
-oracle.install.db.OPER_GROUP=oinstall
+oracle.install.db.OPER_GROUP={{ grupo_oracle }}
 #------------------------------------------------------------------------------
 # The BACKUPDBA_GROUP is the OS group which is to be granted OSBACKUPDBA privileges.
 #------------------------------------------------------------------------------
-oracle.install.db.BACKUPDBA_GROUP=oinstall
+oracle.install.db.BACKUPDBA_GROUP={{ grupo_oracle }}
 
 #------------------------------------------------------------------------------
 # The DGDBA_GROUP is the OS group which is to be granted OSDGDBA privileges.
 #------------------------------------------------------------------------------
-oracle.install.db.DGDBA_GROUP=oinstall
+oracle.install.db.DGDBA_GROUP={{ grupo_oracle }}
 
 #------------------------------------------------------------------------------
 # The KMDBA_GROUP is the OS group which is to be granted OSKMDBA privileges.
 #------------------------------------------------------------------------------
-oracle.install.db.KMDBA_GROUP=oinstall
+oracle.install.db.KMDBA_GROUP={{ grupo_oracle }}
 
 ###############################################################################
 #                                                                             #
