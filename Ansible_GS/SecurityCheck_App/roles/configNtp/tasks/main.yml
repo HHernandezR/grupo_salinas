@@ -17,6 +17,7 @@
     name: ntpd
     enabled: true
     state: started
+- name: Esperar a que Inicie el Serivicio
   pause:
     seconds: 5
 - name: Sincronizar Ntp
