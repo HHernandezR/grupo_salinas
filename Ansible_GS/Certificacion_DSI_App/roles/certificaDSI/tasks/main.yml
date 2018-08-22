@@ -1,8 +1,8 @@
 - name: Cambiar Umask a login.defs
-  lineinfile:
+  replace:
     path: /etc/login.defs
     regexp: '.UMASK.'
-    line: 'UMASK           {{ umask }}'
+    replace: 'UMASK           {{ umask }}'
 - name: Cambiar Permisos a login.defs
   file:
     path: /etc/login.defs
@@ -16,11 +16,11 @@
 # - name: Cambiar Permisos a hosts.allow
 #   file:
 #     path: /etc/hosts.allow
-#     mode: {{ permisos_hostsallow }}
+#     mode: "{{ permisos_hostsallow }}"
 # - name: Cambiar Permisos a xinetd.d
 #   file:
 #     path: /etc/xinetd.d/
-#     mode: {{ permisos_xinetd }}
+#     mode: "{{ permisos_xinetd }}"
 #     recurse: yes
 # - name: Deshabilitar Servicios
 #   service:
@@ -66,9 +66,9 @@
 # - name: Cambiar Perisos a Directorio Services
 #   file:
 #     path: /etc/services
-#     owner: {{ usuario_services }}
-#     group: {{ grupo_services }}
-#     mode: {{ permisos_services }}
+#     owner: "{{ usuario_services }}"
+#     group: "{{ grupo_services }}"
+#     mode: "{{ permisos_services }}"
 # - name: Eliminar Fichero hosts.equiv
 #   file:
 #     path: /etc/hosts.equiv
