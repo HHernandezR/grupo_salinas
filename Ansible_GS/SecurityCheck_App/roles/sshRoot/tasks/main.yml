@@ -1,6 +1,6 @@
 - name: Desactivar acceso a ROOT por ssh
   replace:
     path: /etc/ssh/sshd_config
-    regexp: '.PermitRootLogin.'
+    regexp: '#PermitRootLogin yes'
     replace: 'PermitRootLogin "{{permit_root_login}}"'
   notify: Reiniciar-Sshd
