@@ -8,6 +8,7 @@
     src: "{{ item }}"
     dest: /{{nombre_directorio_certificacion}}
     force: yes
+  become: true
   loop: "{{ lista_ficheros_copiar_etc }}"
   ignore_errors: yes
 # - name: Copiar Ficheros sshd_config a Certifi-servicios
