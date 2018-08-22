@@ -108,83 +108,66 @@
     path: /{{ path_certificacion }}
     state: absent
     regexp: './bin/sh.'
-
-
-#
-#
-# - name: Imprimir Linea Inicial
-#   shell: |
-#     echo '############################################ SERVICIOS ACTIVOS #################################################################################' >> /Certifi-servicios/Certifi-servicios.txt
-# - name: Obtener Hostname
-#   shell: |
-#     echo '============================================== HOSTNAME =======================================' >> /Certifi-servicios/Certifi-servicios.txt
-#     hostname  >> /Certifi-servicios/Certifi-servicios.txt
-# - name: Obtener IP Server
-#   shell: |
-#     echo '============================================== IP SERVER ======================================' >> /Certifi-servicios/Certifi-servicios.txt
-#     nmcli | grep "inet4" >> /Certifi-servicios/Certifi-servicios.txt
-# - name: Obtener Servicio IpTables
-#   shell: |
-#     echo '============================================== SERVICIO IPTABLES ==============================' >> /Certifi-servicios/Certifi-servicios.txt
-#     systemctl status iptables >> /Certifi-servicios/Certifi-servicios.txt
-#   ignore_errors: yes
-# - name: Obtener FileSystem Montados
-#   shell: |
-#     echo '============================================== FILESYSTEM MONTADOS ============================' >> /Certifi-servicios/Certifi-servicios.txt
-#     df -h >> /Certifi-servicios/Certifi-servicios.txt
-# - name: Obtener Servicios Activos
-#   shell: |
-#     echo '============================================== SERVICIOS ACTIVOS ==============================' >> /Certifi-servicios/Certifi-servicios.txt
-#     systemctl list-units --type service --all | grep -w "active" >> /Certifi-servicios/Certifi-servicios.txt
-# - name: Obtener Servicio NFS
-#   shell: |
-#     echo '============================================= SERVICIOS NFS ==================================' >> /Certifi-servicios/Certifi-servicios.txt
-#     systemctl status nfs >> /Certifi-servicios/Certifi-servicios.txt
-#   ignore_errors: yes
-# - name: Obtener Servicios Java
-#   shell: |
-#     echo '============================================== SERVICIOS JAVA ================================' >> /Certifi-servicios/Certifi-servicios.txt
-#     ps -fea | grep "java" >> /Certifi-servicios/Certifi-servicios.txt
-#   ignore_errors: yes
-# - name: Eliminar Resultado Extra
-#   lineinfile:
-#     path: /Certifi-servicios/Certifi-servicios.txt
-#     state: absent
-#     regexp: './bin/sh*'
-# - name: Obtener Servicios Jboss
-#   shell: |
-#     echo '============================================== SERVICIOS JBOSS/GLASSFISH/APACHE TOMCAT========' >> /Certifi-servicios/Certifi-servicios.txt
-#     ps -fea | grep "jboss" >> /Certifi-servicios/Certifi-servicios.txt
-#   ignore_errors: yes
-# - name: Eliminar Resultado Extra
-#   lineinfile:
-#     path: /Certifi-servicios/Certifi-servicios.txt
-#     state: absent
-#     regexp: './bin/sh*'
-# - name: Obtener Servicios Apache
-#   shell: |
-#     echo '============================================== SERVICIOS APACHE ==============================' >> /Certifi-servicios/Certifi-servicios.txt
-#     ps -fea | grep "http" >> /Certifi-servicios/Certifi-servicios.txt
-#   ignore_errors: yes
-# - name: Eliminar Resultado Extra
-#   lineinfile:
-#     path: /Certifi-servicios/Certifi-servicios.txt
-#     state: absent
-#     regexp: './bin/sh*'
-# - name: Obtener Servicios Control-M
-#   shell: |
-#     echo '============================================== SERVICIOS CONTROL-M ===========================' >> /Certifi-servicios/Certifi-servicios.txt
-#     ps -fea | grep "cmagt" >> /Certifi-servicios/Certifi-servicios.txt
-#   ignore_errors: yes
-# - name: Eliminar Resultado Extra
-#   lineinfile:
-#     path: /Certifi-servicios/Certifi-servicios.txt
-#     state: absent
-#     regexp: './bin/sh*'
-# - name: Obtener Punto de Montaje
-#   shell: |
-#     echo '============================================== PUNTO DE MONTAJE ==============================' >> /Certifi-servicios/Certifi-servicios.txt
-#     mount >> /Certifi-servicios/Certifi-servicios.txt
-# - name: Imprimir Linea Final
-#   shell: |
-#     echo '############################################### FIN DE LOS SERVICIOS ###########################################################################' >> /Certifi-servicios/Certifi-servicios.txt
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS JBOSS/GLASSFISH/APACHE TOMCAT  <<<<<<<<<<<<<<<<<<<<<<<<<<"
+- name: Obtener Servicios Jboss
+  shell: ps -fea | grep "jboss"
+  register: jboss_out
+- name: Imprimir Servicios Java
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: "{{ jboss_out.stdout }}"
+- name: Eliminar Resultado Extra
+  lineinfile:
+    path: /{{ path_certificacion }}
+    state: absent
+    regexp: './bin/sh.'
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS APACHE  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+- name: Obtener Servicios Apache
+  shell: ps -fea | grep "http"
+  register: apache_out
+- name: Imprimir Servicios Java
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: "{{ apache_out.stdout }}"
+- name: Eliminar Resultado Extra
+  lineinfile:
+    path: /{{ path_certificacion }}
+    state: absent
+    regexp: './bin/sh.'
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS CONTROL-M  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+- name: Obtener Servicios CONTROL-M
+  shell: ps -fea | grep "cmagt"
+  register: crtlm_out
+- name: Imprimir Servicios CONTROL-M
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: "{{ crtlm_out.stdout }}"
+- name: Eliminar Resultado Extra
+  lineinfile:
+    path: /{{ path_certificacion }}
+    state: absent
+    regexp: './bin/sh.'
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  PUNTO DE MONTAJE  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+- name: Obtener Punto de Montaje
+  command: mount
+  register: mount_out
+- name: Imprimir Servicios NFS
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: "{{ mount_out.stdout }}"
+- name: Imprimir Linea Final
+  lineinfile:
+    path: /{{ path_certificacion }}
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> FIN SERVICIOS ACTIVOS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
