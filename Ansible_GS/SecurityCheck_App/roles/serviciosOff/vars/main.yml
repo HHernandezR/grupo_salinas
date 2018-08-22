@@ -1,4 +1,4 @@
-lista_servicios:
+lista_servicios_off:
   - cups
   - sendmail #Servicio no encontrado en RHEL 7
   - bluetooth
