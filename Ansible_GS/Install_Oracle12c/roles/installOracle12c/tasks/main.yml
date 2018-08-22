@@ -25,7 +25,7 @@
     path: "{{ oracle_installer_directory }}"
     owner: "{{ usaurio_oracle }}"
     group: "{{ grupo_oracle }}"
-    mode: {{ permisos_installer_directory }}
+    mode: "{{ permisos_installer_directory }}"
     recurse: yes
 
 - name: Preparar Template de Instalacion
