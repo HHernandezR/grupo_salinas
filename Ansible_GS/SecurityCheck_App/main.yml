@@ -4,7 +4,7 @@
   become: true
   roles:
     - serviciosOff
-    # - loginEncrypt
+    - loginEncrypt
     # - configNtp
     # - usersUnix
     # - usersMonitor
