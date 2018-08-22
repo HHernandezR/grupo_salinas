@@ -56,7 +56,7 @@
     name: "{{ item.key }}"
     value: "{{ item.value }}"
     state: present
-  kernel_params: oracle_kernel_params
+  with_dict: oracle_kernel_params
 - name: Ejecutar Sysctl -p
   command: /sbin/sysctl -p
 - name: Agregar Limits Usuario Oracle
