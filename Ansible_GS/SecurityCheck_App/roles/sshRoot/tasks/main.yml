@@ -2,5 +2,5 @@
   replace:
     path: /etc/ssh/sshd_config
     regexp: '.*PermitRootLogin.*'
-    replace: 'PermitRootLogin "{{permit_root_login}}"'
+    replace: 'PermitRootLogin {{permit_root_login}}'
   # notify: Reiniciar-Sshd

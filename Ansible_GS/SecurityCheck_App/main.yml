@@ -11,4 +11,4 @@
     # - configSelinux
     # - prerrequisitos
     #- ipTables
-    #- sshRoot
+    - sshRoot
