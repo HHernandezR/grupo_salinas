@@ -7,8 +7,8 @@
     - loginEncrypt
     - configNtp
     - usersUnix
-    # - usersMonitor
-    # - configSelinux
+    - usersMonitor
+    - configSelinux
     # - prerrequisitos
-    #- ipTables
+    - ipTables
     #- sshRoot

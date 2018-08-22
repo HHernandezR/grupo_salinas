@@ -23,8 +23,8 @@
     comment: "{{ lookup('csvfile', item + ' file=unixUsers.csv col=2 delimiter=,') }}"
     home: "/home/{{ lookup('csvfile', item + ' file=unixUsers.csv col=1 delimiter=,') }}"
     update_password: always
-    # password: "{{ '111' | password_hash('sha512') }}"
-    password: "{{ '{{ passwd }}' | password_hash('sha512') }}"
+    password: "{{ '111' | password_hash('sha512') }}"
+    #password: "{{ '{{ passwd }}' | password_hash('sha512') }}"
     groups: sysadmin
     shell: /bin/bash
   loop: "{{ unixUsers_out.stdout_lines }}"
