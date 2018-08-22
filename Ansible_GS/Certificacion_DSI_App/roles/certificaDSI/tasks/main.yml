@@ -82,8 +82,8 @@
 - name: Verificar Actualzaciones
   yum:
     list: updates
-    register: yumupdate_out
-- name: ---- Actualizaciones ----
+  register: yumupdate_out
+- name: ----  Actualizaciones ----
   debug:
     msg: "Actualizaciones: {{ yumupdate_out.stdout }}"
 # - name: Agregar Cabecero Parches de Seguridad
