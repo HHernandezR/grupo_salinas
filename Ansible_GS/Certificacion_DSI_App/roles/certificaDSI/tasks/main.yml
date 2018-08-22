@@ -84,7 +84,7 @@
 - name: Agregar Cabecero Parches de Seguridad
   lineinfile:
     path: {{ path_salida }}
-    line: "============== yum check-update security ================"
+    line: "======================= yum check-update  ======================="
 - name: Verificar Actualzaciones
   yum:
     list: updates
