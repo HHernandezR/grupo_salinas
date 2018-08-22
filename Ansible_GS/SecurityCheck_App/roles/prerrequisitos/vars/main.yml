@@ -1,7 +1,7 @@
 usuario_jboss: jboss
 usuario_root: root
 
-lista_paquetes:
+paquetes_prerrequisitos:
   - xorg-x11-apps
   - compat-libcap*
   - telnet

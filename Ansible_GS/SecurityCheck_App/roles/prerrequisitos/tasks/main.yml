@@ -9,7 +9,7 @@
   yum:
     name: "{{ item }}"
     state: latest
-  loop: "{{ lista_paquetes }}"
+  loop: "{{ paquetes_prerrequisitos }}"
 - pause:
     seconds: 2
 

@@ -1,7 +1,10 @@
-oracle_database_user: oracle
-oracle_database_install_group: oinstall
-# oracle_database_extra_groups: []
+usaurio_oracle: oracle
+grupo_oracle: oinstall
 
-oracle_database_inventory_location: "/home/oracle/oracle_inventory"
-oracle_database_oracle_base: "/home/oracle/product"
-oracle_database_oracle_home: "{{ oracle_database_oracle_base }}/oracle_home"
+oracle_inventory: "/home/oracle/oracle_inventory"
+oracle_base: "/home/oracle/product"
+oracle_home: "{{ oracle_base }}/oracle_home"
+
+oracle_idioma: "en"
+
+oracle_installer_directory: /srv/files/database

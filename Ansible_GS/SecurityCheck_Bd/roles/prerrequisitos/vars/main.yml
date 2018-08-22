@@ -13,7 +13,7 @@ paquetes_prerrequisitos:
   - gcc-c++*
   - glibc-headers*
   - libgomp*
-  - compat-libstdc++*
+  #- compat-libstdc++*
   - unixODBC*
   - rsh-*
   - ksh

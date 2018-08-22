@@ -1,0 +1,34 @@
+- name: Preparar Template de Instalacion
+  template:
+    src: db-install-12c.rsp.j2
+    dest: /var/tmp/db-install.rsp
+
+- name: Ejecutar Instalador Oracle
+  shell: "{{ oracle_installer_directory }}/runInstaller -silent -waitforcompletion -ignoreSysPrereqs -responseFile /var/tmp/db-install.rsp"
+  args:
+    creates: "{{ oracle_home }}/bin/sqlplus"
+  become: yes
+  become_user: oracle
+  register: command_result
+  failed_when: "'Successfully Setup Software.' not in command_result.stdout_lines"
+
+- name: Resultado de la Instalacion
+  debug:
+    var: command_result
+
+- name: setear Oracle Home
+  lineinfile:
+   dest: "/home/oracle/.bash_profile"
+   regexp: "{{ item.regexp }}"
+   line: "{{ item.line }}"
+   insertbefore: "export PATH"
+  loop:
+    -
+      regexp: ^ORACLE_HOME=
+      line: "ORACLE_HOME={{ oracle_home }}"
+    -
+      regexp: PATH=\$ORACLE_HOME/bin
+      line: PATH=$ORACLE_HOME/bin:$PATH
+    -
+      regexp: ^export ORACLE_HOME
+      line: export ORACLE_HOME
