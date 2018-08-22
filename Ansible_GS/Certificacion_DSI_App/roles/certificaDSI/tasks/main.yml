@@ -83,9 +83,8 @@
   yum:
     list: updates
   register: yumupdate_out
-- name: ----  Actualizaciones ----
   debug:
-    msg: "Actualizaciones: {{ yumupdate_out.stdout }}"
+    msg: "Actualizaciones: {{ yumupdate_out.results }}"
 # - name: Agregar Cabecero Parches de Seguridad
 #   shell: echo '============== yum check-update security ================' >> /salida_parches_seguridad.txt
 # - name: Verificar Parches de Seguridad
