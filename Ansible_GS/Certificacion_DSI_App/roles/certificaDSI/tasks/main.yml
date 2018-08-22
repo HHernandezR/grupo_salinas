@@ -104,9 +104,11 @@
   lineinfile:
     path: "{{ path_salida }}"
     line: "======================= yum check-update --security ============="
-- name: Verificar Actualzaciones
+- name: Verificar Actualzaciones Security
   yum:
-    list: security
+    list: updates
+    state: latest
+    security: yes
   register: yumupdatesec_out
 - name: ---- Data ----
   debug:
