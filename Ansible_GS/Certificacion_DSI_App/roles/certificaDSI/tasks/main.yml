@@ -1,84 +1,84 @@
-- name: Cambiar Umask a login.defs
-  lineinfile:
-    path: /etc/login.defs
-    regexp: '.UMASK.'
-    line: 'UMASK           {{ umask }}'
-- name: Cambiar Permisos a login.defs
-  file:
-    path: /etc/login.defs
-    owner: root
-    group: root
-    mode: 0600
-- name: Cambiar Permisos a wtmp
-  file:
-    path: /var/log/wtmp
-    mode: 0644
-- name: Cambiar Permisos a hosts.allow
-  file:
-    path: /etc/hosts.allow
-    mode: 0750
-- name: Cambiar Permisos a xinetd.d
-  file:
-    path: /etc/xinetd.d/
-    mode: 0600
-    recurse: yes
-- name: Deshabilitar Servicios
-  service:
-    name: "{{ item }}"
-    state: stopped
-    enabled: no
-  ignore_errors: yes
-  loop: "{{ lista_servicios }}"
-- name: Editar Fichero sshd_config PermitRootLogin
-  replace:
-    path: /etc/ssh/sshd_config
-    regexp: '.*PermitRootLogin.*'
-    replace: "{{ permit_root_login }}"
-# - name: Editar Fichero sshd_config SyslogFacility AUTH
-#   path: /etc/ssh/sshd_config
-#   regexp: '.*SyslogFacility AUTH.*'
-#   replace: '{{ syslog_auth }}'
-# - name: Editar Fichero sshd_config SyslogFacility AUTHPRIV
-#   path: /etc/ssh/sshd_config
-#   regexp: '.*SyslogFacility AUTHPRIV.*'
-#   replace: '{{ syslog_authpriv }}'
-- name: Editar Fichero sshd_config LogLevel INFO
-  replace:
-    path: /etc/ssh/sshd_config
-    regexp: '.*LogLevel.*'
-    replace: '{{ log_level }}'
-- name: Editar Fichero sshd_config PubkeyAuthentication
-  replace:
-    path: /etc/ssh/sshd_config
-    regexp: '.*PubkeyAuthentication.*'
-    replace: '{{ public_key }}'
-- name: Elimiar Usuarios
-  user:
-    name: "{{ item }}"
-    state: absent
-    force: yes
-    remove: yes
-  ignore_errors: yes
-  loop: "{{ usuarios_eliminar }}"
-- name: Configurar Sistema de Logs audit.log
-  shell: /usr/sbin/auditctl -w /etc/passwd -p wa -k passwd_changes
-  ignore_errors: yes
-- name: Cambiar Perisos a Directorio Services
-  file:
-    path: /etc/services
-    owner: root
-    group: root
-    mode: 0600
-- name: Eliminar Fichero hosts.equiv
-  file:
-    path: /etc/hosts.equiv
-    state: absent
-  ignore_errors: yes
-- name: Agregar Parametros SFTP a sshd_config
-  lineinfile:
-    path: /etc/ssh/sshd_config
-    line: "{{ item }}"
-  loop: "{{ parametros_sftp }}"
+# - name: Cambiar Umask a login.defs
+#   lineinfile:
+#     path: /etc/login.defs
+#     regexp: '.UMASK.'
+#     line: 'UMASK           {{ umask }}'
+# - name: Cambiar Permisos a login.defs
+#   file:
+#     path: /etc/login.defs
+#     owner: root
+#     group: root
+#     mode: 0600
+# - name: Cambiar Permisos a wtmp
+#   file:
+#     path: /var/log/wtmp
+#     mode: 0644
+# - name: Cambiar Permisos a hosts.allow
+#   file:
+#     path: /etc/hosts.allow
+#     mode: 0750
+# - name: Cambiar Permisos a xinetd.d
+#   file:
+#     path: /etc/xinetd.d/
+#     mode: 0600
+#     recurse: yes
+# - name: Deshabilitar Servicios
+#   service:
+#     name: "{{ item }}"
+#     state: stopped
+#     enabled: no
+#   ignore_errors: yes
+#   loop: "{{ lista_servicios }}"
+# - name: Editar Fichero sshd_config PermitRootLogin
+#   replace:
+#     path: /etc/ssh/sshd_config
+#     regexp: '.*PermitRootLogin.*'
+#     replace: "{{ permit_root_login }}"
+# # - name: Editar Fichero sshd_config SyslogFacility AUTH
+# #   path: /etc/ssh/sshd_config
+# #   regexp: '.*SyslogFacility AUTH.*'
+# #   replace: '{{ syslog_auth }}'
+# # - name: Editar Fichero sshd_config SyslogFacility AUTHPRIV
+# #   path: /etc/ssh/sshd_config
+# #   regexp: '.*SyslogFacility AUTHPRIV.*'
+# #   replace: '{{ syslog_authpriv }}'
+# - name: Editar Fichero sshd_config LogLevel INFO
+#   replace:
+#     path: /etc/ssh/sshd_config
+#     regexp: '.*LogLevel.*'
+#     replace: '{{ log_level }}'
+# - name: Editar Fichero sshd_config PubkeyAuthentication
+#   replace:
+#     path: /etc/ssh/sshd_config
+#     regexp: '.*PubkeyAuthentication.*'
+#     replace: '{{ public_key }}'
+# - name: Elimiar Usuarios
+#   user:
+#     name: "{{ item }}"
+#     state: absent
+#     force: yes
+#     remove: yes
+#   ignore_errors: yes
+#   loop: "{{ usuarios_eliminar }}"
+# - name: Configurar Sistema de Logs audit.log
+#   shell: /usr/sbin/auditctl -w /etc/passwd -p wa -k passwd_changes
+#   ignore_errors: yes
+# - name: Cambiar Perisos a Directorio Services
+#   file:
+#     path: /etc/services
+#     owner: root
+#     group: root
+#     mode: 0600
+# - name: Eliminar Fichero hosts.equiv
+#   file:
+#     path: /etc/hosts.equiv
+#     state: absent
+#   ignore_errors: yes
+# - name: Agregar Parametros SFTP a sshd_config
+#   lineinfile:
+#     path: /etc/ssh/sshd_config
+#     line: "{{ item }}"
+#   loop: "{{ parametros_sftp }}"
 - name: Crear Fichero salida_parches_seguridad
   copy:
     content: ""
