@@ -21,5 +21,5 @@
   pause:
     seconds: 5
 - name: Sincronizar Ntp
-  command: ntpdate -u "{{ item }}"
+  shell: ntpdate -u "{{ item }}"
   loop: "{{ ntp_servers }}"
