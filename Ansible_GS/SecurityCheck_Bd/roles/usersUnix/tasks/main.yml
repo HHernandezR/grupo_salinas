@@ -3,6 +3,7 @@
     name: sysadmin
     gid: 600
     state: present
+
 - name: Copiar Archivo CSV de Usuarios Unix
   copy:
     src: unixUsers.csv
@@ -13,9 +14,11 @@
     force: yes
 - pause:
     seconds: 2
+
 - name: Leer Archivo CSV de Usuarios Unix
   command: /usr/bin/awk -F',' '!/^#/ && !/^$/ { print $1 }' /var/tmp/unixUsers.csv
   register: unixUsers_out
+  
 - name: Crear Usuarios Sistemas Unix
   user:
     uid: "{{ lookup('csvfile', item + ' file=unixUsers.csv col=0 delimiter=,') }}"

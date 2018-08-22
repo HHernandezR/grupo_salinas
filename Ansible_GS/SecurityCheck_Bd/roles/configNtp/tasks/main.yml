@@ -2,11 +2,13 @@
   yum:
     name: 'ntp'
     state: present
+
 - name: Eliminar configuracion por defecto de hora y fecha
   lineinfile:
     path: /etc/ntp.conf
     regexp: '^server.*$'
     state: absent
+    
 - name: Activar syncronizacion de hora y fecha
   lineinfile:
     path: /etc/ntp.conf

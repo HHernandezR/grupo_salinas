@@ -4,6 +4,7 @@
     state: latest
 - pause:
     seconds: 2
+
 - name: Instalar Paquetes
   yum:
     name: "{{ item }}"
@@ -11,6 +12,7 @@
   loop: "{{ lista_paquetes }}"
 - pause:
     seconds: 2
+    
 - name: Agregar Pam Limits
   lineinfile:
     path: '/etc/security/limits.conf'

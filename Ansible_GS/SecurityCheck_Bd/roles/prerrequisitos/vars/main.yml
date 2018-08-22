@@ -35,6 +35,7 @@ paquetes_prerrequisitos:
   - expect #Paquete necesario para Iniciar Configuración de Oraclesm
 
 oracle_kernel_params:
+  kernel.shmmni: 4096
   kernel.sem: 250 32000 100 128
   fs.file-max: 6815744
   fs.aio-max-nr: 1048576
