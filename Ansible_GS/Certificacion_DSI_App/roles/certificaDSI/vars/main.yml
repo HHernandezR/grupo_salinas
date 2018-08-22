@@ -2,7 +2,12 @@ nombre_directorio_salida: "/"
 nombre_archivo_salida: "salida_parches_seguridad.txt"
 path_salida: "{{ nombre_directorio_salida }}{{ nombre_archivo_salida }}"
 
-valor_umask: "022"
+umask: "022"
+syslog_auth: "SyslogFacility AUTH"
+syslog_authpriv: "#SyslogFacility AUTHPRIV"
+log_level: "LogLevel INFO"
+public_key: "PubkeyAuthentication no"
+
 
 lista_servicios:
   - cups
@@ -25,11 +30,11 @@ lista_servicios:
   - rsh
   - rexec
 
-lista_usuarios:
+usuarios_eliminar:
   - uucp
   - games
 
-lista_parametros_sftp:
+parametros_sftp:
   - /sftp-server/d
   - 133i Subsystem  sftp  /usr/libexec/openssh/sftp-server -f LOCAL5 -l INFO
 
