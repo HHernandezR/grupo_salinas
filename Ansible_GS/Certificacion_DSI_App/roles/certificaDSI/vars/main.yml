@@ -1,3 +1,9 @@
+nombre_directorio_salida: "/"
+nombre_archivo_salida: "salida_parches_seguridad.txt"
+path_salida: "{{ nombre_directorio_salida }}{{ nombre_archivo_salida }}"
+
+valor_umask: "022"
+
 lista_servicios:
   - cups
   - sendmail #Servicio no encontrado en RHEL 7

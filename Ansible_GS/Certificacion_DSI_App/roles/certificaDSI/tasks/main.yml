@@ -1,8 +1,8 @@
-# - name: Cambiar Umask a login.defs
-#   lineinfile:
-#     path: /etc/login.defs
-#     regexp: '^UMASK.*$'
-#     line: 'UMASK           022'
+- name: Cambiar Umask a login.defs
+  lineinfile:
+    path: /etc/login.defs
+    regexp: '.UMASK.'
+    line: 'UMASK           {{valor_umask}}'
 # - name: Cambiar Permisos a login.defs
 #   file:
 #     path: /etc/login.defs
@@ -72,20 +72,20 @@
 
 
   ###########################################
-- name: Crear Fichero salida_parches_seguridad
-  copy:
-    content: ""
-    dest: /salida_parches_seguridad.txt
-    force: yes
-- name: Agregar Cabecero Parches de Seguridad
-  shell: echo '============== yum check-update security ================' >> /salida_parches_seguridad.txt
-- name: Verificar Actualzaciones
-  yum:
-    list: updates
-  register: yumupdate_out
-- name: ---- Data ----
-  debug:
-    msg: "Actualizaciones: {{ yumupdate_out.results }}"
+# - name: Crear Fichero salida_parches_seguridad
+#   copy:
+#     content: ""
+#     dest: /salida_parches_seguridad.txt
+#     force: yes
+# - name: Agregar Cabecero Parches de Seguridad
+#   shell: echo '============== yum check-update security ================' >> /salida_parches_seguridad.txt
+# - name: Verificar Actualzaciones
+#   yum:
+#     list: updates
+#   register: yumupdate_out
+# - name: ---- Data ----
+#   debug:
+#     msg: "Actualizaciones: {{ yumupdate_out.results }}"
 
 # - name: Agregar Cabecero Parches de Seguridad
 #   shell: echo '============== yum check-update security ================' >> /salida_parches_seguridad.txt
