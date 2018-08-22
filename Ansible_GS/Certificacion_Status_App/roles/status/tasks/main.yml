@@ -38,7 +38,7 @@
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  IP SERVER  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 - name: Obtener Hostname
   debug:
-    msg: "HOSTNAME: {{ ansible_facts.ansible_default_ipv4.address }}"
+    msg: "HOSTNAME: {{ ansible_all_ipv4_addresses }}"
 
 
 #
