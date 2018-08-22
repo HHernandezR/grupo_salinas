@@ -3,7 +3,6 @@ nombre_fichero_certificacion: "Certifi-servicios.txt"
 path_certificacion: "{{nombre_directorio_certificacion}}/{{nombre_fichero_certificacion}}"
 
 lista_ficheros_copiar_etc:
-  - /etc/ssh/sshd_config
   - /etc/hosts
   - /etc/sysconfig/iptables
   - /etc/fstab

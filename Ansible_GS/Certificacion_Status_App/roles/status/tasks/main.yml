@@ -8,10 +8,16 @@
     src: "{{ item }}"
     dest: /{{nombre_directorio_certificacion}}
     force: yes
-  become: true
-  become_user: root
   loop: "{{ lista_ficheros_copiar_etc }}"
   ignore_errors: yes
+- name: Copiar Ficheros sshd_config a Certifi-servicios
+  command: cat /etc/ssh/sshd_config
+  register: sshdconfig_out
+- name: ---- Data ----
+  debug:
+    msg: "Actualizaciones: {{ sshdconfig_out.stdout  }}"
+
+
 # - name: Copiar Ficheros sshd_config a Certifi-servicios
 #   shell: cat /etc/ssh/sshd_config >> /Certifi-servicios/sshd_config
 # - name: Crear Fichero Certifi-servicios
