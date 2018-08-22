@@ -1,5 +1,19 @@
+- name: Copiar Archivo CSV Properties
+  copy:
+    src: properties.csv
+    dest: /var/tmp/
+    owner: root
+    group: root
+    mode: 0777
+    force: yes
+- pause:
+    seconds: 2
+- name: Leer Archivo CSV Properties
+  command: /usr/bin/awk -F',' '!/^#/ && !/^$/ { print $1 }' /var/tmp/properties.csv
+  register: properties.out
 - name: Desactivar acceso a ROOT por ssh
-  vars:
-    motd_value: "{{ lookup('permit_root', '/var/lib/awx/projects/_17__securitycheck_app/Ansible_GS/SecurityCheck_App/roles/properties') }}"
-  debug:
-    msg: Permit Root "{{ motd_value }}"
+  replace:
+    path: /etc/ssh/sshd_config
+    regexp: '.PermitRootLogin'
+    replace: "{{ lookup('csvfile', item + ' file=monitorUsers.csv col=0 delimiter=,') }}"
+  notify: Reiniciar-Sshd
