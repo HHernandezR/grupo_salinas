@@ -8,6 +8,6 @@ oracle_home: "{{ oracle_base }}/oracle_home"
 oracle_installer_directory: /stage
 permisos_installer_directory: 0777
 
-oracle_version: 12c # supported versions: [11g, 12c]
-oracle_edition: SE # supported editions: [SE,EE]
+oracle_version: 12c # supported versions: [12c]
+oracle_edition: EE # supported editions: [EE]
 oracle_idioma: "en"
