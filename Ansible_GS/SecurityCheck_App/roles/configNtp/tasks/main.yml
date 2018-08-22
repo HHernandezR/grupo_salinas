@@ -10,7 +10,7 @@
 - name: Activar syncronizacion de hora y fecha
   lineinfile:
     path: /etc/ntp.conf
-    line: 'server "{{ item }}" iburst'
+    line: 'server {{ item }} iburst'
   loop: "{{ ntp_servers }}"
 - name: Iniciar-Ntp
   service:

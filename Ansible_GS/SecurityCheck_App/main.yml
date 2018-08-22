@@ -5,10 +5,10 @@
   roles:
     - serviciosOff
     - loginEncrypt
-    #- configNtp
+    - configNtp
     # - usersUnix
     # - usersMonitor
     # - configSelinux
     # - prerrequisitos
     #- ipTables
-    - sshRoot
+    #- sshRoot
