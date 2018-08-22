@@ -15,11 +15,8 @@
 # - pause:
 #     seconds: 2
 
-- name: Descomprimir DataBase ZIP
-  command: "unzip /var/tmp/linuxx64_12201_database.zip -d {{ oracle_installer_directory }}"
-  # unarchive:
-  #     src:  /var/tmp/linuxx64_12201_database.zip
-  #     dest: "{{ oracle_installer_directory }}"
+# - name: Descomprimir DataBase ZIP
+#   command: "unzip /var/tmp/linuxx64_12201_database.zip -d {{ oracle_installer_directory }}"
 
 - name: Cambiar Permisos Directorio de Instalacion
   file:
