@@ -77,44 +77,15 @@
     content: ""
     dest: /salida_parches_seguridad.txt
     force: yes
-- name: Copiar Yum Update Check
-  copy:
-    src: yum_update_check.sh
-    dest: /var/tmp/
-    owner: root
-    group: root
-    mode: 0777
-    force: yes
-- pause:
-    seconds: 2
-- name: Copiar Yum Update Security Check
-  copy:
-    src: yum_update_check_sec.sh
-    dest: /var/tmp/
-    owner: root
-    group: root
-    mode: 0777
-    force: yes
-- pause:
-    seconds: 2
-- name: Agregar Cabecero Parches de Seguridad
-  shell: echo '============== yum check-update =========================' >> salida_parches_seguridad.txt
-- name: Ejecutar Yum Update Check
-  shell: /var/tmp/yum_update_check.sh >> salida_parches_seguridad.txt
-  register: salida_checkupdate
-  ignore_errors: yes
-- debug:
-    var: salida_checkupdate
-    verbosity: 1
 - name: Agregar Cabecero Parches de Seguridad
   shell: echo '============== yum check-update security ================' >> /salida_parches_seguridad.txt
-- name: Ejecutar Yum Update Security Check
-  shell: /var/tmp/yum_update_check_sec.sh >> salida_parches_seguridad.txt
-  register: salida_checkupdate_sec
-  ignore_errors: yes
-- debug:
-    var: salida_checkupdate_sec
-    verbosity: 1
+- name: Verificar Actualzaciones
+  yum:
+    list: updates
+    update_cache: true
+    register: yumupdate_out
+  debug:
+    msg: Salida -- "{{ yumupdate_out }}"
 # - name: Agregar Cabecero Parches de Seguridad
 #   shell: echo '============== yum check-update security ================' >> /salida_parches_seguridad.txt
 # - name: Verificar Parches de Seguridad
