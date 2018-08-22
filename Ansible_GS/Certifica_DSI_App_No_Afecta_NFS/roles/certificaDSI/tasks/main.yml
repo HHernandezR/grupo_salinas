@@ -1,0 +1,152 @@
+- name: Cambiar Umask a login.defs
+  replace:
+    path: /etc/login.defs
+    regexp: '.*UMASK.*'
+    replace: 'UMASK           {{ umask }}'
+- name: Cambiar Permisos a login.defs
+  file:
+    path: /etc/login.defs
+    owner: "{{ usuario_logindefs }}"
+    group: "{{ grupo_logindefs }}"
+    mode: "{{ permisos_logindefs }}"
+- name: Cambiar Permisos a wtmp
+  file:
+    path: /var/log/wtmp
+    mode: "{{ permisos_wtmp }}"
+- name: Cambiar Permisos a hosts.allow
+  file:
+    path: /etc/hosts.allow
+    mode: "{{ permisos_hostsallow }}"
+- name: Cambiar Permisos a xinetd.d
+  file:
+    path: /etc/xinetd.d/
+    mode: "{{ permisos_xinetd }}"
+    recurse: yes
+- name: Deshabilitar Servicios
+  service:
+    name: "{{ item }}"
+    state: stopped
+    enabled: no
+  ignore_errors: yes
+  loop: "{{ lista_servicios }}"
+- name: Editar Fichero sshd_config PermitRootLogin
+  replace:
+    path: /etc/ssh/sshd_config
+    regexp: '.*PermitRootLogin.*'
+    replace: "{{ permit_root_login }}"
+- name: Editar Fichero sshd_config SyslogFacility AUTH
+  replace:
+    path: /etc/ssh/sshd_config
+    regexp: '.*SyslogFacility AUTH$'
+    replace: '{{ syslog_auth }}'
+- name: Editar Fichero sshd_config SyslogFacility AUTHPRIV
+  replace:
+    path: /etc/ssh/sshd_config
+    regexp: '.*SyslogFacility AUTHPRIV$'
+    # regexp: '.*SyslogFacility [AUTHPRIV]{8}'
+    replace: '{{ syslog_authpriv }}'
+- name: Editar Fichero sshd_config LogLevel INFO
+  replace:
+    path: /etc/ssh/sshd_config
+    regexp: '.*LogLevel.*'
+    replace: '{{ log_level }}'
+- name: Editar Fichero sshd_config PubkeyAuthentication
+  replace:
+    path: /etc/ssh/sshd_config
+    regexp: '.*PubkeyAuthentication.*'
+    replace: '{{ public_key }}'
+- name: Elimiar Usuarios
+  user:
+    name: "{{ item }}"
+    state: absent
+    force: yes
+    remove: yes
+  ignore_errors: yes
+  loop: "{{ usuarios_eliminar }}"
+- name: Configurar Sistema de Logs audit.log
+  shell: /usr/sbin/auditctl -w /etc/passwd -p wa -k passwd_changes
+  ignore_errors: yes
+- name: Cambiar Perisos a Directorio Services
+  file:
+    path: /etc/services
+    owner: "{{ usuario_services }}"
+    group: "{{ grupo_services }}"
+    mode: "{{ permisos_services }}"
+- name: Eliminar Fichero hosts.equiv
+  file:
+    path: /etc/hosts.equiv
+    state: absent
+  ignore_errors: yes
+- name: Agregar Parametros SFTP a sshd_config
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    line: "{{ item }}"
+  loop: "{{ parametros_sftp }}"
+- name: Crear Fichero salida_parches_seguridad
+  copy:
+    content: ""
+    dest: "{{ path_salida }}"
+    force: yes
+- name: Agregar Cabecero Parches de Seguridad
+  lineinfile:
+    path: "{{ path_salida }}"
+    line: "======================= yum check-update  ======================="
+- name: Verificar Actualzaciones
+  yum:
+    list: updates
+    security: no
+  register: yumupdate_out
+- name: Imprimir Actualizaciones
+  lineinfile:
+    path: "{{ path_salida }}"
+    line: "{{ item.name }} -- {{ item.version }} -- {{ item.release }} -- {{ item.repo }}"
+  loop: "{{ yumupdate_out.results }}"
+
+# - name: Agregar Cabecero Parches de Seguridad
+#   lineinfile:
+#     path: "{{ path_salida }}"
+#     line: "======================= yum check-update --security ============="
+# - name: Verificar Actualzaciones Security
+#   yum:
+#     list: updates
+#     state: latest
+#     security: yes
+#   register: yumupdatesec_out
+# - name: ---- Data ----
+#   debug:
+#     msg: "Actualizaciones: {{ yumupdatesec_out.results }}"
+# - name: Imprimir Actualizaciones
+#   lineinfile:
+#     path: "{{ path_salida }}"
+#     line: "{{ item.name }} -- {{ item.version }} -- {{ item.release }} -- {{ item.repo }}"
+#   loop: "{{ yumupdatesec_out.results }}"
+
+- name: Cambiar Permisos a Fichero Security
+  file:
+    path: /etc/security
+    owner: "{{ usuario_security }}"
+    group: "{{ grupo_security }}"
+    mode: "{{ permisos_security }}"
+- name: Borrar Banner
+  lineinfile:
+    path: /etc/motd
+    line: '{{ texto_baner }}'
+- name: Agregar local5 a Fichero rsyslog.conf
+  lineinfile:
+    path: /etc/rsyslog.conf
+    line: "{{ item }}"
+  loop: "{{ lista_local5 }}"
+- name: Agregar Usuarios Permitidos
+  blockinfile:
+    path: /etc/ssh/sshd_config
+    block: "{{ usuarios_permitidos }}"
+- name: Agregar Hosts
+  blockinfile:
+    path: /etc/hosts
+    block: "{{ lista_hosts }}"
+# - name: Reiniciar-sshd
+#   service:
+#     name: sshd
+#     enabled: true
+#     state: restarted
+#   ignore_errors: yes

@@ -24,6 +24,7 @@ permit_root_login: "PermitRootLogin no"
 syslog_auth: "SyslogFacility AUTH"
 syslog_authpriv: "#SyslogFacility AUTHPRIV"
 log_level: "LogLevel INFO"
+public_key: "PubkeyAuthentication no"
 
 lista_servicios:
   - cups
@@ -35,12 +36,12 @@ lista_servicios:
   - atd
   - ip6tables
   - rhnsd
-  - nfs
-  - nfslock
   - rpcgssd
-  - rpcidmapd
-  - rpcbind
-  - rpcsvcgssd #Servicio no encontrado en RHEL 7
+  - rpcsvcgssd
+  - rhsmcertd
+  - rlogin
+  - rsh
+  - rexec
 
 usuarios_eliminar:
   - uucp
@@ -55,7 +56,7 @@ lista_local5:
   - 61i local5.*  /var/log/sftpd.log
 
 usuarios_permitidos: |
-  AllowUsers b755236@term-ux?? b708700@term-ux?? b780919@term-ux?? b923430@term-ux?? b925442@term-ux?? b936196@term-ux?? b937777@term-ux?? b253861@term-ux?? b766998@term-ux?? b280667@term-ux?? b666268@term-ux?? b180683@term-ux?? b199550@term-ux?? b209097@term-ux?? b291457@term-ux?? b296510@term-ux?? b312527@term-ux?? b318015@term-ux?? b329465@term-ux?? b320831@term-ux?? b330578@term-ux?? b333289@term-ux?? b178308@term-ux?? b315458@term-ux?? b318100@term-ux?? b323426@term-ux?? b333289@term-ux?? b346337@term-ux?? b347415@term-ux?? b347550@term-ux?? b201521@term-ux?? b351377@term-ux?? scom@term-scom?? usrmon@term-usrmon?? oracle@term-oracle?? grid@term-oracle?? grid@term-grid?? oracle@term-grid?? nagios@term-nagios?? nagios@term-oracle??
+  AllowUsers b755236@term-ux?? b708700@term-ux?? b780919@term-ux?? b923430@term-ux?? b925442@term-ux?? b936196@term-ux?? b937777@term-ux?? b253861@term-ux?? b766998@term-ux?? b280667@term-ux?? b666268@term-ux?? b180683@term-ux?? b199550@term-ux?? b209097@term-ux?? b291457@term-ux?? b296510@term-ux?? b312527@term-ux?? b318015@term-ux?? b329465@term-ux?? b320831@term-ux?? b330578@term-ux?? b333289@term-ux?? b178308@term-ux?? b315458@term-ux?? b318100@term-ux?? b323426@term-ux?? b333289@term-ux?? b346337@term-ux?? b347415@term-ux?? b347550@term-ux?? b201521@term-ux?? b351377@term-ux?? scom@term-scom?? usrmon@term-usrmon??
 
 lista_hosts: |
   #UNIX
@@ -98,14 +99,3 @@ lista_hosts: |
   10.53.34.54	term-scom09
   10.53.34.52	term-scom10
   10.53.34.58	term-scom11
-  #BD Oracle
-  10.50.166.160   term-oracle01
-  10.50.166.13    term-oracle02
-  10.50.166.143   term-oracle03
-  10.50.166.21    term-oracle04
-  10.50.166.16    term-oracle05
-  10.50.166.145   term-oracle06
-  10.50.166.115   term-oracle07
-  10.63.10.232	term-oracle08
-  10.53.42.84	term-oracle09
-  10.80.166.84	term-oracle10
