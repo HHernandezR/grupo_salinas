@@ -1,5 +1,5 @@
 - name: Cambiar metodo de encryptacion a SHA512
   lineinfile:
-    path: '/etc/login.defs'
+    path: /etc/login.defs
     regexp: '.*ENCRYPT_METHOD.*'
     line: 'ENCRYPT_METHOD "{{method_encrypt_login}}"'
