@@ -23,9 +23,9 @@
     dest: /{{ path_certificacion }}
     force: yes
 - name: Imprimir Linea Inicial
-    lineinfile:
-      path: /"{{ path_certificacion }}"
-      line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS ACTIVOS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+  lineinfile:
+    path: /"{{ path_certificacion }}"
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS ACTIVOS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
       # line: '############################################ SERVICIOS ACTIVOS #################################################################################'
 
 
