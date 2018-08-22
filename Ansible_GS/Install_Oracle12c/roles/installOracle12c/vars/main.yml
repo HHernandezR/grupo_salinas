@@ -7,4 +7,5 @@ oracle_home: "{{ oracle_base }}/oracle_home"
 
 oracle_idioma: "en"
 
-oracle_installer_directory: /srv/files/database
+oracle_installer_directory: /stage
+permisos_installer_directory: 0777

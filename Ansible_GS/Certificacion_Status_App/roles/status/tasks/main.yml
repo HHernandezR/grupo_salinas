@@ -1,13 +1,13 @@
 - name: Crear Directorio Certifi-servicios
   file:
-    path: {{nombre_directorio_certificacion}}
+    path: {{ nombre_directorio_certificacion }}
     state: directory
     force: yes
 
 - name: Copiar Ficheros a Certifi-servicios
   copy:
     src: "{{ item }}"
-    dest: {{nombre_directorio_certificacion}}
+    dest: {{ nombre_directorio_certificacion }}
     force: yes
   loop: "{{ lista_ficheros_copiar_etc }}"
   ignore_errors: yes
@@ -208,7 +208,7 @@
   lineinfile:
     path: {{ path_certificacion }}
     line: "{{ mount_out.stdout }}"
-    
+
 - name: Imprimir Linea Final
   lineinfile:
     path: {{ path_certificacion }}
