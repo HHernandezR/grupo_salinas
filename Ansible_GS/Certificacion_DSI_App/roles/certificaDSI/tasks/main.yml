@@ -1,18 +1,18 @@
-- name: Cambiar Umask a login.defs
-  replace:
-    path: /etc/login.defs
-    regexp: '.*UMASK.*'
-    replace: 'UMASK           {{ umask }}'
-- name: Cambiar Permisos a login.defs
-  file:
-    path: /etc/login.defs
-    owner: "{{ usuario_logindefs }}"
-    group: "{{ grupo_logindefs }}"
-    mode: "{{ permisos_logindefs }}"
-- name: Cambiar Permisos a wtmp
-  file:
-    path: /var/log/wtmp
-    mode: "{{ permisos_wtmp }}"
+# - name: Cambiar Umask a login.defs
+#   replace:
+#     path: /etc/login.defs
+#     regexp: '.*UMASK.*'
+#     replace: 'UMASK           {{ umask }}'
+# - name: Cambiar Permisos a login.defs
+#   file:
+#     path: /etc/login.defs
+#     owner: "{{ usuario_logindefs }}"
+#     group: "{{ grupo_logindefs }}"
+#     mode: "{{ permisos_logindefs }}"
+# - name: Cambiar Permisos a wtmp
+#   file:
+#     path: /var/log/wtmp
+#     mode: "{{ permisos_wtmp }}"
 # - name: Cambiar Permisos a hosts.allow
 #   file:
 #     path: /etc/hosts.allow
@@ -100,54 +100,22 @@
 # - name: ---- Data ----
 #   debug:
 #     msg: "Actualizaciones: {{ yumupdate_out.results }}"
-
-# - name: Verificar Actualzaciones
-#   command: echo yum check-update
-#   register: yumupdate_out
-# - name: Imprimir Actualzaciones
-#   lineinfile:
-#     path: "{{ path_salida }}"
-#     line: "{{ yumupdate_out.stdout }}"
-
-
-
-  ###########################################
-# - name: Crear Fichero salida_parches_seguridad
-#   copy:
-#     content: ""
-#     dest: /salida_parches_seguridad.txt
-#     force: yes
-# - name: Agregar Cabecero Parches de Seguridad
-#   shell: echo '============== yum check-update security ================' >> /salida_parches_seguridad.txt
-# - name: Verificar Actualzaciones
-#   yum:
-#     list: updates
-#   register: yumupdate_out
-# - name: ---- Data ----
-#   debug:
-#     msg: "Actualizaciones: {{ yumupdate_out.results }}"
-
-# - name: Agregar Cabecero Parches de Seguridad
-#   shell: echo '============== yum check-update security ================' >> /salida_parches_seguridad.txt
-# - name: Verificar Parches de Seguridad
-#   shell: 'yum check-update --security'
-#   register: salida_checkupdate_sec
-#   ignore_errors: yes
-# - debug:
-#     var: salida_checkupdate_sec
-#     verbosity: 1
-# - name: Agregar Cabecero Actualizaciones
-#   shell: echo '============== yum check-update =========================' >> salida_parches_seguridad.txt
-# - name: Verificar Actualzaciones
-#   shell: 'yum check-update'
-#   register: salida_checkupdate
-#   ignore_errors: yes
-# - debug:
-#     var: salida_checkupdate
-#     verbosity: 1
- ###########################################
-
-
+- name: Agregar Cabecero Parches de Seguridad
+  lineinfile:
+    path: "{{ path_salida }}"
+    line: "======================= yum check-update --security ============="
+- name: Verificar Actualzaciones
+  yum:
+    list: security
+  register: yumupdatesec_out
+- name: ---- Data ----
+  debug:
+    msg: "Actualizaciones: {{ yumupdatesec_out.results }}"
+- name: Imprimir Actualizaciones
+  lineinfile:
+    path: "{{ path_salida }}"
+    line: "{{ item.name }} -- {{ item.version }} -- {{ item.release }} -- {{ item.repo }}"
+  loop: "{{ yumupdatesec.results }}"
 
 
 
