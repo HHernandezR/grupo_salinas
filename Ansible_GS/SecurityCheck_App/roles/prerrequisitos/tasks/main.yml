@@ -4,13 +4,6 @@
     state: latest
 - pause:
     seconds: 2
-# - name: Instalar Grupos de Paquetes
-#   yum:
-#     name: "@^{{ item }}"
-#     state: latest
-#   loop: "{{ lista_grupos_paquetes }}"
-# - pause:
-#     seconds: 2
 - name: Instalar Paquetes
   yum:
     name: "{{ item }}"

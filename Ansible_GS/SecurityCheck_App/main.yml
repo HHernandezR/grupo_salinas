@@ -9,6 +9,6 @@
     - usersUnix
     - usersMonitor
     - configSelinux
-    # - prerrequisitos
+    - prerrequisitos
     - ipTables
-    #- sshRoot
+    - sshRoot
