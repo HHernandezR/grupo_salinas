@@ -1,0 +1,108 @@
+nombre_directorio_salida: "/"
+nombre_archivo_salida: "salida_parches_seguridad.txt"
+path_salida: "{{ nombre_directorio_salida }}{{ nombre_archivo_salida }}"
+
+umask: "022"
+
+permisos_logindefs: 0600
+usuario_logindefs: "root"
+grupo_logindefs: "root"
+
+permisos_wtmp: 0644
+permisos_hostsallow: 0750
+permisos_xinetd: 0600
+permisos_services: 0600
+usuario_services: "root"
+grupo_services: "root"
+permisos_security: 0600
+usuario_security: "root"
+grupo_security: "root"
+
+texto_baner: "Fal"
+
+permit_root_login: "PermitRootLogin no"
+syslog_auth: "SyslogFacility AUTH"
+syslog_authpriv: "#SyslogFacility AUTHPRIV"
+log_level: "LogLevel INFO"
+
+lista_servicios:
+  - cups
+  - sendmail #Servicio no encontrado en RHEL 7
+  - bluetooth
+  - hplip #Servicio no encontrado en RHEL 7
+  - postfix
+  - autofs
+  - atd
+  - ip6tables
+  - rhnsd
+  - rpcgssd
+  - rpcbind
+  - rpcsvcgssd #Servicio no encontrado en RHEL 7
+
+usuarios_eliminar:
+  - uucp
+  - games
+
+parametros_sftp:
+  - /sftp-server/d
+  - 133i Subsystem  sftp  /usr/libexec/openssh/sftp-server -f LOCAL5 -l INFO
+
+lista_local5:
+  - /sftpd.log/d
+  - 61i local5.*  /var/log/sftpd.log
+
+usuarios_permitidos: |
+  AllowUsers b755236@term-ux?? b708700@term-ux?? b780919@term-ux?? b923430@term-ux?? b925442@term-ux?? b936196@term-ux?? b937777@term-ux?? b253861@term-ux?? b766998@term-ux?? b280667@term-ux?? b666268@term-ux?? b180683@term-ux?? b199550@term-ux?? b209097@term-ux?? b291457@term-ux?? b296510@term-ux?? b312527@term-ux?? b318015@term-ux?? b329465@term-ux?? b320831@term-ux?? b330578@term-ux?? b333289@term-ux?? b178308@term-ux?? b315458@term-ux?? b318100@term-ux?? b323426@term-ux?? b333289@term-ux?? b346337@term-ux?? b347415@term-ux?? b347550@term-ux?? b201521@term-ux?? b351377@term-ux?? scom@term-scom?? usrmon@term-usrmon?? oracle@term-oracle?? grid@term-oracle?? grid@term-grid?? oracle@term-grid?? nagios@term-nagios?? nagios@term-oracle??
+
+lista_hosts: |
+  #UNIX
+  10.50.166.52    term-ux01
+  10.50.166.53    term-ux02
+  10.50.166.54    term-ux03
+  10.50.166.55    term-ux04
+  10.50.166.56    term-ux05
+  10.50.166.57    term-ux06
+  10.50.166.58    term-ux07
+  10.50.166.59    term-ux08
+  10.50.166.60    term-ux09
+  10.50.166.61    term-ux10
+  10.50.166.62    term-ux11
+  10.50.166.138	term-ux12
+  10.50.166.139   term-ux13
+  #Mon USRMON
+  10.50.167.76	term-usrmon01
+  10.63.20.147	term-usrmon02
+  10.63.50.161	term-usrmon03
+  10.50.166.16	term-usrmon04
+  10.63.100.108	term-usrmon05
+  10.53.28.170	term-usrmon06
+  10.53.28.171	term-usrmon07
+  10.53.28.172	term-usrmon08
+  10.63.50.41	term-usrmon09
+  10.53.34.83	term-usrmon10
+  10.53.34.188	term-usrmon11
+  10.63.33.97	term-usrmon12
+  10.53.34.76	term-usrmon13
+  #Mon SCOM
+  10.50.166.42    term-scom01
+  10.50.166.43    term-scom02
+  10.50.166.45    term-scom03
+  10.50.166.48    term-scom04
+  10.50.166.72    term-scom05
+  10.50.166.169   term-scom06
+  10.63.150.234   term-scom07
+  10.53.34.49	term-scom08
+  10.53.34.54	term-scom09
+  10.53.34.52	term-scom10
+  10.53.34.58	term-scom11
+  #BD Oracle
+  10.50.166.160   term-oracle01
+  10.50.166.13    term-oracle02
+  10.50.166.143   term-oracle03
+  10.50.166.21    term-oracle04
+  10.50.166.16    term-oracle05
+  10.50.166.145   term-oracle06
+  10.50.166.115   term-oracle07
+  10.63.10.232	term-oracle08
+  10.53.42.84	term-oracle09
+  10.80.166.84	term-oracle10
