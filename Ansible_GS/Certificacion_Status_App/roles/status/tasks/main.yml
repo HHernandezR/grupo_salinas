@@ -20,11 +20,11 @@
 - name: Crear Fichero Certifi-servicios
   copy:
     content: ""
-    dest: /"{{ path_certificacion }}"
+    dest: /{{ path_certificacion }}
     force: yes
 - name: Imprimir Linea Inicial
     lineinfile:
-      path: /"{{ path_certificacion }}"
+      path: /{{ path_certificacion }}
       line: '############################################ SERVICIOS ACTIVOS #################################################################################'
 
 
