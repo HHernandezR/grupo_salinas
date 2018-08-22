@@ -8,11 +8,11 @@
     path: /etc/login.defs
     owner: "{{ usuario_logindefs }}"
     group: "{{ grupo_logindefs }}"
-    mode: {{ permisos_logindefs }}
+    mode: "{{ permisos_logindefs }}"
 - name: Cambiar Permisos a wtmp
   file:
     path: /var/log/wtmp
-    mode: {{ permisos_wtmp }}
+    mode: "{{ permisos_wtmp }}"
 # - name: Cambiar Permisos a hosts.allow
 #   file:
 #     path: /etc/hosts.allow
