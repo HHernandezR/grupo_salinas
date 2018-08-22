@@ -4,4 +4,4 @@
     state: stopped
     enabled: no
   ignore_errors: yes
-  loop: "{{ lista_servicios }}"
+  loop: "{{ lista_servicios_off }}"
