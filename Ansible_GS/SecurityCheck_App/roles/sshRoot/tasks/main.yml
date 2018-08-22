@@ -1,23 +1,6 @@
-- name: Copiar Archivo CSV Properties
-  copy:
-    src: properties_sshroot.csv
-    dest: /var/tmp/
-    owner: root
-    group: root
-    mode: 0777
-    force: yes
-- pause:
-    seconds: 2
-- name: Leer Archivo CSV Properties
-  command: /usr/bin/awk -F',' '!/^#/ && !/^$/ { print $1 }' /var/tmp/properties_sshroot.csv
-  register: properties_out
 - name: Desactivar acceso a ROOT por ssh
   replace:
     path: /etc/ssh/sshd_config
-    regexp: '.PermitRootLogin.'
-    replace: "{{ lookup('csvfile', item + ' file=properties_sshroot.csv col=0 delimiter=,') }}"
-  loop: "{{ properties_out.stdout_lines }}"
-- name: Reiniciar-Sshd
-  service:
-    name: sshd
-    state: reloaded
+    regexp: '.PermitRootLogin yes.'
+    replace: 'PermitRootLogin "{{permit_root_login}}"'
+  notify: Reiniciar-Sshd
