@@ -51,10 +51,12 @@
 - name: Obtener Servicio IpTables
   command: systemctl status iptables
   register: iptables_out
+  ignore_errors: yes
 - name: Imprimir IP Server
   lineinfile:
     path: /{{ path_certificacion }}
     line: "{{ iptables_out.stdout }}"
+  ignore_errors: yes
 - name: Imprimir Linea Inicial
   lineinfile:
     path: /{{ path_certificacion }}
@@ -89,6 +91,7 @@
   lineinfile:
     path: /{{ path_certificacion }}
     line: "{{ nfs_out.stdout }}"
+  ignore_errors: yes
 - name: Imprimir Linea Inicial
   lineinfile:
     path: /{{ path_certificacion }}
