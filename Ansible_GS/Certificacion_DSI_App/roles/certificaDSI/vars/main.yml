@@ -14,6 +14,11 @@ permisos_xinetd: 0600
 permisos_services: 0600
 usuario_services: "root"
 grupo_services: "root"
+permisos_security: 0600
+usuario_security: "root"
+grupo_security: "root"
+
+texto_baner: "Fal"
 
 permit_root_login: "PermitRootLogin no"
 syslog_auth: "SyslogFacility AUTH"
