@@ -35,4 +35,4 @@
       line: export JAVA_HOME
 
 - name: Recargar Variables de Entorno
-  command: "source {{ path_bashprofile }}"
+  shell: "source {{ path_bashprofile }}"
