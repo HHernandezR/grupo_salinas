@@ -11,5 +11,5 @@
     - usersOracle
     - configSelinux
     - prerrequisitos
-    # - ipTables
-    # - sshRoot
+    #- ipTables
+    #- sshRoot
