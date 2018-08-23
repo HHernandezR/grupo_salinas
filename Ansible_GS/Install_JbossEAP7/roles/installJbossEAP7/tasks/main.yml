@@ -1,0 +1,35 @@
+- name: Copiar Oracle JDK 8
+  copy:
+    src: jdk-8u181-linux-x64.rpm
+    dest: /var/tmp/
+    owner: root
+    group: root
+    mode: 0777
+    force: yes
+
+- name: Elimar Version Actual de Java
+  yum:
+    name: java
+    state: absent
+
+- name: Instalar Oracle JDK 8
+  yum:
+    name: /var/tmp/jdk-8u181-linux-x64.rpm
+    state: present
+
+# - name: Setear Variable de Entorno Java Home
+#   lineinfile:
+#    dest: "/home/oracle/.bash_profile"
+#    regexp: "{{ item.regexp }}"
+#    line: "{{ item.line }}"
+#    insertbefore: "export PATH"
+#     loop:
+#       -
+#         regexp: ^JAVA_HOME=
+#         line: "JAVA_HOME={{ java_home }}"
+#       -
+#         regexp: PATH=\$JAVA_HOME/bin
+#         line: PATH=$JAVA_HOME/bin:$PATH
+#       -
+#         regexp: ^export JAVA_HOME
+#         line: export JAVA_HOME

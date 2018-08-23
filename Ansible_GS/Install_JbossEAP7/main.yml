@@ -1,0 +1,6 @@
+- name: "Ejecutar Instalacion Jboss EAP 7"
+  hosts: all
+  remote_user: hhernandez
+  become: true
+  roles:
+    - installJbossEAP7
