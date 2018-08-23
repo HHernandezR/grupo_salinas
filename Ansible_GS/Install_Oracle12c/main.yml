@@ -1,4 +1,4 @@
-- name: "Ejecucion Instalacion Oracle 12c"
+- name: "Ejecutar Instalacion Oracle 12c"
   hosts: all
   remote_user: hhernandez
   become: true

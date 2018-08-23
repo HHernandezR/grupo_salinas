@@ -18,6 +18,14 @@
     state: directory
     force: yes
 
+- name: Cambiar Permisos Directorio de Instalacion
+  file:
+    path: "{{ oracle_installer_directory }}"
+    owner: "{{ usaurio_oracle }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_installer_directory }}"
+    recurse: yes
+
 - name: Descomprimir DataBase ZIP
   command: "unzip /var/tmp/{{ item }} -d {{ oracle_installer_directory }}"
   loop:
@@ -33,6 +41,8 @@
   shell: "{{ oracle_installer_directory }}/database/runInstaller -silent -waitforcompletion -ignoreSysPrereqs -responseFile /var/tmp/db-install.rsp"
   args:
     creates: "{{ oracle_home }}/bin/sqlplus"
+  become: yes
+  become_user: oracle
   register: command_result
   failed_when: "'Successfully Setup Software.' not in command_result.stdout_lines"
 
@@ -56,19 +66,3 @@
     -
       regexp: ^export ORACLE_HOME
       line: export ORACLE_HOME
-
-- name: Ejecutar Post-Installation Scripts
-  become: yes
-  become_user: root
-  shell: "{{ item }}"
-  loop:
-    - "{{ oracle_inventory }}/orainstRoot.sh"
-    - "{{ oracle_home }}/root.sh"
-
-- name: Cambiar Permisos Directorio de Instalacion
-  file:
-    path: "{{ oracle_installer_directory }}"
-    owner: "{{ usaurio_oracle }}"
-    group: "{{ grupo_oracle }}"
-    mode: "{{ permisos_installer_directory }}"
-    recurse: yes
