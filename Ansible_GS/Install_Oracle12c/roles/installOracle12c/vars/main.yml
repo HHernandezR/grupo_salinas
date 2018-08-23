@@ -11,3 +11,5 @@ permisos_installer_directory: 0777
 oracle_version: 12c # supported versions: [12c]
 oracle_edition: EE # supported editions: [EE]
 oracle_idioma: "en"
+
+oracle_sid: "orcl"
