@@ -17,19 +17,19 @@
     name: /var/tmp/jdk-8u181-linux-x64.rpm
     state: present
 
-# - name: Setear Variable de Entorno Java Home
-#   lineinfile:
-#    dest: "/home/oracle/.bash_profile"
-#    regexp: "{{ item.regexp }}"
-#    line: "{{ item.line }}"
-#    insertbefore: "export PATH"
-#     loop:
-#       -
-#         regexp: ^JAVA_HOME=
-#         line: "JAVA_HOME={{ java_home }}"
-#       -
-#         regexp: PATH=\$JAVA_HOME/bin
-#         line: PATH=$JAVA_HOME/bin:$PATH
-#       -
-#         regexp: ^export JAVA_HOME
-#         line: export JAVA_HOME
+- name: Setear Variable de Entorno Java Home
+  lineinfile:
+   dest: "/home/oracle/.bash_profile"
+   regexp: "{{ item.regexp }}"
+   line: "{{ item.line }}"
+   insertbefore: "export PATH"
+    loop:
+      -
+        regexp: ^JAVA_HOME=
+        line: "JAVA_HOME={{ java_home }}"
+      -
+        regexp: PATH=\$JAVA_HOME/bin
+        line: PATH=$JAVA_HOME/bin:$PATH
+      -
+        regexp: ^export JAVA_HOME
+        line: export JAVA_HOME
