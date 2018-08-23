@@ -32,9 +32,3 @@
     - { limit: 'hard', type: nproc, value: '{{ root_limits_hard_nproc }}' }
     - { limit: 'soft', type: nofile, value: '{{ root_limits_soft_nofile }}' }
     - { limit: 'hard', type: nofile, value: '{{ root_limits_hard_nofile }}' }
-
-- name: Agregar Pam Limits
-  lineinfile:
-    path: '/etc/security/limits.conf'
-    line: "{{ item }}"
-  loop: "{{ lista_limits }}"
