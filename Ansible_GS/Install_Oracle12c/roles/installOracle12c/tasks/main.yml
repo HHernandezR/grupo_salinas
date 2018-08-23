@@ -1,6 +1,4 @@
 - name: Crear Directorio Installacion
-  become: yes
-  become_user: root
   file:
     path: "{{ oracle_installer_directory }}"
     state: directory
@@ -66,10 +64,10 @@
       regexp: ^export ORACLE_HOME
       line: export ORACLE_HOME
 
-- name: Ejecutar Post-Installation Scripts
-  become: yes
-  become_user: root
-  shell: "{{ item }}"
-  loop:
-    - "{{ oracle_inventory }}/orainstRoot.sh"
-    - "{{ oracle_home }}/root.sh"
+# - name: Ejecutar Post-Installation Scripts
+#   become: yes
+#   become_user: root
+#   shell: "{{ item }}"
+#   loop:
+#     - "{{ oracle_inventory }}/orainstRoot.sh"
+#     - "{{ oracle_home }}/root.sh"
