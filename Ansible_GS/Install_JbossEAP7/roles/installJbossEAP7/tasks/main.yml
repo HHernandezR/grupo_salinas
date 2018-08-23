@@ -19,7 +19,7 @@
 
 - name: Setear Variable de Entorno Java Home
   lineinfile:
-    dest: "/home/oracle/.bash_profile"
+    dest: "{{ path_bashprofile }}"
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
     insertbefore: "export PATH"
@@ -35,4 +35,4 @@
       line: export JAVA_HOME
 
 - name: Recargar Variables de Entorno
-  command: source ~/.bash_profile
+  command: "source {{ path_bashprofile }}"

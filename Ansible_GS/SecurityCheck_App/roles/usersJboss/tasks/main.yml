@@ -1,0 +1,48 @@
+- name: Copiar Archivo CSV de Grupos Jboss
+  copy:
+    src: jbossGroups.csv
+    dest: /var/tmp/
+    owner: root
+    group: root
+    mode: 0777
+    force: yes
+- pause:
+    seconds: 2
+
+- name: Leer Archivo CSV de Grupos Jboss
+  command: /usr/bin/awk -F',' '!/^#/ && !/^$/ { print $1 }' /var/tmp/jbossGroups.csv
+  register: jbossGroups_out
+
+- name: Crear Grupos Jboss
+  group:
+    gid: "{{ lookup('csvfile', item + ' file=jbossGroups.csv col=0 delimiter=,') }}"
+    name: "{{ lookup('csvfile', item + ' file=jbossGroups.csv col=1 delimiter=,') }}"
+    state: present
+  loop: "{{ jbossGroups_out.stdout_lines }}"
+
+- name: Copiar Archivo CSV de Usuarios Jboss
+  copy:
+    src: jbossUsers.csv
+    dest: /var/tmp/
+    owner: root
+    group: root
+    mode: 0777
+    force: yes
+- pause:
+    seconds: 2
+
+- name: Leer Archivo CSV de Usuarios Jboss
+  command: /usr/bin/awk -F',' '!/^#/ && !/^$/ { print $1 }' /var/tmp/jbossUsers.csv
+  register: oracleUsers_out
+
+- name: Crear Usuarios Jboss
+  user:
+    uid: "{{ lookup('csvfile', item + ' file=jbossUsers.csv col=0 delimiter=,') }}"
+    name: "{{ lookup('csvfile', item + ' file=jbossUsers.csv col=1 delimiter=,') }}"
+    comment: "{{ lookup('csvfile', item + ' file=jbossUsers.csv col=2 delimiter=,') }}"
+    home: "/home/{{ lookup('csvfile', item + ' file=jbossUsers.csv col=1 delimiter=,') }}"
+    update_password: always
+    password: "{{ '222' | password_hash('sha512') }}"
+    group: jboss
+    shell: /bin/bash
+  loop: "{{ jbossUsers_out.stdout_lines }}"
