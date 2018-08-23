@@ -2,9 +2,9 @@
 #   copy:
 #     src: "{{ item }}"
 #     dest: /var/tmp/
-#     owner: root
-#     group: root
-#     mode: 0777
+#     owner: "{{ usuario_rpm }}"
+#     group: "{{ grupo_rpm }}"
+#     mode: "{{ permisos_rpm }}"
 #     force: yes
 #   loop:
 #     - linuxamd64_12102_database_1of2.zip
@@ -12,22 +12,27 @@
 # - pause:
 #     seconds: 3
 
-- name: Crear Directorio Installacion
+- name: Crear Directorios
   file:
     path: "{{ oracle_installer_directory }}"
     state: directory
     force: yes
+  loop: "{{ oracle_directorios }}"
 
-- name: Cambiar Permisos Directorio de Instalacion
+- name: Cambiar Permisos Directorio
   file:
     path: "{{ oracle_installer_directory }}"
     owner: "{{ usaurio_oracle }}"
     group: "{{ grupo_oracle }}"
     mode: "{{ permisos_installer_directory }}"
     recurse: yes
+  loop:
+    - "{{ oracle_bin_files }}"
+    - "{{ oracle_db_files }}"
+    - "{{ oracle_stage }}"
 
 - name: Descomprimir Oracle DataBase ZIP
-  command: "unzip /var/tmp/{{ item }} -d {{ oracle_installer_directory }}"
+  command: "unzip /var/tmp/{{ item }} -d {{ oracle_stage }}"
   loop:
     - linuxamd64_12102_database_1of2.zip
     - linuxamd64_12102_database_2of2.zip
@@ -38,7 +43,7 @@
     dest: /var/tmp/db-install.rsp
 
 - name: Ejecutar Instalador Oracle
-  shell: "{{ oracle_installer_directory }}/database/runInstaller -silent -waitforcompletion -ignoreSysPrereqs -responseFile /var/tmp/db-install.rsp"
+  shell: "{{ oracle_stage }}/database/runInstaller -silent -waitforcompletion -ignoreSysPrereqs -responseFile /var/tmp/db-install.rsp"
   args:
     creates: "{{ oracle_home }}/bin/sqlplus"
   become: yes
@@ -71,4 +76,10 @@
   lineinfile:
    dest: "/home/oracle/.bash_profile"
    line: "export ORACLE_SID={{ oracle_sid }}"
+   insertbefore: "export PATH"
+
+- name: Setear Variable de Entorno Oracle Base
+  lineinfile:
+   dest: "/home/oracle/.bash_profile"
+   line: "export ORACLE_BASE={{ oracle_base }}"
    insertbefore: "export PATH"

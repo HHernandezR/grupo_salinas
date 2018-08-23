@@ -111,10 +111,3 @@
     state: restarted
   loop: "{{ servicios_rlogin }}"
   ignore_errors: yes
-
-- name: Crear Directorios Base
-  file:
-    state: directory
-    path: "{{ oracle_base }}"
-    owner: "{{ usaurio_oracle }}"
-    group: "{{ grupo_oracle }}"

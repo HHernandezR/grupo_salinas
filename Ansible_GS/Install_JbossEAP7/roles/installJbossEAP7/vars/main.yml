@@ -8,3 +8,11 @@ java_home: "/usr/java/jdk1.8.0_181-amd64"
 
 path_bashprofile: "/home/jboss/.bash_profile"
 jboss_installer_directory: "/usr/share/"
+
+permisos_zip: 0777
+usuario_zip: root
+grupo_zip: root
+
+permisos_rpm: 0777
+usuario_rpm: root
+grupo_rpm: root

@@ -2,19 +2,22 @@
 #   copy:
 #     src: jdk-8u181-linux-x64.rpm
 #     dest: /var/tmp/
-#     owner: root
-#     group: root
-#     mode: 0777
+#     owner: "{{ usuario_zip }}"
+#     group: "{{ grupo_zip }}"
+#     mode: "{{ permisos_zip }}"
 #     force: yes
 
-# - name: Copiar Jboss EAP 7
-#   copy:
-#     src: jboss-eap-7.0.0.zip
-#     dest: /var/tmp/
-#     owner: root
-#     group: root
-#     mode: 0777
-#     force: yes
+- name: Copiar Jboss EAP 7
+  copy:
+    src: "{{ item }}"
+    dest: /var/tmp/
+    owner: "{{ usuario_zip }}"
+    group: "{{ grupo_zip }}"
+    mode: "{{ permisos_zip }}"
+    force: yes
+  loop:
+    - jboss-eap-7.1.0.zip
+    - jboss-eap-7.1.2-patch.zip
 
 - name: Elimar Version Actual de Java
   yum:
