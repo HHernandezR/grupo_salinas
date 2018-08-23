@@ -67,7 +67,7 @@
       line: "JBOSS_HOME={{ jboss_home }}"
     -
       regexp: PATH=\$JBOSS_HOME
-      line: PATH=$JBOSS_HOME/bin:$PATH
+      line: PATH=$JBOSS_HOME:$PATH
     -
       regexp: ^export JBOSS_HOME
       line: export JBOSS_HOME
