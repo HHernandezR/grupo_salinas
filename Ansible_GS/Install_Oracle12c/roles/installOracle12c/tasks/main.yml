@@ -1,4 +1,6 @@
 - name: Crear Directorio Installacion
+  become: yes
+  become_user: root
   file:
     path: "{{ oracle_installer_directory }}"
     state: directory
