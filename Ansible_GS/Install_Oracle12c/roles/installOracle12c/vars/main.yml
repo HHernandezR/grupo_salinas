@@ -5,7 +5,7 @@ oracle_inventory: "/home/oracle/oracle_inventory"
 oracle_base: "/home/oracle/product"
 oracle_home: "{{ oracle_base }}/oracle_home"
 
-oracle_installer_directory: /var/tmp/
+oracle_installer_directory: /var/tmp/stage
 permisos_installer_directory: 0777
 
 oracle_version: 12c # supported versions: [12c]
