@@ -6,12 +6,15 @@
 
 # - name: Copiar Oracle DataBase ZIP
 #   copy:
-#     src: linuxx64_12201_database.zip
+#     src: "{{ item }}"
 #     dest: /var/tmp/
 #     owner: root
 #     group: root
 #     mode: 0777
 #     force: yes
+#   loop:
+#     - linuxamd64_12102_database_1of2.zip
+#     - linuxamd64_12102_database_2of2.zip
 # - pause:
 #     seconds: 2
 
@@ -64,10 +67,10 @@
       regexp: ^export ORACLE_HOME
       line: export ORACLE_HOME
 
-# - name: Ejecutar Post-Installation Scripts
-#   become: yes
-#   become_user: root
-#   shell: "{{ item }}"
-#   loop:
-#     - "{{ oracle_inventory }}/orainstRoot.sh"
-#     - "{{ oracle_home }}/root.sh"
+- name: Ejecutar Post-Installation Scripts
+  become: yes
+  become_user: root
+  shell: "{{ item }}"
+  loop:
+    - "{{ oracle_inventory }}/orainstRoot.sh"
+    - "{{ oracle_home }}/root.sh"
