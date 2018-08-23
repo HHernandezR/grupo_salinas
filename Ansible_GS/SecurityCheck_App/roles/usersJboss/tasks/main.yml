@@ -33,7 +33,7 @@
 
 - name: Leer Archivo CSV de Usuarios Jboss
   command: /usr/bin/awk -F',' '!/^#/ && !/^$/ { print $1 }' /var/tmp/jbossUsers.csv
-  register: oracleUsers_out
+  register: jbossUsers_out
 
 - name: Crear Usuarios Jboss
   user:
