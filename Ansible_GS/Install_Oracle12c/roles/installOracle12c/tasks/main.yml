@@ -16,7 +16,7 @@
 #     - linuxamd64_12102_database_1of2.zip
 #     - linuxamd64_12102_database_2of2.zip
 # - pause:
-#     seconds: 2
+#     seconds: 3
 
 - name: Descomprimir DataBase ZIP
   command: "unzip /var/tmp/{{ item }} -d {{ oracle_installer_directory }}"
