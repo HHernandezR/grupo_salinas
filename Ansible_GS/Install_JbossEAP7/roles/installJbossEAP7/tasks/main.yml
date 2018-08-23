@@ -7,6 +7,15 @@
 #     mode: 0777
 #     force: yes
 
+# - name: Copiar Jboss EAP 7
+#   copy:
+#     src: jboss-eap-7.0.0.zip
+#     dest: /var/tmp/
+#     owner: root
+#     group: root
+#     mode: 0777
+#     force: yes
+
 - name: Elimar Version Actual de Java
   yum:
     name: java
@@ -33,6 +42,35 @@
     -
       regexp: ^export JAVA_HOME
       line: export JAVA_HOME
+
+# - name: Recargar Variables de Entorno
+#   shell: "source {{ path_bashprofile }}"
+
+- name: Descomprimir Jboss EAP 7 ZIP
+  unarchive:
+    src: /var/tmp/jboss-eap-7.0.0.zip
+    dest: "{{ jboss_installer_directory }}"
+    copy: false
+    owner: "{{ usaurio_jboss }}"
+    group: "{{ grupo_jboss }}"
+    mode: "{{ jboss_home_permisos }}"
+
+- name: Setear Variable de Entorno Jboss Home
+  lineinfile:
+    dest: "{{ path_bashprofile }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    insertbefore: "export PATH"
+  loop:
+    -
+      regexp: ^JBOSS_HOME=
+      line: "JBOSS_HOME={{ jboss_home }}"
+    -
+      regexp: PATH=\$JBOSS_HOME/bin
+      line: PATH=$JBOSS_HOME/bin:$PATH
+    -
+      regexp: ^export JBOSS_HOME
+      line: export JBOSS_HOME
 
 - name: Recargar Variables de Entorno
   shell: "source {{ path_bashprofile }}"

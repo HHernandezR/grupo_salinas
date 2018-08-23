@@ -26,7 +26,7 @@
     mode: "{{ permisos_installer_directory }}"
     recurse: yes
 
-- name: Descomprimir DataBase ZIP
+- name: Descomprimir Oracle DataBase ZIP
   command: "unzip /var/tmp/{{ item }} -d {{ oracle_installer_directory }}"
   loop:
     - linuxamd64_12102_database_1of2.zip
