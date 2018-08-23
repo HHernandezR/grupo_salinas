@@ -1,11 +1,11 @@
-- name: Copiar Oracle JDK 8
-  copy:
-    src: jdk-8u181-linux-x64.rpm
-    dest: /var/tmp/
-    owner: root
-    group: root
-    mode: 0777
-    force: yes
+# - name: Copiar Oracle JDK 8
+#   copy:
+#     src: jdk-8u181-linux-x64.rpm
+#     dest: /var/tmp/
+#     owner: root
+#     group: root
+#     mode: 0777
+#     force: yes
 
 - name: Elimar Version Actual de Java
   yum:
