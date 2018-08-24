@@ -1,13 +1,13 @@
 - name: Crear Directorio Certifi-servicios
   file:
-    path: {{ nombre_directorio_certificacion }}
+    path: "{{ nombre_directorio_certificacion }}"
     state: directory
     force: yes
 
 - name: Copiar Ficheros a Certifi-servicios
   copy:
     src: "{{ item }}"
-    dest: {{ nombre_directorio_certificacion }}
+    dest: "{{ nombre_directorio_certificacion }}"
     force: yes
   loop: "{{ lista_ficheros_copiar_etc }}"
   ignore_errors: yes
@@ -19,17 +19,17 @@
 - name: Copiar Ficheros sshd_config a Certifi-servicios
   copy:
     content: "{{ sshdconfig_out.stdout }}"
-    dest: {{nombre_directorio_certificacion}}/sshd_config
+    dest: "{{nombre_directorio_certificacion}}/sshd_config"
 
 - name: Crear Fichero Certifi-servicios
   copy:
     content: ""
-    dest: {{ path_certificacion }}
+    dest: "{{ path_certificacion }}"
     force: yes
 
 - name: Imprimir Linea Inicial
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS ACTIVOS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 - name: Obtener Hostname Server
@@ -38,12 +38,12 @@
 
 - name: Imprimir Hostname Server
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: "{{ hostname_out.stdout }}"
 
 - name: Imprimir Linea Inicial
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  IP SERVER  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 - name: Obtener IP Server
@@ -52,12 +52,12 @@
 
 - name: Imprimir IP Server
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: "{{ ip_out.stdout }}"
 
 - name: Imprimir Linea Inicial
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIO IPTABLES  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 - name: Obtener Servicio IpTables
@@ -67,13 +67,13 @@
 
 - name: Imprimir IP Server
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: "{{ iptables_out.stdout }}"
   ignore_errors: yes
 
 - name: Imprimir Linea Inicial
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  FILESYSTEM MONTADOS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 - name: Obtener FyleSystem
@@ -82,12 +82,12 @@
 
 - name: Imprimir FyleSystem
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: "{{ df_out.stdout }}"
 
 - name: Imprimir Linea Inicial
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS ACTIVOS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 - name: Obtener Servicios Activos
@@ -96,12 +96,12 @@
 
 - name: Imprimir Servicios Activos
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: "{{ services_out.stdout }}"
 
 - name: Imprimir Linea Inicial
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS NFS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 - name: Obtener Servicios NFS
@@ -111,13 +111,13 @@
 
 - name: Imprimir Servicios NFS
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: "{{ nfs_out.stdout }}"
   ignore_errors: yes
 
 - name: Imprimir Linea Inicial
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS JAVA  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 - name: Obtener Servicios Java
@@ -126,18 +126,18 @@
 
 - name: Imprimir Servicios Java
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: "{{ java_out.stdout }}"
 
 - name: Eliminar Resultado Extra
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     state: absent
     regexp: './bin/sh.'
 
 - name: Imprimir Linea Inicial
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS JBOSS/GLASSFISH/APACHE TOMCAT  <<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 - name: Obtener Servicios Jboss
@@ -146,18 +146,18 @@
 
 - name: Imprimir Servicios Java
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: "{{ jboss_out.stdout }}"
 
 - name: Eliminar Resultado Extra
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     state: absent
     regexp: './bin/sh.'
 
 - name: Imprimir Linea Inicial
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS APACHE  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 - name: Obtener Servicios Apache
@@ -166,18 +166,18 @@
 
 - name: Imprimir Servicios Java
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: "{{ apache_out.stdout }}"
 
 - name: Eliminar Resultado Extra
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     state: absent
     regexp: './bin/sh.'
 
 - name: Imprimir Linea Inicial
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS CONTROL-M  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 - name: Obtener Servicios CONTROL-M
@@ -186,18 +186,18 @@
 
 - name: Imprimir Servicios CONTROL-M
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: "{{ crtlm_out.stdout }}"
 
 - name: Eliminar Resultado Extra
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     state: absent
     regexp: './bin/sh.'
 
 - name: Imprimir Linea Inicial
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  INSTANCIA BD (Solo Base de datos)  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 - name: Obtener Instancia BD
@@ -206,18 +206,18 @@
 
 - name: Imprimir Instancia BD
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: "{{ smon_out.stdout }}"
 
 - name: Eliminar Resultado Extra
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     state: absent
     regexp: './bin/sh.'
 
 - name: Imprimir Linea Inicial
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 - name: Obtener Pmon
@@ -226,18 +226,18 @@
 
 - name: Imprimir Pmon
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: "{{ pmon_out.stdout }}"
 
 - name: Eliminar Resultado Extra
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     state: absent
     regexp: './bin/sh.'
 
 - name: Imprimir Linea Inicial
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  CRS (Solo Base de Datos)  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 - name: Obtener CRS
@@ -246,18 +246,18 @@
 
 - name: Imprimir CRS
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: "{{ dbin_out.stdout }}"
 
 - name: Eliminar Resultado Extra
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     state: absent
     regexp: './bin/sh.'
 
 - name: Imprimir Linea Inicial
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  PUNTO DE MONTAJE  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 - name: Obtener Punto de Montaje
@@ -266,10 +266,10 @@
 
 - name: Imprimir Servicios NFS
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: "{{ mount_out.stdout }}"
 
 - name: Imprimir Linea Final
   lineinfile:
-    path: {{ path_certificacion }}
+    path: "{{ path_certificacion }}"
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> FIN SERVICIOS ACTIVOS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
