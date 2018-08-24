@@ -1,6 +1,6 @@
 - name: Versión Jboss 7
   debug:
-    msg: "Version: {{ version_jboss }}"
+    msg: "Version: 7"
 
 # - name: Crear Directorios Punto de Montaje, Stage y Database
 #   file:

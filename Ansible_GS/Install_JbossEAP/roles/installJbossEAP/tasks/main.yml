@@ -8,12 +8,7 @@
 #     force: yes
 
 - name: Ejecutar Instalacion de JBossEAP 6
-  include: jbosseap6.yml
-  when: "{{ version_jboss }} == '7'"
-
-- name: Ejecutar Instalacion de JBossEAP 6
-  include: jbosseap7.yml
-  when: "{{ version_jboss }} == '6'"
+  include: jbosseap{{ version_jboss }}.yml
 
 
 
