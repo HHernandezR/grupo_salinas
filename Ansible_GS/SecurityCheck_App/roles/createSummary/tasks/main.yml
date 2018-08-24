@@ -1,6 +1,6 @@
 - name: Get device facts
   debug: var=hostvars[inventory_hostname]['ipv4']['address']
-    verbosity: 1
+  verbosity: 1
 # - name: Crear Directorio Summary
 #   file:
 #     path: "{{ directorio_summary }}"
