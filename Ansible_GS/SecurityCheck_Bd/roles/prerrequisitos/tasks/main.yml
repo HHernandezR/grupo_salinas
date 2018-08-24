@@ -108,7 +108,4 @@
 #   ignore_errors: yes
 
 - name: Agregar Configuracion a Pam
-  lineinfile:
-    path: " {{ path_pamd }} "
-    line: "{{ item }}"
-  loop: "{{ config_pamd }}"
+  shell: "cat >>/etc/pam.d/login<<EOF session required pam_limits.so EOF"

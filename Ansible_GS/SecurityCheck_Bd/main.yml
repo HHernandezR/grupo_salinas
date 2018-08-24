@@ -3,13 +3,13 @@
   remote_user: hhernandez
   become: true
   roles:
-    - serviciosOff
-    - loginEncrypt
-    - configNtp
+    # - serviciosOff
+    # - loginEncrypt
+    # - configNtp
     - usersUnix
     - usersMonitor
     - usersOracle
     - configSelinux
-    - ipTables
+    # - ipTables
     - prerrequisitos
     #- sshRoot
