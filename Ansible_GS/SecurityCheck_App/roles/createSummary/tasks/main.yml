@@ -1,18 +1,32 @@
-- name: Crear Directorio Summary
-  file:
-    path: "{{ directorio_summary }}"
-    state: directory
-    force: yes
+- name: Get device facts
+  napalm_get_facts:
+    hostname: "{{ansible_host|default(inventory_hostname)}}"
+    username: "{{ansible_user}}"
+    password: "{{ansible_ssh_pass}}"
+    dev_os: "{{ansible_os}}"
+    optional_args:
+      port: "{{api_port|default(ansible_port)|default(22)}}"
+    filter:
+     - facts
 
-- name: Crear Archivo Summary
-  file:
-    path: "{{ nombre_sumary }}_{{ path_summary }}{{ extension_summary }}"
-    state: touch
+# - name: Crear Directorio Summary
+#   file:
+#     path: "{{ directorio_summary }}"
+#     state: directory
+#     force: yes
 
-- name: Imprimir Linea Inicial
-  lineinfile:
-    path: "{{ path_summary }}"
-    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Resumen de Ejecucion  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+# - name: Crear Archivo Summary
+#   set_fact:
+#     timestamp: "{{ lookup('pipe', 'date + %Y%m%d%-H%M%S') }}"
+#     path_file: "{{ directorio_summary }}_{{ nombre_summary }}{{ extension_summary }}"
+#   file:
+#     path: "{{ nombre_sumary }}_{{ path_summary }}{{ extension_summary }}"
+#     state: touch
+
+# - name: Imprimir Linea Inicial
+#   lineinfile:
+#     path: "{{ path_summary }}"
+#     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Resumen de Ejecucion  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
   # debug:
   #   msg: "{{ lookup('pipe','date + %Y-%m-%d-%H-%M-%S') }}"

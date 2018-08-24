@@ -1,5 +1,3 @@
 directorio_summary: /var/log/tmp/summary
-nombre_sumary: SecurityCheckApp
-fecha_actual: " {{ lookup('pipe','date + %Y-%m-%d-%H-%M-%S') }} "
+nombre_summary: SecurityCheckApp
 extension_summary: .txt
-path_summary: " {{ directorio_summary }}/{{ nombre_sumary }}{{ fecha_actual }}{{ extension_summary }} "
