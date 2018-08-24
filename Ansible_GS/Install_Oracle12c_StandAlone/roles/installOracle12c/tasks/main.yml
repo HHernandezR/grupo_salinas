@@ -1,105 +1,105 @@
-# # - name: Copiar Oracle DataBase ZIP
-# #   copy:
-# #     src: "{{ item }}"
-# #     dest: /var/tmp/
-# #     owner: "{{ usuario_rpm }}"
-# #     group: "{{ grupo_rpm }}"
-# #     mode: "{{ permisos_rpm }}"
-# #     force: yes
-# #   loop:
-# #     - linuxamd64_12102_database_1of2.zip
-# #     - linuxamd64_12102_database_2of2.zip
-# # - pause:
-# #     seconds: 3
-#
-# - name: Crear Directorios Punto de Montaje, Stage y Database
-#   file:
-#     path: "{{ item }}"
-#     state: directory
+# - name: Copiar Oracle DataBase ZIP
+#   copy:
+#     src: "{{ item }}"
+#     dest: /var/tmp/
+#     owner: "{{ usuario_rpm }}"
+#     group: "{{ grupo_rpm }}"
+#     mode: "{{ permisos_rpm }}"
 #     force: yes
 #   loop:
-#     - "{{ punto_montaje_nfs }}"
-#     - "{{ oracle_stage }}"
-#     - "{{ oracle_bin_files }}"
-#     - "{{ oracle_db_files }}"
-#
-# - name: Instalar NFS-Utils
-#   yum:
-#     name: nfs-utils
-#     state: present
-#
-# - name: Agregar Recurso NFS Fstab
-#   lineinfile:
-#     path: "{{ path_fstab }}"
-#     line: "{{ recurso_nfs }}"
-#
-# - name: Montar Recurso NFS
-#   command: "mount -a"
-#
-# - name: Cambiar Permisos Directorio
-#   file:
-#     path: "{{ item }}"
-#     owner: "{{ usaurio_oracle }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#     recurse: yes
-#   loop:
-#     - "{{ oracle_bin_files }}"
-#     - "{{ oracle_db_files }}"
-#     - "{{ oracle_stage }}"
-#
-# - name: Descomprimir Oracle DataBase ZIP
-#   command: "unzip {{ punto_montaje_nfs }}/{{ item }} -d {{ oracle_stage }}"
-#   loop:
-#     - "{{ nombre_dabatase_zip1 }}"
-#     - "{{ nombre_dabatase_zip2 }}"
-#
-# - name: Preparar Template de Instalacion
-#   template:
-#     src: "{{ nombre_original_template }}"
-#     dest: "{{ path_destino_template }}"
-#
-# - name: Ejecutar Instalador Oracle
-#   shell: "{{ oracle_stage }}/database/runInstaller -silent -waitforcompletion -ignoreSysPrereqs -responseFile {{ path_destino_template }}"
-#   args:
-#     creates: "{{ oracle_home }}/bin/sqlplus"
-#   become: yes
-#   become_user: oracle
-#   register: command_result
-#   failed_when: "'Successfully Setup Software.' not in command_result.stdout_lines"
-#
-# - name: Resultado de la Instalacion
-#   debug:
-#     var: command_result
-#
-# - name: Setear Variable de Entorno Oracle Home
-#   lineinfile:
-#    dest: "{{ path_bashprofile }}"
-#    regexp: "{{ item.regexp }}"
-#    line: "{{ item.line }}"
-#    insertbefore: "export PATH"
-#   loop:
-#     -
-#       regexp: ^ORACLE_HOME=
-#       line: "ORACLE_HOME={{ oracle_home }}"
-#     -
-#       regexp: PATH=\$ORACLE_HOME/bin
-#       line: PATH=$ORACLE_HOME/bin:$PATH
-#     -
-#       regexp: ^export ORACLE_HOME
-#       line: export ORACLE_HOME
-#
-# - name: Setear Variable de Entorno Oracle SID
-#   lineinfile:
-#    dest: "{{ path_bashprofile }}"
-#    line: "export ORACLE_SID={{ oracle_sid }}"
-#    insertbefore: "export PATH"
-#
-# - name: Setear Variable de Entorno Oracle Base
-#   lineinfile:
-#    dest: "{{ path_bashprofile }}"
-#    line: "export ORACLE_BASE={{ oracle_base }}"
-#    insertbefore: "export PATH"
+#     - linuxamd64_12102_database_1of2.zip
+#     - linuxamd64_12102_database_2of2.zip
+# - pause:
+#     seconds: 3
+
+- name: Crear Directorios Punto de Montaje, Stage y Database
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: yes
+  loop:
+    - "{{ punto_montaje_nfs }}"
+    - "{{ oracle_stage }}"
+    - "{{ oracle_bin_files }}"
+    - "{{ oracle_db_files }}"
+
+- name: Instalar NFS-Utils
+  yum:
+    name: nfs-utils
+    state: present
+
+- name: Agregar Recurso NFS Fstab
+  lineinfile:
+    path: "{{ path_fstab }}"
+    line: "{{ recurso_nfs }}"
+
+- name: Montar Recurso NFS
+  command: "mount -a"
+
+- name: Cambiar Permisos Directorio
+  file:
+    path: "{{ item }}"
+    owner: "{{ usaurio_oracle }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+    recurse: yes
+  loop:
+    - "{{ oracle_bin_files }}"
+    - "{{ oracle_db_files }}"
+    - "{{ oracle_stage }}"
+
+- name: Descomprimir Oracle DataBase ZIP
+  command: "unzip {{ punto_montaje_nfs }}/{{ item }} -d {{ oracle_stage }}"
+  loop:
+    - "{{ nombre_dabatase_zip1 }}"
+    - "{{ nombre_dabatase_zip2 }}"
+
+- name: Preparar Template de Instalacion
+  template:
+    src: "{{ nombre_original_template }}"
+    dest: "{{ path_destino_template }}"
+
+- name: Ejecutar Instalador Oracle
+  shell: "{{ oracle_stage }}/database/runInstaller -silent -waitforcompletion -ignoreSysPrereqs -responseFile {{ path_destino_template }}"
+  args:
+    creates: "{{ oracle_home }}/bin/sqlplus"
+  become: yes
+  become_user: oracle
+  register: command_result
+  failed_when: "'Successfully Setup Software.' not in command_result.stdout_lines"
+
+- name: Resultado de la Instalacion
+  debug:
+    var: command_result
+
+- name: Setear Variable de Entorno Oracle Home
+  lineinfile:
+   dest: "{{ path_bashprofile }}"
+   regexp: "{{ item.regexp }}"
+   line: "{{ item.line }}"
+   insertbefore: "export PATH"
+  loop:
+    -
+      regexp: ^ORACLE_HOME=
+      line: "ORACLE_HOME={{ oracle_home }}"
+    -
+      regexp: PATH=\$ORACLE_HOME/bin
+      line: PATH=$ORACLE_HOME/bin:$PATH
+    -
+      regexp: ^export ORACLE_HOME
+      line: export ORACLE_HOME
+
+- name: Setear Variable de Entorno Oracle SID
+  lineinfile:
+   dest: "{{ path_bashprofile }}"
+   line: "export ORACLE_SID={{ oracle_sid }}"
+   insertbefore: "export PATH"
+
+- name: Setear Variable de Entorno Oracle Base
+  lineinfile:
+   dest: "{{ path_bashprofile }}"
+   line: "export ORACLE_BASE={{ oracle_base }}"
+   insertbefore: "export PATH"
 
 - name: Ejecutar Post-Installation Scripts
   become: yes
