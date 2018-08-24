@@ -100,3 +100,11 @@
    dest: "{{ path_bashprofile }}"
    line: "export ORACLE_BASE={{ oracle_base }}"
    insertbefore: "export PATH"
+
+- name: Ejecutar Post-Installation Scripts
+  become: yes
+  become_user: root
+  shell: "{{ item }}"
+  loop:
+    - "{{ oracle_inventory }}/orainstRoot.sh"
+    - "{{ oracle_home }}/root.sh"
