@@ -1,14 +1,6 @@
 - name: Get device facts
-  napalm_get_facts:
-    hostname: "{{ansible_host|default(inventory_hostname)}}"
-    username: "{{ansible_user}}"
-    password: "{{ansible_ssh_pass}}"
-    dev_os: "{{ansible_os}}"
-    optional_args:
-      port: "{{api_port|default(ansible_port)|default(22)}}"
-    filter:
-     - facts
-
+  gather_facts: True
+  debug: var=hostvars[inventory_hostname]['ansible_enp0s3']['ipv4']['address']
 # - name: Crear Directorio Summary
 #   file:
 #     path: "{{ directorio_summary }}"
