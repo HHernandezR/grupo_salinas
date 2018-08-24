@@ -11,7 +11,7 @@ recurso_nfs: "master:/usr/app_resources {{ punto_montaje_nfs }}  nfs _netdev 0 0
 usaurio_jboss: jboss
 grupo_jboss: jboss
 
-nombre_jboss7_zip: jboss-eap-7.1.0.zip
+nombre_jboss7_zip: jboss-eap-7.0.0.zip
 nombre_jboss6_zip: jboss-eap-6.4.0.zip
 
 nombre_oracle_jdk8: jdk-8u181-linux-x64.rpm
