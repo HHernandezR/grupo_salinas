@@ -4,7 +4,7 @@ path_instalacion: /opt/rh/
 nombre_fichero_jbosseap7: jboss-eap-7.0
 nombre_fichero_jbosseap6: jboss-eap-6.4
 
-punto_montaje_nfs: /var/tmp/nfs/
+punto_montaje_nfs: /var/tmp/nfs
 path_fstab: /etc/fstab
 recurso_nfs: "master:/usr/app_resources {{ punto_montaje_nfs }}  nfs _netdev 0 0"
 

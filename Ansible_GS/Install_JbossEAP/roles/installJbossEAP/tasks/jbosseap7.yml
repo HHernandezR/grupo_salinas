@@ -30,12 +30,12 @@
 
 - name: Instalar Oracle JDK 8
   yum:
-    name: "{{ punto_montaje_nfs }}{{ nombre_oracle_jdk8 }}"
+    name: "{{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
     state: present
 
 - name: Descomprimir Jboss EAP 7 ZIP
   unarchive:
-    src: "{{ punto_montaje_nfs }}{{ nombre_jboss7_zip }}"
+    src: "{{ punto_montaje_nfs }}/{{ nombre_jboss7_zip }}"
     dest: "{{ path_instalacion }}"
     copy: false
     owner: "{{ usaurio_jboss }}"
