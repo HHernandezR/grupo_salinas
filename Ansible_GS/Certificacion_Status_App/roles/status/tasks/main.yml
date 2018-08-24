@@ -19,7 +19,7 @@
 - name: Copiar Ficheros sshd_config a Certifi-servicios
   copy:
     content: "{{ sshdconfig_out.stdout }}"
-    dest: {{nombre_directorio_certificacion}}/sshd_config
+    dest: "{{nombre_directorio_certificacion}}/sshd_config"
 
 - name: Crear Fichero Certifi-servicios
   copy:
