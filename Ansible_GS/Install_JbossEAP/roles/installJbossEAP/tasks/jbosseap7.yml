@@ -1,4 +1,4 @@
-- name: Versión Jboss
+- name: Versión Jboss 7
   debug:
     msg: "Version: {{ version_jboss }}"
 
