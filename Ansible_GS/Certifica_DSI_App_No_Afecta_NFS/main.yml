@@ -1,6 +1,5 @@
 - name: "Ejecucion de Certificacion DSI APP No Afecta Servicios NFS"
   hosts: all
-  remote_user: hhernandez
   become: true
   roles:
     - certificaDSI

@@ -1,6 +1,5 @@
 - name: "Ejecutar Instalacion Oracle DataBase StandAlone 12c"
   hosts: all
-  remote_user: oracle
   become: true
   roles:
     - installOracle12c

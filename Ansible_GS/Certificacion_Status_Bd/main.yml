@@ -1,6 +1,5 @@
 - name: "Ejecucion de Certificacion STATUS BD"
   hosts: all
-  remote_user: hhernandez
   become: true
   roles:
     - status

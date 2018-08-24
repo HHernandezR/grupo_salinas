@@ -1,6 +1,5 @@
 - name: "Ejecucion de SecurityCheck BD"
   hosts: all
-  remote_user: hhernandez
   become: true
   roles:
     - serviciosOff
