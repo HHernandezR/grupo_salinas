@@ -11,5 +11,5 @@
     - usersJboss
     - configSelinux
     - prerrequisitos
-    - sshRoot
     - ipTables
+    #- sshRoot
