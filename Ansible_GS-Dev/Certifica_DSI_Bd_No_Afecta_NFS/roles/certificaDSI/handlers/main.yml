@@ -1,6 +1,0 @@
-- name: Iniciar-sshd
-  service:
-    name: sshd
-    enabled: true
-    state: restarted
-  ignore_errors: yes

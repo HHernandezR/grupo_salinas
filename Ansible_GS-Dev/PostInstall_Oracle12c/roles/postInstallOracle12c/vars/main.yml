@@ -1,3 +1,0 @@
-oracle_inventory: "/home/oracle/oracle_inventory"
-oracle_base: "/home/oracle/product"
-oracle_home: "{{ oracle_base }}/oracle_home"

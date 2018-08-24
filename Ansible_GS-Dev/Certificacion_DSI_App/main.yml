@@ -1,6 +1,0 @@
-- name: "Ejecucion de Certificacion DSI APP"
-  hosts: all
-  remote_user: hhernandez
-  become: true
-  roles:
-    - certificaDSI

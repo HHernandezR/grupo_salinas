@@ -1,0 +1,41 @@
+# - name: Crear Directorios Punto de Montaje, Stage y Database
+#   file:
+#     path: "{{ item }}"
+#     state: directory
+#     force: yes
+#   loop:
+#     - "{{ punto_montaje_nfs }}"
+#     - "{{ oracle_stage }}"
+#     - "{{ oracle_bin_files }}"
+#     - "{{ oracle_db_files }}"
+#
+# - name: Instalar NFS-Utils
+#   yum:
+#     name: nfs-utils
+#     state: present
+#
+# - name: Agregar Recurso NFS Fstab
+#   lineinfile:
+#     path: "{{ path_fstab }}"
+#     line: "{{ recurso_nfs }}"
+#
+# - name: Montar Recurso NFS
+#   command: "mount -a"
+#
+# - name: Cambiar Permisos Directorio
+#   file:
+#     path: "{{ item }}"
+#     owner: "{{ usaurio_oracle }}"
+#     group: "{{ grupo_oracle }}"
+#     mode: "{{ permisos_oracle }}"
+#     recurse: yes
+#   loop:
+#     - "{{ oracle_bin_files }}"
+#     - "{{ oracle_db_files }}"
+#     - "{{ oracle_stage }}"
+#
+# - name: Descomprimir Oracle DataBase ZIP
+#   command: "unzip {{ punto_montaje_nfs }}/{{ item }} -d {{ oracle_stage }}"
+#   loop:
+#     - "{{ nombre_dabatase_zip1 }}"
+#     - "{{ nombre_dabatase_zip2 }}"

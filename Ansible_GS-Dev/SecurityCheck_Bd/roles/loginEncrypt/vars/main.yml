@@ -1,2 +1,0 @@
-path_loginencrypt: /etc/login.defs
-method_encrypt_login: SHA512

@@ -1,2 +1,0 @@
-path_selinux: /etc/selinux/config
-state_selinux: disabled

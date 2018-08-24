@@ -1,4 +1,0 @@
-path_iptables: /etc/sysconfig/
-grupo_iptables: root
-usuario_iptables: root
-permisos_iptables: 0600
