@@ -51,7 +51,7 @@
     seconds: 2
 
 - name: Ejecutar Oracleasm Config
-  command: expect /var/tmp/oracleasm_config.exp
+  command: "expect {{ path_destino_rpm }}{{ nombre_oracleasm_exp }}"
 
 - name: Cambiar Parametros de Kernel
   sysctl:
@@ -85,7 +85,7 @@
 
 - name: Agregar Configuracion a Pam
   lineinfile:
-    path: /etc/pam.d/login
+    path: "{{ path_pamd }}"
     line: "{{ item }}"
   loop: "{{ config_pamd }}"
 
