@@ -14,13 +14,13 @@
   yum:
     name: iptables-services
     state: latest
-    
+
 - name: Copiar Archivo Configuracion IpTables
   copy:
     src: iptables
-    dest: /etc/sysconfig/
-    owner: root
-    group: root
-    mode: 0600
+    dest: "{{ path_iptables }}"
+    owner: "{{ usuario_iptables }}"
+    group: "{{ grupo_iptables }}"
+    mode: "{{ permisos_iptables }}"
     force: yes
   notify: Iniciar-Iptables

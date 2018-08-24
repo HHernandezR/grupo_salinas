@@ -1,3 +1,5 @@
+path_limits: /etc/security/limits.conf
+
 usuario_jboss: jboss
 usuario_root: root
 

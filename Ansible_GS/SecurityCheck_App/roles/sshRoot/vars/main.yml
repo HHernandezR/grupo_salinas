@@ -1,1 +1,2 @@
+path_ssh: /etc/ssh/sshd_config
 permit_root_login: no

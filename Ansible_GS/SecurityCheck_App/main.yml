@@ -2,21 +2,14 @@
   hosts: all
   remote_user: hhernandez
   become: true
-  tasks:
-   - name: Gather ip info
-     setup:
-       filter: facter_*
-      run_once: true
-  vars_files:
-    - /vars/external_vars.yml
   roles:
-    #- serviciosOff
-    #- loginEncrypt
-    #- configNtp
-    #- usersUnix
-    #- usersMonitor
-    #- usersJboss
-    #- configSelinux
-    #- prerrequisitos
-    #- sshRoot
-    #- ipTables
+    - serviciosOff
+    - loginEncrypt
+    - configNtp
+    - usersUnix
+    - usersMonitor
+    - usersJboss
+    - configSelinux
+    - prerrequisitos
+    - sshRoot
+    - ipTables
