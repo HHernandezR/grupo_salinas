@@ -4,6 +4,7 @@ recurso_nfs: "master:/usr/databases_resources {{ punto_montaje_nfs }}  nfs _netd
 
 usaurio_oracle: oracle
 grupo_oracle: oinstall
+permisos_oracle: 0775
 
 nombre_dabatase_zip1: linuxamd64_12102_database_1of2.zip
 nombre_dabatase_zip2: linuxamd64_12102_database_2of2.zip
