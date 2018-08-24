@@ -11,7 +11,7 @@
 
 - name: Imprimir Linea Inicial
   lineinfile:
-    path: {{ path_sumamry }}
+    path: "{{ path_sumamry }}"
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Resumen de Ejecucion  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
   # debug:
