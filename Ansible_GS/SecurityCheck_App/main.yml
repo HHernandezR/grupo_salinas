@@ -2,8 +2,11 @@
   hosts: all
   remote_user: hhernandez
   become: true
-  setup:
-    filter: facter_*
+  tasks:
+   - name: Gather ip info
+     setup:
+       filter: facter_*
+      run_once: true
   vars_files:
     - /vars/external_vars.yml
   roles:
