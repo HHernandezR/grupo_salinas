@@ -1,3 +1,9 @@
+- name: Detener IpTables
+  service:
+    name: iptables
+    state: stopped
+  ignore_errors: yes
+
 - name: Actualizar Sistema
   yum:
     name: '*'
@@ -52,11 +58,6 @@
 
 - name: Ejecutar Oracleasm Config
   command: expect /var/tmp/oracleasm_config.exp
-- name: Detener IpTables
-  service:
-    name: iptables
-    state: stopped
-  ignore_errors: yes
 
 - name: Cambiar Parametros de Kernel
   sysctl:
@@ -67,6 +68,22 @@
 
 - name: Ejecutar Sysctl -p
   command: /sbin/sysctl -p
+
+- name: Agregar Configuracion a Pam
+  lineinfile:
+    path: " {{ path_pamd }} "
+    line: "{{ item }}"
+  loop: "{{ config_pamd }}"
+
+- name: Agregar Configuracion a Profile
+  blockinfile:
+    path: " {{ path_profile }} "
+    block: "{{ config_profile }}"
+
+- name: Agregar Configuracion a csh.login
+  blockinfile:
+    path: " {{ path_cshlogin }} "
+    block: "{{ config_cshlogin }}"
 
 - name: Agregar Limits Usuario Oracle
   lineinfile:
@@ -87,22 +104,6 @@
     - { limit: 'hard', type: nproc, value: '{{ grid_limits_hard_nproc }}' }
     - { limit: 'soft', type: nofile, value: '{{ grid_limits_soft_nofile }}' }
     - { limit: 'hard', type: nofile, value: '{{ grid_limits_hard_nofile }}' }
-
-- name: Agregar Configuracion a Pam
-  lineinfile:
-    path: " {{ path_pamd }} "
-    line: "{{ item }}"
-  loop: "{{ config_pamd }}"
-
-- name: Agregar Configuracion a Profile
-  blockinfile:
-    path: " {{ path_profile }} "
-    block: "{{ config_profile }}"
-
-- name: Agregar Configuracion a csh.login
-  blockinfile:
-    path: " {{ path_cshlogin }} "
-    block: "{{ config_cshlogin }}"
 
 - name: Iniciar Configuracion Rlogin
   service:
