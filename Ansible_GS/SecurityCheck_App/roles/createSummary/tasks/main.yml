@@ -1,0 +1,5 @@
+- name: Crear Archivo Summary
+  debug: msg="{{ lookup('pipe','date +%Y-%m-%d-%H-%M-%S') }}
+  # file: path={{results}} state=directory
+  #   run_once: true
+  # - file: path={{results}}/uptime.log state=touch
