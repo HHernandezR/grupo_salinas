@@ -115,25 +115,6 @@
     line: "{{ item.name }} -- {{ item.version }} -- {{ item.release }} -- {{ item.repo }}"
   loop: "{{ yumupdate_out.results }}"
 
-# - name: Agregar Cabecero Parches de Seguridad
-#   lineinfile:
-#     path: "{{ path_salida }}"
-#     line: "======================= yum check-update --security ============="
-# - name: Verificar Actualzaciones Security
-#   yum:
-#     list: updates
-#     state: latest
-#     security: yes
-#   register: yumupdatesec_out
-# - name: ---- Data ----
-#   debug:
-#     msg: "Actualizaciones: {{ yumupdatesec_out.results }}"
-# - name: Imprimir Actualizaciones
-#   lineinfile:
-#     path: "{{ path_salida }}"
-#     line: "{{ item.name }} -- {{ item.version }} -- {{ item.release }} -- {{ item.repo }}"
-#   loop: "{{ yumupdatesec_out.results }}"
-
 - name: Cambiar Permisos a Fichero Security
   file:
     path: /etc/security
