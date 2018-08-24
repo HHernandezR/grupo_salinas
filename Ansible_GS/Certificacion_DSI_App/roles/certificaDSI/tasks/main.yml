@@ -167,10 +167,10 @@
   blockinfile:
     path: /etc/hosts
     block: "{{ lista_hosts }}"
-    
-# - name: Reiniciar-sshd
-#   service:
-#     name: sshd
-#     enabled: true
-#     state: restarted
-#   ignore_errors: yes
+
+- name: Reiniciar-sshd
+  service:
+    name: sshd
+    enabled: true
+    state: restarted
+  ignore_errors: yes
