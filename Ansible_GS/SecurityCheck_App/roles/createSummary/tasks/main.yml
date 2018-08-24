@@ -1,5 +1,6 @@
 - name: Get device facts
-  debug: var=hostvars[inventory_hostname]['ipv4']['address']
+  debug:
+    msg: "{{hostvars[inventory_hostname]|to_nice_yaml(indent=4)}}"
   verbosity: 1
 # - name: Crear Directorio Summary
 #   file:
