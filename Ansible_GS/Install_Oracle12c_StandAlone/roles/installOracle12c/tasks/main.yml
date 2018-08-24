@@ -29,7 +29,7 @@
 - name: Agregar Recurso NFS Fstab
   lineinfile:
     path: "{{ path_fstab }}"
-    line: {{ recurso_nfs }}"
+    line: "{{ recurso_nfs }}"
 
 - name: Montar Recurso NFS
   command: "mount -a"

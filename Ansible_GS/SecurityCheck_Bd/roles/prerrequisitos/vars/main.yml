@@ -1,6 +1,15 @@
-usaurio_recursos: root
-grupo_recursos: root
-permisos_recursos: 0777
+path_destino_rpm: /var/tmp/
+nombre_oracleasm_lib: oracleasmlib-2.0.4-1.el6.x86_64.rpm
+nombre_oracleasm_support: oracleasm-support-2.1.8-1.el6.x86_64.rpm
+nombre_oracleasm_exp: oracleasm_config.exp
+
+usuario_asm_rpm: root
+grupo_asm_rpm: root
+permisos_asm_rpm: 0777
+
+usaurio_asmexp: root
+grupo_asmexp: root
+permisos_asmexp: 0777
 
 path_limits: /etc/security/limits.conf
 path_pamd: /etc/pam.d/login
