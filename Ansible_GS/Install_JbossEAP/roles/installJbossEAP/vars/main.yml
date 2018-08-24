@@ -1,29 +1,26 @@
 version_jboss: 7
+path_instalacion: /opt/rh/
 
-punto_montaje_nfs: /var/tmp/nfs
+nombre_fichero_jbosseap7: jboss-eap-7.0
+nombre_fichero_jbosseap6: jboss-eap-6.4
+
+punto_montaje_nfs: /var/tmp/nfs/
 path_fstab: /etc/fstab
 recurso_nfs: "master:/usr/databases_resources {{ punto_montaje_nfs }}  nfs _netdev 0 0"
 
 usaurio_jboss: jboss
 grupo_jboss: jboss
 
-nombre_instalador_jboss: jboss-eap-7.1.0.zip
-nombre_parche_jboss: jboss-eap-7.1.2-patch.zip
+nombre_jboss7_zip: jboss-eap-7.1.0.zip
+nombre_jboss6_zip: jboss-eap-6.4.0.zip
 
-jboss_home: /usr/share/jboss-eap-7.0
+nombre_oracle_jdk8: jdk-8u181-linux-x64.rpm
+
+jboss7_home: "{{ path_instalacion }}{{ nombre_fichero_jbosseap7 }}"
+jboss6_home: "{{ path_instalacion }}{{ nombre_fichero_jbosseap6 }}"
 jboss_home_permisos: 0755
 
 java_home: "/usr/java/jdk1.8.0_181-amd64"
 
 path_bashprofile: "/home/jboss/.bash_profile"
 jboss_installer_directory: "/usr/share/"
-
-destino_zip: /var/tmp/
-
-permisos_zip: 0777
-usuario_zip: root
-grupo_zip: root
-
-permisos_rpm: 0777
-usuario_rpm: root
-grupo_rpm: root

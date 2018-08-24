@@ -1,32 +1,5 @@
-# - name: Copiar Oracle JDK 8
-#   copy:
-#     src: jdk-8u181-linux-x64.rpm
-#     dest: /var/tmp/
-#     owner: "{{ usuario_zip }}"
-#     group: "{{ grupo_zip }}"
-#     mode: "{{ permisos_zip }}"
-#     force: yes
-
-- name: Ejecutar Instalacion de JBossEAP 6
+- name: Ejecutar Instalacion de JBossEAP
   include: jbosseap{{ version_jboss }}.yml
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # - name: Copiar Jboss EAP 7
 #   copy:
