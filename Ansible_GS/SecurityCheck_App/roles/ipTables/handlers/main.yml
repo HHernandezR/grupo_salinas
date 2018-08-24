@@ -2,4 +2,4 @@
   service:
     name: iptables
     enabled: true
-    state: started
+    state: restarted
