@@ -63,16 +63,6 @@
 - name: Ejecutar Sysctl -p
   command: /sbin/sysctl -p
 
-- name: Agregar Configuracion a Profile
-  blockinfile:
-    path: " {{ path_profile }} "
-    block: "{{ config_profile }}"
-
-- name: Agregar Configuracion a csh.login
-  blockinfile:
-    path: " {{ path_cshlogin }} "
-    block: "{{ config_cshlogin }}"
-
 - name: Agregar Limits Usuario Oracle
   lineinfile:
     dest: "{{ path_limits }}"
@@ -93,11 +83,21 @@
     - { limit: 'soft', type: nofile, value: '{{ grid_limits_soft_nofile }}' }
     - { limit: 'hard', type: nofile, value: '{{ grid_limits_hard_nofile }}' }
 
-- name: Detener IpTables
-  service:
-    name: iptables
-    state: stopped
-  ignore_errors: yes
+- name: Agregar Configuracion a Pam
+  lineinfile:
+    path: /etc/pam.d/login
+    line: "{{ item }}"
+  loop: "{{ config_pamd }}"
+
+- name: Agregar Configuracion a Profile
+  blockinfile:
+    path: "{{ path_profile }}"
+    block: "{{ config_profile }}"
+
+- name: Agregar Configuracion a csh.login
+  blockinfile:
+    path: "{{ path_cshlogin }}"
+    block: "{{ config_cshlogin }}"
 
 - name: Iniciar Configuracion Rlogin
   service:
@@ -105,4 +105,10 @@
     enabled: yes
     state: restarted
   loop: "{{ servicios_rlogin }}"
+  ignore_errors: yes
+
+- name: Detener IpTables
+  service:
+    name: iptables
+    state: stopped
   ignore_errors: yes
