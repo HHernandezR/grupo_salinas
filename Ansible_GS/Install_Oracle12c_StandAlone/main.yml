@@ -1,6 +1,6 @@
 - name: "Ejecutar Instalacion Oracle 12c"
   hosts: all
-  remote_user: hhernandez
+  remote_user: oracle
   become: true
   roles:
     - installOracle12c

@@ -10,7 +10,7 @@
 - name: Copiar Jboss EAP 7
   copy:
     src: "{{ item }}"
-    dest: /var/tmp/
+    dest: "{{ destino_zip }}"
     owner: "{{ usuario_zip }}"
     group: "{{ grupo_zip }}"
     mode: "{{ permisos_zip }}"

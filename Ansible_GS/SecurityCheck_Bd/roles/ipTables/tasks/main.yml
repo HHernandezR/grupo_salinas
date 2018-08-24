@@ -23,7 +23,6 @@
     group: "{{ grupo_iptables }}"
     mode: "{{ permisos_iptables }}"
     force: yes
-  # notify: Iniciar-Iptables
 
 - name: Iniciar-Iptables
   service:

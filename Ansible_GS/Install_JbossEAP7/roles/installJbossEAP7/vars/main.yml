@@ -1,6 +1,9 @@
 usaurio_jboss: jboss
 grupo_jboss: jboss
 
+nombre_instalador_jboss: jboss-eap-7.1.0.zip
+nombre_parche_jboss: jboss-eap-7.1.2-patch.zip
+
 jboss_home: /usr/share/jboss-eap-7.0
 jboss_home_permisos: 0755
 
@@ -8,6 +11,8 @@ java_home: "/usr/java/jdk1.8.0_181-amd64"
 
 path_bashprofile: "/home/jboss/.bash_profile"
 jboss_installer_directory: "/usr/share/"
+
+destino_zip: /var/tmp/
 
 permisos_zip: 0777
 usuario_zip: root

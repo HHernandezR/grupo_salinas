@@ -1,5 +1,15 @@
+punto_montaje_nfs: : /var/tmp/nfs
+path_fstab: /etc/fstab
+recurso_nfs: "master:/usr/databases_resources {{ punto_montaje_nfs }}  nfs _netdev 0 0"
+
 usaurio_oracle: oracle
 grupo_oracle: oinstall
+
+nombre_dabatase_zip1: linuxamd64_12102_database_1of2.zip
+nombre_dabatase_zip2: linuxamd64_12102_database_2of2.zip
+
+nombre_template: db-install-12c.rsp.j2
+path_destino_template: /var/tmp/db-install.rsp
 
 permisos_zip: 0777
 usuario_zip: root
@@ -10,7 +20,7 @@ oracle_db_files: /u02
 oracle_inventory: /u01/app/oraInventory
 oracle_base: /u01/app/oracle
 oracle_home: "{{ oracle_base }}/product/12.1.0/dbhome_1"
-oracle_stage: "/stage"
+oracle_stage: /stage
 
 oracle_directorios:
   - "{{ oracle_bin_files }}"
@@ -18,7 +28,6 @@ oracle_directorios:
   - "{{ oracle_inventory }}"
   - "{{ oracle_base }}"
   - "{{ oracle_base }}/product/12.1.0/dbhome_1"
-  - "{{ oracle_stage }}"
 
 oracle_modo_instalacion: INSTALL_DB_SWONLY
 oracle_version: 12c
@@ -35,3 +44,5 @@ oracle_tipo_storage: FILE_SYSTEM_STORAGE
 
 oracle_installer_directory: /var/tmp/stage
 permisos_installer_directory: 0777
+
+path_bashprofile: /home/oracle/.bash_profile
