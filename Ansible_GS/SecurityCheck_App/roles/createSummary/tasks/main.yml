@@ -1,6 +1,6 @@
 - name: Data
   setup:
-       filter: ansible_*
+       filter: ansible_facts
 
 # - file: path="{{results}}/uptime.log" state=touch
 #   run_once: true
