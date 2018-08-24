@@ -1,29 +1,29 @@
 - name: Cambiar Umask a login.defs
   replace:
-    path: /etc/login.defs
+    path: "{{ path_logindefs }}"
     regexp: '.*UMASK.*'
     replace: 'UMASK           {{ umask }}'
 
 - name: Cambiar Permisos a login.defs
   file:
-    path: /etc/login.defs
+    path: "{{ path_logindefs }}"
     owner: "{{ usuario_logindefs }}"
     group: "{{ grupo_logindefs }}"
     mode: "{{ permisos_logindefs }}"
 
 - name: Cambiar Permisos a wtmp
   file:
-    path: /var/log/wtmp
+    path: "{{ path_wtmp }}"
     mode: "{{ permisos_wtmp }}"
 
 - name: Cambiar Permisos a hosts.allow
   file:
-    path: /etc/hosts.allow
+    path: "{{ path_hostsallow }}"
     mode: "{{ permisos_hostsallow }}"
 
 - name: Cambiar Permisos a xinetd.d
   file:
-    path: /etc/xinetd.d/
+    path: "{{ path_xinetd }}"
     mode: "{{ permisos_xinetd }}"
     recurse: yes
 
@@ -35,34 +35,28 @@
   ignore_errors: yes
   loop: "{{ lista_servicios }}"
 
-- name: Editar Fichero sshd_config PermitRootLogin
-  replace:
-    path: /etc/ssh/sshd_config
-    regexp: '.*PermitRootLogin.*'
-    replace: "{{ permit_root_login }}"
-
 - name: Editar Fichero sshd_config SyslogFacility AUTH
   replace:
-    path: /etc/ssh/sshd_config
+    path: "{{ path_sshd }}"
     regexp: '.*SyslogFacility AUTH$'
     replace: '{{ syslog_auth }}'
 
 - name: Editar Fichero sshd_config SyslogFacility AUTHPRIV
   replace:
-    path: /etc/ssh/sshd_config
+    path: "{{ path_sshd }}"
     regexp: '.*SyslogFacility AUTHPRIV$'
     # regexp: '.*SyslogFacility [AUTHPRIV]{8}'
     replace: '{{ syslog_authpriv }}'
 
 - name: Editar Fichero sshd_config LogLevel INFO
   replace:
-    path: /etc/ssh/sshd_config
+    path: "{{ path_sshd }}"
     regexp: '.*LogLevel.*'
     replace: '{{ log_level }}'
 
 - name: Editar Fichero sshd_config PubkeyAuthentication
   replace:
-    path: /etc/ssh/sshd_config
+    path: "{{ path_sshd }}"
     regexp: '.*PubkeyAuthentication.*'
     replace: '{{ public_key }}'
 
@@ -94,7 +88,7 @@
 
 - name: Agregar Parametros SFTP a sshd_config
   lineinfile:
-    path: /etc/ssh/sshd_config
+    path: "{{ path_sshd }}"
     line: "{{ item }}"
   loop: "{{ parametros_sftp }}"
 
@@ -149,28 +143,34 @@
 
 - name: Borrar Banner
   lineinfile:
-    path: /etc/motd
+    path: "{{ path_baner }}"
     line: '{{ texto_baner }}'
 
 - name: Agregar local5 a Fichero rsyslog.conf
   lineinfile:
-    path: /etc/rsyslog.conf
+    path: "{{ path_rsyslog }}"
     line: "{{ item }}"
   loop: "{{ lista_local5 }}"
 
 - name: Agregar Usuarios Permitidos
   blockinfile:
-    path: /etc/ssh/sshd_config
+    path: "{{ path_sshd }}"
     block: "{{ usuarios_permitidos }}"
 
 - name: Agregar Hosts
   blockinfile:
-    path: /etc/hosts
+    path: "{{ path_hosts }}"
     block: "{{ lista_hosts }}"
-    
-# - name: Reiniciar-sshd
-#   service:
-#     name: sshd
-#     enabled: true
-#     state: restarted
-#   ignore_errors: yes
+
+- name: Reiniciar-sshd
+  service:
+    name: sshd
+    enabled: true
+    state: restarted
+  ignore_errors: yes
+
+# - name: Editar Fichero sshd_config PermitRootLogin
+#   replace:
+#     path: "{{ path_sshd }}"
+#     regexp: '.*PermitRootLogin.*'
+#     replace: "{{ permit_root_login }}"

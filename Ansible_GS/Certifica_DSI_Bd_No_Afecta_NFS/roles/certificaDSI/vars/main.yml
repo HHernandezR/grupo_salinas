@@ -1,3 +1,5 @@
+path_logindefs: /etc/login.defs
+
 nombre_directorio_salida: "/"
 nombre_archivo_salida: "salida_parches_seguridad.txt"
 path_salida: "{{ nombre_directorio_salida }}{{ nombre_archivo_salida }}"
@@ -8,9 +10,15 @@ permisos_logindefs: 0600
 usuario_logindefs: "root"
 grupo_logindefs: "root"
 
+path_wtmp: /var/log/wtmp
 permisos_wtmp: 0644
+
+path_hostsallow: /etc/hosts.allow
 permisos_hostsallow: 0750
+
+path_xinetd: /etc/xinetd.d/
 permisos_xinetd: 0600
+
 permisos_services: 0600
 usuario_services: "root"
 grupo_services: "root"
@@ -18,9 +26,12 @@ permisos_security: 0600
 usuario_security: "root"
 grupo_security: "root"
 
+path_baner: /etc/motd
 texto_baner: "Fal"
 
+path_sshd: /etc/ssh/sshd_config
 permit_root_login: "PermitRootLogin no"
+
 syslog_auth: "SyslogFacility AUTH"
 syslog_authpriv: "#SyslogFacility AUTHPRIV"
 log_level: "LogLevel INFO"
@@ -47,6 +58,8 @@ parametros_sftp:
   - /sftp-server/d
   - 133i Subsystem  sftp  /usr/libexec/openssh/sftp-server -f LOCAL5 -l INFO
 
+path_rsyslog: /etc/rsyslog.conf
+
 lista_local5:
   - /sftpd.log/d
   - 61i local5.*  /var/log/sftpd.log
@@ -54,6 +67,7 @@ lista_local5:
 usuarios_permitidos: |
   AllowUsers b755236@term-ux?? b708700@term-ux?? b780919@term-ux?? b923430@term-ux?? b925442@term-ux?? b936196@term-ux?? b937777@term-ux?? b253861@term-ux?? b766998@term-ux?? b280667@term-ux?? b666268@term-ux?? b180683@term-ux?? b199550@term-ux?? b209097@term-ux?? b291457@term-ux?? b296510@term-ux?? b312527@term-ux?? b318015@term-ux?? b329465@term-ux?? b320831@term-ux?? b330578@term-ux?? b333289@term-ux?? b178308@term-ux?? b315458@term-ux?? b318100@term-ux?? b323426@term-ux?? b333289@term-ux?? b346337@term-ux?? b347415@term-ux?? b347550@term-ux?? b201521@term-ux?? b351377@term-ux?? scom@term-scom?? usrmon@term-usrmon?? oracle@term-oracle?? grid@term-oracle?? grid@term-grid?? oracle@term-grid?? nagios@term-nagios?? nagios@term-oracle??
 
+path_hosts: /etc/hosts
 lista_hosts: |
   #UNIX
   10.50.166.52    term-ux01
