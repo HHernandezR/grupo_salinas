@@ -2,8 +2,11 @@
   hosts: all
   remote_user: hhernandez
   become: true
+  setup:
+    filter: facter_*
+  vars_files:
+    - /vars/external_vars.yml
   roles:
-    - createSummary
     #- serviciosOff
     #- loginEncrypt
     #- configNtp
