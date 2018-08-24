@@ -29,9 +29,8 @@ nombre_template: jboss7standalone.xml.j2
 
 path_fichero_standalone: "{{ jboss7_home }}/standalone/configuration/standalone.xml"
 
-path_mgmt: "{{ jboss7_home }}/standalone/configuration/"
-path_mgmt_userp: "{{ path_mgmt }}mgmt-users.properties"
-path_mgmt_groupp: "{{ path_mgmt }}mgmt-groups.properties"
+path_mgmt_userp: "{{ jboss7_home }}/standalone/configuration/mgmt-users.properties"
+path_mgmt_groupp: "{{ jboss7_home }}/standalone/configuration/mgmt-groups.properties"
 
 mgmt_user_properties_value:
   - jbossqa=2292a82e62755f722e0110bc265ed1aa
