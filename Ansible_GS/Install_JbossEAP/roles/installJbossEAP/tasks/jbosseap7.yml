@@ -59,44 +59,44 @@
     src: "{{ nombre_template }}"
     dest: "{{ path_fichero_standalone }}"
 
-# - name: Descomprimir JBoss EAP 7
-#   command: "unzip {{ punto_montaje_nfs }}/{{ item }} -d {{ path_instalacion }}"
-#   loop:
-#     - "{{ nombre_jboss7_zip }}"
+- name: Descomprimir JBoss EAP 7
+  command: "unzip {{ punto_montaje_nfs }}/{{ item }} -d {{ path_instalacion }}"
+  loop:
+    - "{{ nombre_jboss7_zip }}"
 
-# - name: Setear Variable de Entorno Java Home
-#   lineinfile:
-#     dest: "{{ path_bashprofile }}"
-#     regexp: "{{ item.regexp }}"
-#     line: "{{ item.line }}"
-#     insertbefore: "export PATH"
-#   loop:
-#     -
-#       regexp: ^JAVA_HOME=
-#       line: "JAVA_HOME={{ java_home }}"
-#     -
-#       regexp: PATH=\$JAVA_HOME/bin
-#       line: PATH=$JAVA_HOME/bin:$PATH
-#     -
-#       regexp: ^export JAVA_HOME
-#       line: export JAVA_HOME
-#
-# - name: Setear Variable de Entorno Jboss Home
-#   lineinfile:
-#     dest: "{{ path_bashprofile }}"
-#     regexp: "{{ item.regexp }}"
-#     line: "{{ item.line }}"
-#     insertbefore: "export PATH"
-#   loop:
-#     -
-#       regexp: ^JBOSS_HOME=
-#       line: "JBOSS_HOME={{ jboss7_home }}"
-#     -
-#       regexp: PATH=\$JBOSS_HOME
-#       line: PATH=$JBOSS_HOME:$PATH
-#     -
-#       regexp: ^export JBOSS_HOME
-#       line: export JBOSS_HOME
-#
-# - name: Recargar Variables de Entorno
-#   shell: "source {{ path_bashprofile }}"
+- name: Setear Variable de Entorno Java Home
+  lineinfile:
+    dest: "{{ path_bashprofile }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    insertbefore: "export PATH"
+  loop:
+    -
+      regexp: ^JAVA_HOME=
+      line: "JAVA_HOME={{ java_home }}"
+    -
+      regexp: PATH=\$JAVA_HOME/bin
+      line: PATH=$JAVA_HOME/bin:$PATH
+    -
+      regexp: ^export JAVA_HOME
+      line: export JAVA_HOME
+
+- name: Setear Variable de Entorno Jboss Home
+  lineinfile:
+    dest: "{{ path_bashprofile }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    insertbefore: "export PATH"
+  loop:
+    -
+      regexp: ^JBOSS_HOME=
+      line: "JBOSS_HOME={{ jboss7_home }}"
+    -
+      regexp: PATH=\$JBOSS_HOME
+      line: PATH=$JBOSS_HOME:$PATH
+    -
+      regexp: ^export JBOSS_HOME
+      line: export JBOSS_HOME
+
+- name: Recargar Variables de Entorno
+  shell: "source {{ path_bashprofile }}"
