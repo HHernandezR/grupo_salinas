@@ -44,13 +44,13 @@
 
 - name: Agregar Valor a mgmt-users.properties
   lineinfile:
-    path: "{{ path_mgmt_userp }}"
+    path: "{{ path_mgmt }}{{ path_mgmt_userp }}"
     line: "{{ item }}"
   loop: "{{ mgmt_user_properties_value }}"
 
 - name: Agregar Valor a mgmt-groups.properties
   lineinfile:
-    path: "{{ path_mgmt_groupp }}"
+    path: "{{ path_mgmt }}{{ path_mgmt_groupp }}"
     line: "{{ item }}"
   loop: "{{ mgmt_groups_properties_value }}"
 
