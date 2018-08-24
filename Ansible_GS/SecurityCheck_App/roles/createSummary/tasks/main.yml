@@ -1,7 +1,22 @@
-- name: Get device facts
-  debug:
-    msg: "{{hostvars[inventory_hostname]|to_nice_yaml(indent=4)}}"
-  verbosity: 1
+- name: Data
+  file: path={{results}} state=directory
+  run_once: true
+  ios_facts:
+  register: result
+  copy: content="{{result.ansible_facts|to_nice_yaml(indent=4)}}" dest={{results}}/{{inventory_hostname}}.yml
+
+# - file: path="{{results}}/uptime.log" state=touch
+#   run_once: true
+# - lineinfile:
+#     dest:   "{{results}}/uptime.log"
+#     regexp: "{{inventory_hostname}}"
+#     line:   "{{'%-20s %8s'|format(inventory_hostname,ansible_sysuptime)}}"
+
+
+# - name: Get device facts
+#   debug:
+#     msg: "{{hostvars[inventory_hostname]|to_nice_yaml(indent=4)}}"
+#   verbosity: 1
 # - name: Crear Directorio Summary
 #   file:
 #     path: "{{ directorio_summary }}"
