@@ -10,6 +10,6 @@
     - usersMonitor
     - usersOracle
     - configSelinux
-    - prerrequisitos
     - ipTables
+    - prerrequisitos
     #- sshRoot
