@@ -1,6 +1,18 @@
-- name: ---- Data ----
-  debug:
-    msg: "{{ lookup('pipe','date + %Y %m %d-%H %M %S') }}"
-  # file: path={{results}} state=directory
-  #   run_once: true
-  # - file: path={{results}}/uptime.log state=touch
+- name: Crear Directorio Summary
+  file:
+    path: "{{ directorio_summary }}"
+    state: directory
+    force: yes
+
+- name: Crear Archivo Summary
+  file:
+    path: "{{ nombre_sumary }}_{{ lookup('pipe','date + %Y-%m-%d-%H-%M-%S') }}{{ extension_summary }}"
+    state: touch
+
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: {{ path_certificacion }}
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Resumen de Ejecucion  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+
+  # debug:
+  #   msg: "{{ lookup('pipe','date + %Y-%m-%d-%H-%M-%S') }}"
