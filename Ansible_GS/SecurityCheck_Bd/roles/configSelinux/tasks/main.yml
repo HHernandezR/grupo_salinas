@@ -1,4 +1,4 @@
 - name: Deshabilitar SeLinux
   selinux:
-    conf: /etc/selinux/config
-    state: "{{state_selinux}}"
+    conf: "{{ path_selinux }}"
+    state: "{{ state_selinux }}"

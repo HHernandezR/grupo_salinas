@@ -1,3 +1,12 @@
+usaurio_recursos: root
+grupo_recursos: root
+permisos_recursos: 0777
+
+path_limits: /etc/security/limits.conf
+path_pamd: /etc/pam.d/login
+path_profile: /etc/profile
+path_cshlogin: /etc/csh.login
+
 usaurio_oracle: oracle
 grupo_oracle: oinstall
 usuario_grid: grid

@@ -13,9 +13,9 @@
   copy:
     src: oracleasmlib-2.0.4-1.el6.x86_64.rpm
     dest: /var/tmp/
-    owner: root
-    group: root
-    mode: 0777
+    owner: "{{ usaurio_recursos }}"
+    group: "{{ grupo_recursos }}"
+    mode: "{{ permisos_recursos }}"
     force: yes
 - pause:
     seconds: 2
@@ -24,9 +24,9 @@
   copy:
     src: oracleasm-support-2.1.8-1.el6.x86_64.rpm
     dest: /var/tmp/
-    owner: root
-    group: root
-    mode: 0777
+    owner: "{{ usaurio_recursos }}"
+    group: "{{ grupo_recursos }}"
+    mode: "{{ permisos_recursos }}"
     force: yes
 - pause:
     seconds: 2
@@ -43,9 +43,9 @@
   copy:
     src: oracleasm_config.exp
     dest: /var/tmp/
-    owner: root
-    group: root
-    mode: 0777
+    owner: "{{ usaurio_recursos }}"
+    group: "{{ grupo_recursos }}"
+    mode: "{{ permisos_recursos }}"
     force: yes
 - pause:
     seconds: 2
@@ -70,7 +70,7 @@
 
 - name: Agregar Limits Usuario Oracle
   lineinfile:
-    dest: /etc/security/limits.conf
+    dest: "{{ path_limits }}"
     line: "{{ usaurio_oracle }} {{ item.limit }} {{ item.type}} {{ item.value }}"
   with_items:
     - { limit: 'soft', type: nproc, value: '{{ oracle_limits_soft_nproc }}' }
@@ -80,7 +80,7 @@
 
 - name: Agregar Limits Usuario Grid
   lineinfile:
-    dest: /etc/security/limits.conf
+    dest: "{{ path_limits }}"
     line: "{{ usuario_grid }} {{ item.limit }} {{ item.type}} {{ item.value }}"
   with_items:
     - { limit: 'soft', type: nproc, value: '{{ grid_limits_soft_nproc }}' }
@@ -90,18 +90,18 @@
 
 - name: Agregar Configuracion a Pam
   lineinfile:
-    path: /etc/pam.d/login
+    path: " {{ path_pamd }} "
     line: "{{ item }}"
   loop: "{{ config_pamd }}"
 
 - name: Agregar Configuracion a Profile
   blockinfile:
-    path: /etc/profile
+    path: " {{ path_profile }} "
     block: "{{ config_profile }}"
 
 - name: Agregar Configuracion a csh.login
   blockinfile:
-    path: /etc/csh.login
+    path: " {{ path_cshlogin }} "
     block: "{{ config_cshlogin }}"
 
 - name: Iniciar Configuracion Rlogin

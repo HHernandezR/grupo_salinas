@@ -5,12 +5,12 @@
 
 - name: Eliminar configuracion por defecto de hora y fecha
   lineinfile:
-    path: /etc/ntp.conf
+    path: "{{ path_ntp }}"
     regexp: '^server.*$'
     state: absent
-    
+
 - name: Activar syncronizacion de hora y fecha
   lineinfile:
-    path: /etc/ntp.conf
+    path: "{{ path_ntp }}"
     line: 'server {{ item }} iburst'
   loop: "{{ ntp_servers }}"
