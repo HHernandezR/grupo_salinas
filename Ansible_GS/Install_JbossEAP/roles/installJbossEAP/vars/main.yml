@@ -24,3 +24,64 @@ java_home: "/usr/java/jdk1.8.0_181-amd64"
 
 path_bashprofile: "/home/jboss/.bash_profile"
 jboss_installer_directory: "/usr/share/"
+
+nombre_template: jboss7standalone.xml.j2
+
+path_fichero_standalone: "{{ jboss7_home }}/standalone/configuration/standalone.xml"
+
+path_mgmt_userp: "{{ path_fichero_standalone }}mgmt-users.properties"
+path_mgmt_groupp: "{{ path_fichero_standalone }}mgmt-groups.properties"
+
+mgmt_user_properties_value:
+  - jbossqa=2292a82e62755f722e0110bc265ed1aa
+
+mgmt_groups_properties_value:
+  - jbossqa=
+
+server_identities_secret_value: <secret value="cUBKYjAkJFEi" />
+
+ip_wsdl_inet_value: XXX.111.XXX.111
+
+thread_pool_value: |
+  <unbounded-queue-thread-pool name="uq-thread-pool">
+    <max-threads count="800"/>
+    <keepalive-time time="10" unit="seconds"/>
+    <thread-factory name="http-connector-factory"/>
+  </unbounded-queue-thread-pool>
+  <unbounded-queue-thread-pool name="https-uq-thread-pool">
+    <max-threads count="800"/>
+    <keepalive-time time="10" unit="seconds"/>
+    <thread-factory name="https-connector-factory"/>
+  </unbounded-queue-thread-pool>
+
+datasource_value: |
+  <datasource jta="false" jndi-name="java:/jdbc/dsTarjeta" pool-name="dsTarjeta" enabled="true" use-ccm="false">
+    <connection-url>jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(FAILOVER=on)(ADDRESS=(PROTOCOL=TCP) (HOST=hosts-bd-01)(PORT=1521))(ADDRESS=(PROTOCOL=TCP) (HOST=host-bd-02)(PORT=1521))) (CONNECT_DATA=(FAILOVER_MODE=(TYPE=session)(METHOD=basic)(RETRIES=180))(SERVER=dedicated)(SERVICE_NAME=ServiceName)))</connection-url>
+      <driver-class>oracle.jdbc.OracleDriver</driver-class>
+      <driver>ojdbc6.jar</driver>
+        <pool>
+          <min-pool-size>10</min-pool-size>
+          <max-pool-size>50</max-pool-size>
+          <prefill>true</prefill>
+          <flush-strategy>IdleConnections</flush-strategy>
+        </pool>
+      <security>
+        <user-name>UserName</user-name>
+        <password>PassWD</password>
+      </security>
+    <validation>
+      <check-valid-connection-sql>SELECT 1 FROM DUAL</check-valid-connection-sql>
+        <validate-on-match>true</validate-on-match>
+          <background-validation>true</background-validation>
+          <background-validation-millis>20000</background-validation-millis>
+        </validation>
+      <timeout>
+        <set-tx-query-timeout>true</set-tx-query-timeout>
+        <idle-timeout-minutes>1</idle-timeout-minutes>
+        <query-timeout>10</query-timeout>
+      </timeout>
+      <statement>
+        <track-statements>true</track-statements>
+        <share-prepared-statements>false</share-prepared-statements>
+      </statement>
+  </datasource>
