@@ -59,11 +59,6 @@
     src: "{{ nombre_template }}"
     dest: "{{ path_fichero_standalone }}"
 
-- name: Descomprimir JBoss EAP 7
-  command: "unzip {{ punto_montaje_nfs }}/{{ item }} -d {{ path_instalacion }}"
-  loop:
-    - "{{ nombre_jboss7_zip }}"
-
 - name: Setear Variable de Entorno Java Home
   lineinfile:
     dest: "{{ path_bashprofile }}"
