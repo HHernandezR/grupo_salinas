@@ -57,7 +57,15 @@
 - name: Preparar Template de Configuracion StandAlone.xml
   template:
     src: "{{ nombre_template }}"
+    dest: "{{ path_template }}"
+
+- name: Copiar Template
+  copy:
+    src: "{{ path_template }}"
     dest: "{{ path_fichero_standalone }}"
+    owner: "{{ usaurio_jboss }}"
+    group: "{{ grupo_jboss }}"
+    mode: "{{ jboss_home_permisos }}"
 
 # - name: Descomprimir JBoss EAP 7
 #   command: "unzip {{ punto_montaje_nfs }}/{{ item }} -d {{ path_instalacion }}"
