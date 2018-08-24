@@ -22,6 +22,7 @@ permisos_xinetd: 0600
 permisos_services: 0600
 usuario_services: root
 grupo_services: root
+
 permisos_security: 0600
 usuario_security: root
 grupo_security: root
@@ -31,9 +32,8 @@ texto_baner: Fal
 
 path_sshd: /etc/ssh/sshd_config
 permit_root_login: PermitRootLogin no
-
 syslog_auth: SyslogFacility AUTH
-syslog_authpriv: #SyslogFacility AUTHPRIV
+syslog_authpriv: "#SyslogFacility AUTHPRIV"
 log_level: LogLevel INFO
 public_key: PubkeyAuthentication no
 

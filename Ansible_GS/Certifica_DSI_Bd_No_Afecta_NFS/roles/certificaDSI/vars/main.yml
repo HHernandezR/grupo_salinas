@@ -1,14 +1,14 @@
 path_logindefs: /etc/login.defs
 
-nombre_directorio_salida: "/"
-nombre_archivo_salida: "salida_parches_seguridad.txt"
+nombre_directorio_salida: /
+nombre_archivo_salida: salida_parches_seguridad.txt
 path_salida: "{{ nombre_directorio_salida }}{{ nombre_archivo_salida }}"
 
-umask: "022"
+umask: 022
 
 permisos_logindefs: 0600
-usuario_logindefs: "root"
-grupo_logindefs: "root"
+usuario_logindefs: root
+grupo_logindefs: root
 
 path_wtmp: /var/log/wtmp
 permisos_wtmp: 0644
@@ -20,19 +20,20 @@ path_xinetd: /etc/xinetd.d/
 permisos_xinetd: 0600
 
 permisos_services: 0600
-usuario_services: "root"
-grupo_services: "root"
+usuario_services: root
+grupo_services: root
+
 permisos_security: 0600
-usuario_security: "root"
-grupo_security: "root"
+usuario_security: root
+grupo_security: root
 
 path_baner: /etc/motd
-texto_baner: "Fal"
+texto_baner: Fal
 
 path_sshd: /etc/ssh/sshd_config
-permit_root_login: "PermitRootLogin no"
+permit_root_login: PermitRootLogin no
 
-syslog_auth: "SyslogFacility AUTH"
+syslog_auth: SyslogFacility AUTH
 syslog_authpriv: "#SyslogFacility AUTHPRIV"
 log_level: "LogLevel INFO"
 

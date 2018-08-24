@@ -155,13 +155,7 @@
   blockinfile:
     path: "{{ path_hosts }}"
     block: "{{ lista_hosts }}"
-
-- name: Reiniciar-sshd
-  service:
-    name: sshd
-    enabled: true
-    state: restarted
-  ignore_errors: yes
+  notify: Iniciar-sshd
 
 # - name: Editar Fichero sshd_config PermitRootLogin
 #   replace:
