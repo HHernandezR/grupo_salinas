@@ -56,11 +56,11 @@
 
 - name: Preparar Template de Instalacion
   template:
-    src: "{{ nombre_template }}"
+    src: "{{ nombre_original_template }}"
     dest: "{{ path_destino_template }}"
 
 - name: Ejecutar Instalador Oracle
-  shell: "{{ oracle_stage }}/database/runInstaller -silent -waitforcompletion -ignoreSysPrereqs -responseFile /var/tmp/db-install.rsp"
+  shell: "{{ oracle_stage }}/database/runInstaller -silent -waitforcompletion -ignoreSysPrereqs -responseFile {{ path_destino_template }}"
   args:
     creates: "{{ oracle_home }}/bin/sqlplus"
   become: yes

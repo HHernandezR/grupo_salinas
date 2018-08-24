@@ -9,7 +9,7 @@ permisos_oracle: 0775
 nombre_dabatase_zip1: linuxamd64_12102_database_1of2.zip
 nombre_dabatase_zip2: linuxamd64_12102_database_2of2.zip
 
-nombre_template: db-install-12c.rsp.j2
+nombre_original_template: db-install-12c.rsp.j2
 path_destino_template: /var/tmp/db-install.rsp
 
 permisos_zip: 0777
