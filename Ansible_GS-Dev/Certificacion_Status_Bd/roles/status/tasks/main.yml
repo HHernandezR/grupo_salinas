@@ -1,0 +1,280 @@
+- name: Crear Directorio Certifi-servicios
+  file:
+    path: "{{ nombre_directorio_certificacion }}"
+    state: directory
+    force: yes
+
+- name: Copiar Ficheros a Certifi-servicios
+  copy:
+    src: "{{ item }}"
+    dest: "{{ nombre_directorio_certificacion }}"
+    force: yes
+  loop: "{{ lista_ficheros_copiar_etc }}"
+  ignore_errors: yes
+
+- name: Leer Ficheros sshd_config
+  command: cat /etc/ssh/sshd_config
+  register: sshdconfig_out
+
+- name: Copiar Ficheros sshd_config a Certifi-servicios
+  copy:
+    content: "{{ sshdconfig_out.stdout }}"
+    dest: "{{nombre_directorio_certificacion}}/sshd_config"
+
+- name: Crear Fichero Certifi-servicios
+  copy:
+    content: ""
+    dest: "{{ path_certificacion }}"
+    force: yes
+
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS ACTIVOS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  HOSTNAME SERVER  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+
+- name: Obtener Hostname Server
+  command: hostname
+  register: hostname_out
+
+- name: Imprimir Hostname Server
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: "{{ hostname_out.stdout }}"
+
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  IP SERVER  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+
+- name: Obtener IP Server
+  shell: nmcli | grep "inet4"
+  register: ip_out
+
+- name: Imprimir IP Server
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: "{{ ip_out.stdout }}"
+
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIO IPTABLES  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+
+- name: Obtener Servicio IpTables
+  command: systemctl status iptables
+  register: iptables_out
+  ignore_errors: yes
+
+- name: Imprimir IP Server
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: "{{ iptables_out.stdout }}"
+  ignore_errors: yes
+
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  FILESYSTEM MONTADOS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+
+- name: Obtener FyleSystem
+  command: df -h
+  register: df_out
+
+- name: Imprimir FyleSystem
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: "{{ df_out.stdout }}"
+
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS ACTIVOS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+
+- name: Obtener Servicios Activos
+  shell: systemctl list-units --type service --all | grep -w "active"
+  register: services_out
+
+- name: Imprimir Servicios Activos
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: "{{ services_out.stdout }}"
+
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS NFS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+
+- name: Obtener Servicios NFS
+  command: systemctl status nfs
+  register: nfs_out
+  ignore_errors: yes
+
+- name: Imprimir Servicios NFS
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: "{{ nfs_out.stdout }}"
+  ignore_errors: yes
+
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS JAVA  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+
+- name: Obtener Servicios Java
+  shell: ps -fea | grep "java"
+  register: java_out
+
+- name: Imprimir Servicios Java
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: "{{ java_out.stdout }}"
+
+- name: Eliminar Resultado Extra
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    state: absent
+    regexp: './bin/sh.'
+
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS JBOSS/GLASSFISH/APACHE TOMCAT  <<<<<<<<<<<<<<<<<<<<<<<<<<"
+
+- name: Obtener Servicios Jboss
+  shell: ps -fea | grep "jboss"
+  register: jboss_out
+
+- name: Imprimir Servicios Java
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: "{{ jboss_out.stdout }}"
+
+- name: Eliminar Resultado Extra
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    state: absent
+    regexp: './bin/sh.'
+
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS APACHE  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+
+- name: Obtener Servicios Apache
+  shell: ps -fea | grep "http"
+  register: apache_out
+
+- name: Imprimir Servicios Java
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: "{{ apache_out.stdout }}"
+
+- name: Eliminar Resultado Extra
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    state: absent
+    regexp: './bin/sh.'
+
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS CONTROL-M  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+
+- name: Obtener Servicios CONTROL-M
+  shell: ps -fea | grep "cmagt"
+  register: crtlm_out
+
+- name: Imprimir Servicios CONTROL-M
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: "{{ crtlm_out.stdout }}"
+
+- name: Eliminar Resultado Extra
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    state: absent
+    regexp: './bin/sh.'
+
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  INSTANCIA BD (Solo Base de datos)  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+
+- name: Obtener Instancia BD
+  shell: ps -fea | grep smon
+  register: smon_out
+
+- name: Imprimir Instancia BD
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: "{{ smon_out.stdout }}"
+
+- name: Eliminar Resultado Extra
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    state: absent
+    regexp: './bin/sh.'
+
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+
+- name: Obtener Pmon
+  shell: ps -fea | grep pmon
+  register: pmon_out
+
+- name: Imprimir Pmon
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: "{{ pmon_out.stdout }}"
+
+- name: Eliminar Resultado Extra
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    state: absent
+    regexp: './bin/sh.'
+
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  CRS (Solo Base de Datos)  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+
+- name: Obtener CRS
+  shell: ps -fea |grep d.bin
+  register: dbin_out
+
+- name: Imprimir CRS
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: "{{ dbin_out.stdout }}"
+
+- name: Eliminar Resultado Extra
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    state: absent
+    regexp: './bin/sh.'
+
+- name: Imprimir Linea Inicial
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  PUNTO DE MONTAJE  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+
+- name: Obtener Punto de Montaje
+  command: mount
+  register: mount_out
+
+- name: Imprimir Servicios NFS
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: "{{ mount_out.stdout }}"
+
+- name: Imprimir Linea Final
+  lineinfile:
+    path: "{{ path_certificacion }}"
+    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> FIN SERVICIOS ACTIVOS  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"

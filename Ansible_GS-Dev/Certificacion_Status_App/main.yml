@@ -1,0 +1,6 @@
+- name: "Ejecucion de Certificacion STATUS APP"
+  hosts: all
+  remote_user: hhernandez
+  become: true
+  roles:
+    - status

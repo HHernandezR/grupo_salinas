@@ -1,0 +1,151 @@
+- name: Cambiar Umask a login.defs
+  replace:
+    path: "{{ path_logindefs }}"
+    regexp: '.*UMASK.*'
+    replace: 'UMASK           {{ umask }}'
+
+- name: Cambiar Permisos a login.defs
+  file:
+    path: "{{ path_logindefs }}"
+    owner: "{{ usuario_logindefs }}"
+    group: "{{ grupo_logindefs }}"
+    mode: "{{ permisos_logindefs }}"
+
+- name: Cambiar Permisos a wtmp
+  file:
+    path: "{{ path_wtmp }}"
+    mode: "{{ permisos_wtmp }}"
+
+- name: Cambiar Permisos a hosts.allow
+  file:
+    path: "{{ path_hostsallow }}"
+    mode: "{{ permisos_hostsallow }}"
+
+- name: Cambiar Permisos a xinetd.d
+  file:
+    path: "{{ path_xinetd }}"
+    mode: "{{ permisos_xinetd }}"
+    recurse: yes
+
+- name: Deshabilitar Servicios
+  service:
+    name: "{{ item }}"
+    state: stopped
+    enabled: no
+  ignore_errors: yes
+  loop: "{{ lista_servicios }}"
+
+- name: Editar Fichero sshd_config SyslogFacility AUTH
+  replace:
+    path: "{{ path_sshd }}"
+    regexp: '.*SyslogFacility AUTH$'
+    replace: '{{ syslog_auth }}'
+
+- name: Editar Fichero sshd_config SyslogFacility AUTHPRIV
+  replace:
+    path: "{{ path_sshd }}"
+    regexp: '.*SyslogFacility AUTHPRIV$'
+    # regexp: '.*SyslogFacility [AUTHPRIV]{8}'
+    replace: '{{ syslog_authpriv }}'
+
+- name: Editar Fichero sshd_config LogLevel INFO
+  replace:
+    path: "{{ path_sshd }}"
+    regexp: '.*LogLevel.*'
+    replace: '{{ log_level }}'
+
+- name: Editar Fichero sshd_config PubkeyAuthentication
+  replace:
+    path: "{{ path_sshd }}"
+    regexp: '.*PubkeyAuthentication.*'
+    replace: '{{ public_key }}'
+
+- name: Elimiar Usuarios
+  user:
+    name: "{{ item }}"
+    state: absent
+    force: yes
+    remove: yes
+  ignore_errors: yes
+  loop: "{{ usuarios_eliminar }}"
+
+- name: Configurar Sistema de Logs audit.log
+  shell: /usr/sbin/auditctl -w /etc/passwd -p wa -k passwd_changes
+  ignore_errors: yes
+
+- name: Cambiar Perisos a Directorio Services
+  file:
+    path: /etc/services
+    owner: "{{ usuario_services }}"
+    group: "{{ grupo_services }}"
+    mode: "{{ permisos_services }}"
+
+- name: Eliminar Fichero hosts.equiv
+  file:
+    path: /etc/hosts.equiv
+    state: absent
+  ignore_errors: yes
+
+- name: Agregar Parametros SFTP a sshd_config
+  lineinfile:
+    path: "{{ path_sshd }}"
+    line: "{{ item }}"
+  loop: "{{ parametros_sftp }}"
+
+- name: Crear Fichero salida_parches_seguridad
+  copy:
+    content: ""
+    dest: "{{ path_salida }}"
+    force: yes
+
+- name: Agregar Cabecero Parches de Seguridad
+  lineinfile:
+    path: "{{ path_salida }}"
+    line: "======================= yum check-update  ======================="
+
+- name: Verificar Actualzaciones
+  yum:
+    list: updates
+    security: no
+  register: yumupdate_out
+
+- name: Imprimir Actualizaciones
+  lineinfile:
+    path: "{{ path_salida }}"
+    line: "{{ item.name }} -- {{ item.version }} -- {{ item.release }} -- {{ item.repo }}"
+  loop: "{{ yumupdate_out.results }}"
+
+- name: Cambiar Permisos a Fichero Security
+  file:
+    path: /etc/security
+    owner: "{{ usuario_security }}"
+    group: "{{ grupo_security }}"
+    mode: "{{ permisos_security }}"
+
+- name: Borrar Banner
+  lineinfile:
+    path: "{{ path_baner }}"
+    line: '{{ texto_baner }}'
+
+- name: Agregar local5 a Fichero rsyslog.conf
+  lineinfile:
+    path: "{{ path_rsyslog }}"
+    line: "{{ item }}"
+  loop: "{{ lista_local5 }}"
+
+- name: Agregar Usuarios Permitidos
+  blockinfile:
+    path: "{{ path_sshd }}"
+    block: "{{ usuarios_permitidos }}"
+
+- name: Agregar Hosts
+  blockinfile:
+    path: "{{ path_hosts }}"
+    block: "{{ lista_hosts }}"
+  notify: Iniciar-sshd
+
+# - name: Editar Fichero sshd_config PermitRootLogin
+#   replace:
+#     path: "{{ path_sshd }}"
+#     regexp: '.*PermitRootLogin.*'
+#     replace: "{{ permit_root_login }}"

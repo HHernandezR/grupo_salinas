@@ -1,0 +1,6 @@
+- name: "Ejecucion de Certificacion DSI BD No Afecta Servicios NFS"
+  hosts: all
+  remote_user: hhernandez
+  become: true
+  roles:
+    - certificaDSI

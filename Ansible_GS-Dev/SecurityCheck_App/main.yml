@@ -1,0 +1,15 @@
+- name: "Ejecucion de SecurityCheck APP"
+  hosts: all
+  remote_user: hhernandez
+  become: true
+  roles:
+    - serviciosOff
+    - loginEncrypt
+    - configNtp
+    - usersUnix
+    - usersMonitor
+    - usersJboss
+    - configSelinux
+    - ipTables
+    - prerrequisitos
+    #- sshRoot
