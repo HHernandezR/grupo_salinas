@@ -1,6 +1,6 @@
 - name: Get device facts
-  gather_facts: True
-  debug: var=hostvars[inventory_hostname]['ansible_enp0s3']['ipv4']['address']
+  debug: var=hostvars[inventory_hostname]['ipv4']['address']
+    verbosity: 1
 # - name: Crear Directorio Summary
 #   file:
 #     path: "{{ directorio_summary }}"
