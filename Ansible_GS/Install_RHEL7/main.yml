@@ -1,0 +1,5 @@
+- name: "Ejecutar Instalacion RHEL 7"
+  hosts: all
+  become: true
+  roles:
+    - installRHEL7

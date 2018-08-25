@@ -1,0 +1,22 @@
+#Nombre VM
+rhel_nombre:
+#Usuario para Autenticarse
+rhel_usuario:
+#Pass Usuario
+rhel_pass:
+#Nombre/Ip de la instancia Default: 127.0.0.1
+rhel_ip_nombre:
+#Nombre Imagen/Temp
+rhel_imagen:
+
+datacenter_nombre:
+#Numero de CPUS Default: 2
+cantidad_cpus: 2
+#Cantidad de Memoria en GB Default: 1
+cantidad_memoria : 1
+
+size_root:
+size_swap:
+size_opt:
+size_var:
+size_home: 

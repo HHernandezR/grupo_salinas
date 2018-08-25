@@ -1,0 +1,5 @@
+- name: "Ejecutar Instalacion RHEL 6"
+  hosts: all
+  become: true
+  roles:
+    - installRHEL6
