@@ -1,5 +1,0 @@
-- name: Iniciar-Ntp
-  service:
-    name: ntpd
-    enabled: true
-    state: restarted

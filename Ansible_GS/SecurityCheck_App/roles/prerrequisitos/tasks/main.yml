@@ -32,3 +32,9 @@
     - { limit: 'hard', type: nproc, value: '{{ root_limits_hard_nproc }}' }
     - { limit: 'soft', type: nofile, value: '{{ root_limits_soft_nofile }}' }
     - { limit: 'hard', type: nofile, value: '{{ root_limits_hard_nofile }}' }
+
+- name: Detener IpTables
+  service:
+    name: iptables
+    state: stopped
+  ignore_errors: yes
