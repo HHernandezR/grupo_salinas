@@ -21,6 +21,15 @@
     content: "{{ iptables_out.stdout }}"
     dest: "{{nombre_directorio_certificacion}}/iptables"
 
+- name: Leer Ficheros Fstab
+  command: "cat {{ path_fstab }}"
+  register: fstab_out
+
+- name: Copiar Ficheros Fstab a Certifi-servicios
+  copy:
+    content: "{{ fstab_out.stdout }}"
+    dest: "{{nombre_directorio_certificacion}}/fstab"
+
 - name: Leer Ficheros sshd_config
   command: cat /etc/ssh/sshd_config
   register: sshdconfig_out
