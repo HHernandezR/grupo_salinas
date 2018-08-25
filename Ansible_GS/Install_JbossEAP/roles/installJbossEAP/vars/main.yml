@@ -12,7 +12,7 @@ usaurio_jboss: root
 grupo_jboss: root
 jboss_home_permisos: 0755
 
-nombre_jboss7_zip: jboss-eap-7.0.0.zip
+nombre_jboss7_zip: jboss-eap-7.1.0.zip
 nombre_jboss6_zip: jboss-eap-6.4.0.zip
 
 nombre_oracle_jdk8: jdk-8u181-linux-x64.rpm
