@@ -106,7 +106,7 @@
 - name: Verificar Actualzaciones
   yum:
     list: updates
-    security: no
+    # security: no
   register: yumupdate_out
 
 - name: Imprimir Actualizaciones
