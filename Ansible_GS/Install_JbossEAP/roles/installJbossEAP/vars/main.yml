@@ -31,8 +31,11 @@ path_fichero_standalone7: "{{ jboss7_home }}/standalone/configuration/standalone
 nombre_template6: standalone6.xml.j2
 path_fichero_standalone6: "{{ jboss6_home }}/standalone/configuration/standalone.xml"
 
-path_mgmt_userp: "{{ jboss7_home }}/standalone/configuration/mgmt-users.properties"
-path_mgmt_groupp: "{{ jboss7_home }}/standalone/configuration/mgmt-groups.properties"
+path_mgmt_userp7: "{{ jboss7_home }}/standalone/configuration/mgmt-users.properties"
+path_mgmt_groupp7: "{{ jboss7_home }}/standalone/configuration/mgmt-groups.properties"
+
+path_mgmt_userp6: "{{ jboss6_home }}/standalone/configuration/mgmt-users.properties"
+path_mgmt_groupp6: "{{ jboss6_home }}/standalone/configuration/mgmt-groups.properties"
 
 mgmt_user_properties_value:
   - jbossqa=2292a82e62755f722e0110bc265ed1aa
