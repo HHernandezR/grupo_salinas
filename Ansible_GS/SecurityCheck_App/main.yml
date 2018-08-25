@@ -2,13 +2,13 @@
   hosts: all
   become: true
   roles:
-    - serviciosOff
-    - loginEncrypt
-    - configNtp
-    - usersUnix
-    - usersMonitor
-    - usersJboss
-    - configSelinux
+    # - serviciosOff
+    # - loginEncrypt
+    # - configNtp
+    # - usersUnix
+    # - usersMonitor
+    # - usersJboss
+    # - configSelinux
     - ipTables
-    - prerrequisitos
+    # - prerrequisitos
     #- sshRoot
