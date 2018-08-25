@@ -85,7 +85,7 @@
   loop:
     -
       regexp: ^JBOSS_HOME=
-      line: "JBOSS_HOME={{ jboss7_home }}"
+      line: "JBOSS_HOME={{ jboss6_home }}"
     -
       regexp: PATH=\$JBOSS_HOME
       line: PATH=$JBOSS_HOME:$PATH
