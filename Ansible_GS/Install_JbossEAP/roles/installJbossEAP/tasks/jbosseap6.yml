@@ -54,10 +54,10 @@
     line: "{{ item }}"
   loop: "{{ mgmt_groups_properties_value }}"
 
-- name: Preparar Template de Configuracion StandAlone.xml
-  template:
-    src: "{{ nombre_template6 }}"
-    dest: "{{ path_fichero_standalone6 }}"
+# - name: Preparar Template de Configuracion StandAlone.xml
+#   template:
+#     src: "{{ nombre_template6 }}"
+#     dest: "{{ path_fichero_standalone6 }}"
 
 - name: Setear Variable de Entorno Java Home
   lineinfile:
