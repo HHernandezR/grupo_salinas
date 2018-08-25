@@ -50,6 +50,10 @@
   command: hostname
   register: hostname_out
 
+- name: Ignorando Warning / Error
+  debug:
+    msg: "Comando sin Retorno -- Ignorando -- Agregando Informacion"
+
 - name: Imprimir Hostname Server
   lineinfile:
     path: "{{ path_certificacion }}"
@@ -63,6 +67,10 @@
 - name: Obtener IP Server
   shell: nmcli | grep "inet4"
   register: ip_out
+
+- name: Ignorando Warning / Error
+  debug:
+    msg: "Comando sin Retorno -- Ignorando -- Agregando Informacion"
 
 - name: Imprimir IP Server
   lineinfile:
@@ -79,6 +87,10 @@
   register: iptables_out
   ignore_errors: yes
 
+- name: Ignorando Warning / Error
+  debug:
+    msg: "Comando sin Retorno -- Ignorando -- Agregando Informacion"
+
 - name: Imprimir IP Server
   lineinfile:
     path: "{{ path_certificacion }}"
@@ -93,6 +105,10 @@
 - name: Obtener FyleSystem
   command: df -h
   register: df_out
+
+- name: Ignorando Warning / Error
+  debug:
+    msg: "Comando sin Retorno -- Ignorando -- Agregando Informacion"
 
 - name: Imprimir FyleSystem
   lineinfile:
@@ -122,6 +138,10 @@
   command: systemctl status nfs
   register: nfs_out
   ignore_errors: yes
+
+- name: Ignorando Warning / Error
+  debug:
+    msg: "Comando sin Retorno -- Ignorando -- Agregando Informacion"
 
 - name: Imprimir Servicios NFS
   lineinfile:
