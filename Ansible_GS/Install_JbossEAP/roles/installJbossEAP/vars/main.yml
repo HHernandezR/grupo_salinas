@@ -25,7 +25,7 @@ java_home: "/usr/java/jdk1.8.0_181-amd64"
 path_bashprofile: "/home/jboss/.bash_profile"
 jboss_installer_directory: "/usr/share/"
 
-nombre_template: standalone.xml.j2
+nombre_template: standalone7.xml.j2
 
 path_template: /var/tmp/standalone.xml
 path_fichero_standalone: "{{ jboss7_home }}/standalone/configuration/"

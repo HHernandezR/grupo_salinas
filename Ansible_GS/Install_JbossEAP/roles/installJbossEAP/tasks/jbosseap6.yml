@@ -1,29 +1,3 @@
 - name: Versión Jboss 6
   debug:
     msg: "Iniciar Ejecución de JBoss EAP Version: 6"
-
-- name: Crear Directorios Punto de Montaje
-  file:
-    path: "{{ item }}"
-    state: directory
-    force: yes
-  loop:
-    - "{{ punto_montaje_nfs }}"
-
-- name: Instalar NFS-Utils
-  yum:
-    name: nfs-utils
-    state: present
-
-- name: Agregar Recurso NFS Fstab
-  lineinfile:
-    path: "{{ path_fstab }}"
-    line: "{{ recurso_nfs }}"
-
-- name: Montar Recurso NFS
-  command: "mount -a"
-
-- name: Descomprimir JBoss EAP 6
-  command: "unzip {{ punto_montaje_nfs }}{{ item }} -d {{ path_instalacion }}"
-  loop:
-    - "{{ nombre_jboss6_zip }}"
