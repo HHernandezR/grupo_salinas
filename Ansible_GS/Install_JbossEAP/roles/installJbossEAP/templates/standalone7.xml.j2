@@ -64,7 +64,7 @@
                     <ssl>
                         <keystore path="/home/jboss7/jboss-eap-7.1/certificados/jboss7.keystore" keystore-password="RHELQA" alias="jboss7cert"/>
                     </ssl>
-                    {{ server_identities_secret_value }}
+                    {{ server_identities_secret_value7 }}
                 </server-identities>
             </security-realm>
         </security-realms>
@@ -151,7 +151,7 @@
         <subsystem xmlns="urn:jboss:domain:core-management:1.0"/>
         <subsystem xmlns="urn:jboss:domain:datasources:5.0">
             <datasources>
-              {{ datasource_value }}
+              {{ datasource_value7 }}
                 <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
                     <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</connection-url>
                     <driver>h2</driver>
@@ -464,7 +464,7 @@
         <subsystem xmlns="urn:jboss:domain:threads:1.1">
                  <thread-factory name="http-connector-factory" group-name="uq-thread-pool" thread-name-pattern="HTTP-CRED-%t" priority="9"/>
                  <thread-factory name="https-connector-factory" group-name="https-uq-thread-pool" thread-name-pattern="HTTPS-CRED-%t" priority="9"/>
-        {{ thread_pool_value }}
+        {{ thread_pool_value7 }}
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:transactions:4.0">
             <core-environment>
@@ -500,7 +500,7 @@
             </filters>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:webservices:2.0">
-            <wsdl-host>${jboss.bind.address:{{ ip_wsdl_inet_value }}}</wsdl-host>
+            <wsdl-host>${jboss.bind.address:{{ ip_wsdl_inet_value7 }}}</wsdl-host>
             <endpoint-config name="Standard-Endpoint-Config"/>
             <endpoint-config name="Recording-Endpoint-Config">
                 <pre-handler-chain name="recording-handlers" protocol-bindings="##SOAP11_HTTP ##SOAP11_HTTP_MTOM ##SOAP12_HTTP ##SOAP12_HTTP_MTOM">
@@ -513,10 +513,10 @@
     </profile>
     <interfaces>
         <interface name="management">
-            <inet-address value="${jboss.bind.address.management:{{ ip_wsdl_inet_value }}}"/>
+            <inet-address value="${jboss.bind.address.management:{{ ip_wsdl_inet_value7 }}}"/>
         </interface>
         <interface name="public">
-            <inet-address value="${jboss.bind.address:{{ ip_wsdl_inet_value }}}"/>
+            <inet-address value="${jboss.bind.address:{{ ip_wsdl_inet_value7 }}}"/>
         </interface>
     </interfaces>
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">

@@ -29,6 +29,10 @@ nombre_template7: standalone7.xml.j2
 # path_template7: /var/tmp/standalone.xml
 path_fichero_standalone7: "{{ jboss7_home }}/standalone/configuration/standalone.xml"
 
+nombre_template6: standalone6.xml.j2
+# path_template7: /var/tmp/standalone.xml
+path_fichero_standalone6: "{{ jboss6_home }}/standalone/configuration/standalone.xml"
+
 path_mgmt_userp: "{{ jboss7_home }}/standalone/configuration/mgmt-users.properties"
 path_mgmt_groupp: "{{ jboss7_home }}/standalone/configuration/mgmt-groups.properties"
 
@@ -38,11 +42,11 @@ mgmt_user_properties_value:
 mgmt_groups_properties_value:
   - jbossqa=
 
-server_identities_secret_value: <secret value="cUBKYjAkJFEi" />
+server_identities_secret_value7: <secret value="cUBKYjAkJFEi" />
 
-ip_wsdl_inet_value: XXX.111.XXX.111
+ip_wsdl_inet_value7: XXX.111.XXX.111
 
-thread_pool_value: |
+thread_pool_value7: |
   <unbounded-queue-thread-pool name="uq-thread-pool">
     <max-threads count="800"/>
     <keepalive-time time="10" unit="seconds"/>
@@ -54,7 +58,7 @@ thread_pool_value: |
     <thread-factory name="https-connector-factory"/>
   </unbounded-queue-thread-pool>
 
-datasource_value: |
+datasource_value7: |
   <datasource jta="false" jndi-name="java:/jdbc/dsTarjeta" pool-name="dsTarjeta" enabled="true" use-ccm="false">
     <connection-url>jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(FAILOVER=on)(ADDRESS=(PROTOCOL=TCP) (HOST=hosts-bd-01)(PORT=1521))(ADDRESS=(PROTOCOL=TCP) (HOST=host-bd-02)(PORT=1521))) (CONNECT_DATA=(FAILOVER_MODE=(TYPE=session)(METHOD=basic)(RETRIES=180))(SERVER=dedicated)(SERVICE_NAME=ServiceName)))</connection-url>
       <driver-class>oracle.jdbc.OracleDriver</driver-class>
