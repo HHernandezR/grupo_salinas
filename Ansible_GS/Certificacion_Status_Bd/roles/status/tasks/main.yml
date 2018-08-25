@@ -166,45 +166,45 @@
     state: absent
     regexp: './bin/sh.'
 
-- name: Imprimir Linea Inicial
-  lineinfile:
-    path: "{{ path_certificacion }}"
-    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS JBOSS/GLASSFISH/APACHE TOMCAT  <<<<<<<<<<<<<<<<<<<<<<<<<<"
-
-- name: Obtener Servicios Jboss
-  shell: ps -fea | grep "jboss"
-  register: jboss_out
-
-- name: Imprimir Servicios Java
-  lineinfile:
-    path: "{{ path_certificacion }}"
-    line: "{{ jboss_out.stdout }}"
-
-- name: Eliminar Resultado Extra
-  lineinfile:
-    path: "{{ path_certificacion }}"
-    state: absent
-    regexp: './bin/sh.'
-
-- name: Imprimir Linea Inicial
-  lineinfile:
-    path: "{{ path_certificacion }}"
-    line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS APACHE  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
-
-- name: Obtener Servicios Apache
-  shell: ps -fea | grep "http"
-  register: apache_out
-
-- name: Imprimir Servicios Java
-  lineinfile:
-    path: "{{ path_certificacion }}"
-    line: "{{ apache_out.stdout }}"
-
-- name: Eliminar Resultado Extra
-  lineinfile:
-    path: "{{ path_certificacion }}"
-    state: absent
-    regexp: './bin/sh.'
+# - name: Imprimir Linea Inicial
+#   lineinfile:
+#     path: "{{ path_certificacion }}"
+#     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS JBOSS/GLASSFISH/APACHE TOMCAT  <<<<<<<<<<<<<<<<<<<<<<<<<<"
+#
+# - name: Obtener Servicios Jboss
+#   shell: ps -fea | grep "jboss"
+#   register: jboss_out
+#
+# - name: Imprimir Servicios Jboss
+#   lineinfile:
+#     path: "{{ path_certificacion }}"
+#     line: "{{ jboss_out.stdout }}"
+#
+# - name: Eliminar Resultado Extra
+#   lineinfile:
+#     path: "{{ path_certificacion }}"
+#     state: absent
+#     regexp: './bin/sh.'
+#
+# - name: Imprimir Linea Inicial
+#   lineinfile:
+#     path: "{{ path_certificacion }}"
+#     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS APACHE  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
+#
+# - name: Obtener Servicios Apache
+#   shell: ps -fea | grep "http"
+#   register: apache_out
+#
+# - name: Imprimir Servicios Apache
+#   lineinfile:
+#     path: "{{ path_certificacion }}"
+#     line: "{{ apache_out.stdout }}"
+#
+# - name: Eliminar Resultado Extra
+#   lineinfile:
+#     path: "{{ path_certificacion }}"
+#     state: absent
+#     regexp: './bin/sh.'
 
 - name: Imprimir Linea Inicial
   lineinfile:
