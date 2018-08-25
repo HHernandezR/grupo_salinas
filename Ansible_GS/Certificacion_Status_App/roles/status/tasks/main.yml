@@ -12,6 +12,15 @@
   loop: "{{ lista_ficheros_copiar_etc }}"
   ignore_errors: yes
 
+- name: Leer Ficheros IpTables
+  command: "cat {{ path_iptables }}"
+  register: iptables_out
+
+- name: Copiar Ficheros Iptables a Certifi-servicios
+  copy:
+    content: "{{ iptables_out.stdout }}"
+    dest: "{{nombre_directorio_certificacion}}/iptables"
+
 - name: Leer Ficheros sshd_config
   command: cat /etc/ssh/sshd_config
   register: sshdconfig_out
