@@ -26,11 +26,9 @@ path_bashprofile: "/home/jboss/.bash_profile"
 jboss_installer_directory: "/usr/share/"
 
 nombre_template7: standalone7.xml.j2
-# path_template7: /var/tmp/standalone.xml
 path_fichero_standalone7: "{{ jboss7_home }}/standalone/configuration/standalone.xml"
 
 nombre_template6: standalone6.xml.j2
-# path_template7: /var/tmp/standalone.xml
 path_fichero_standalone6: "{{ jboss6_home }}/standalone/configuration/standalone.xml"
 
 path_mgmt_userp: "{{ jboss7_home }}/standalone/configuration/mgmt-users.properties"
@@ -43,8 +41,10 @@ mgmt_groups_properties_value:
   - jbossqa=
 
 server_identities_secret_value7: <secret value="cUBKYjAkJFEi" />
+server_identities_secret_value6: <secret value="cUBKYjAkJFEi" />
 
 ip_wsdl_inet_value7: XXX.111.XXX.111
+ip_wsdl_inet_value6: XXX.222.XXX.222
 
 thread_pool_value7: |
   <unbounded-queue-thread-pool name="uq-thread-pool">
@@ -58,7 +58,51 @@ thread_pool_value7: |
     <thread-factory name="https-connector-factory"/>
   </unbounded-queue-thread-pool>
 
+thread_pool_value6: |
+  <unbounded-queue-thread-pool name="uq-thread-pool">
+    <max-threads count="800"/>
+    <keepalive-time time="10" unit="seconds"/>
+    <thread-factory name="http-connector-factory"/>
+  </unbounded-queue-thread-pool>
+  <unbounded-queue-thread-pool name="https-uq-thread-pool">
+    <max-threads count="800"/>
+    <keepalive-time time="10" unit="seconds"/>
+    <thread-factory name="https-connector-factory"/>
+  </unbounded-queue-thread-pool>
+
 datasource_value7: |
+  <datasource jta="false" jndi-name="java:/jdbc/dsTarjeta" pool-name="dsTarjeta" enabled="true" use-ccm="false">
+    <connection-url>jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(FAILOVER=on)(ADDRESS=(PROTOCOL=TCP) (HOST=hosts-bd-01)(PORT=1521))(ADDRESS=(PROTOCOL=TCP) (HOST=host-bd-02)(PORT=1521))) (CONNECT_DATA=(FAILOVER_MODE=(TYPE=session)(METHOD=basic)(RETRIES=180))(SERVER=dedicated)(SERVICE_NAME=ServiceName)))</connection-url>
+      <driver-class>oracle.jdbc.OracleDriver</driver-class>
+      <driver>ojdbc6.jar</driver>
+        <pool>
+          <min-pool-size>10</min-pool-size>
+          <max-pool-size>50</max-pool-size>
+          <prefill>true</prefill>
+          <flush-strategy>IdleConnections</flush-strategy>
+        </pool>
+      <security>
+        <user-name>UserName</user-name>
+        <password>PassWD</password>
+      </security>
+    <validation>
+      <check-valid-connection-sql>SELECT 1 FROM DUAL</check-valid-connection-sql>
+        <validate-on-match>true</validate-on-match>
+          <background-validation>true</background-validation>
+          <background-validation-millis>20000</background-validation-millis>
+        </validation>
+      <timeout>
+        <set-tx-query-timeout>true</set-tx-query-timeout>
+        <idle-timeout-minutes>1</idle-timeout-minutes>
+        <query-timeout>10</query-timeout>
+      </timeout>
+      <statement>
+        <track-statements>true</track-statements>
+        <share-prepared-statements>false</share-prepared-statements>
+      </statement>
+  </datasource>
+
+datasource_value6: |
   <datasource jta="false" jndi-name="java:/jdbc/dsTarjeta" pool-name="dsTarjeta" enabled="true" use-ccm="false">
     <connection-url>jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(FAILOVER=on)(ADDRESS=(PROTOCOL=TCP) (HOST=hosts-bd-01)(PORT=1521))(ADDRESS=(PROTOCOL=TCP) (HOST=host-bd-02)(PORT=1521))) (CONNECT_DATA=(FAILOVER_MODE=(TYPE=session)(METHOD=basic)(RETRIES=180))(SERVER=dedicated)(SERVICE_NAME=ServiceName)))</connection-url>
       <driver-class>oracle.jdbc.OracleDriver</driver-class>

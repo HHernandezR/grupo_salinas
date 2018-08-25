@@ -33,7 +33,7 @@
     name: "{{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
     state: present
 
-- name: Descomprimir Jboss EAP 7 ZIP
+- name: Descomprimir Jboss EAP 6 ZIP
   unarchive:
     src: "{{ punto_montaje_nfs }}/{{ nombre_jboss6_zip }}"
     dest: "{{ path_instalacion }}"
