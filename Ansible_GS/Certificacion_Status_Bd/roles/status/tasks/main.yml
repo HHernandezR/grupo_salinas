@@ -79,7 +79,11 @@
   register: iptables_out
   ignore_errors: yes
 
-- name: Imprimir IP Server
+- name: Ignorando Warning / Error
+  debug:
+    msg: "Comando Nativo sin Retorno -- Ignorando -- Agregando Informacion"
+
+- name: Imprimir IP Tables
   lineinfile:
     path: "{{ path_certificacion }}"
     line: "{{ iptables_out.stdout }}"
@@ -122,6 +126,10 @@
   command: systemctl status nfs
   register: nfs_out
   ignore_errors: yes
+
+- name: Ignorando Warning / Error
+  debug:
+    msg: "Comando Nativo sin Retorno -- Ignorando -- Agregando Informacion"
 
 - name: Imprimir Servicios NFS
   lineinfile:
