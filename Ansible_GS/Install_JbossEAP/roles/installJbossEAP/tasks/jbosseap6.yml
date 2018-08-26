@@ -42,6 +42,9 @@
 #     disable_gpg_check: yes
 
 - name: Instalar Oracle JDK 8
+  become: true
+  become_method: su
+  become_user: root
   command: "rpm -Uvh {{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
 
 - name: Descomprimir Jboss EAP 6 ZIP
