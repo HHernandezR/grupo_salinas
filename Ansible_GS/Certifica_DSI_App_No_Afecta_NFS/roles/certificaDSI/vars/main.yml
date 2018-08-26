@@ -10,13 +10,10 @@ permisos_logindefs: 0600
 usuario_logindefs: root
 grupo_logindefs: root
 
-path_wtmp: /var/log/wtmp
 permisos_wtmp: 0644
 
-path_hostsallow: /etc/hosts.allow
 permisos_hostsallow: 0750
 
-path_xinetd: /etc/xinetd.d/
 permisos_xinetd: 0600
 
 permisos_services: 0600
@@ -27,10 +24,8 @@ permisos_security: 0600
 usuario_security: root
 grupo_security: root
 
-path_baner: /etc/motd
 texto_baner: Fal
 
-path_sshd: /etc/ssh/sshd_config
 permit_root_login: PermitRootLogin no
 syslog_auth: SyslogFacility AUTH
 syslog_authpriv: "#SyslogFacility AUTHPRIV"

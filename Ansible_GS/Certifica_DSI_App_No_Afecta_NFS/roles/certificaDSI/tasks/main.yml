@@ -1,29 +1,29 @@
 - name: Cambiar Umask a login.defs
   replace:
-    path: "{{ path_logindefs }}"
+    path: /etc/login.defs
     regexp: '.*UMASK.*'
     replace: 'UMASK           {{ umask }}'
 
 - name: Cambiar Permisos a login.defs
   file:
-    path: "{{ path_logindefs }}"
+    path: /etc/login.defs
     owner: "{{ usuario_logindefs }}"
     group: "{{ grupo_logindefs }}"
     mode: "{{ permisos_logindefs }}"
 
 - name: Cambiar Permisos a wtmp
   file:
-    path: "{{ path_wtmp }}"
+    path: /var/log/wtmp
     mode: "{{ permisos_wtmp }}"
 
 - name: Cambiar Permisos a hosts.allow
   file:
-    path: "{{ path_hostsallow }}"
+    path: /etc/hosts.allow
     mode: "{{ permisos_hostsallow }}"
 
 - name: Cambiar Permisos a xinetd.d
   file:
-    path: "{{ path_xinetd }}"
+    path: /etc/xinetd.d/
     mode: "{{ permisos_xinetd }}"
     recurse: yes
 
@@ -37,26 +37,26 @@
 
 - name: Editar Fichero sshd_config SyslogFacility AUTH
   replace:
-    path: "{{ path_sshd }}"
+    path: /etc/ssh/sshd_config
     regexp: '.*SyslogFacility AUTH$'
     replace: '{{ syslog_auth }}'
 
 - name: Editar Fichero sshd_config SyslogFacility AUTHPRIV
   replace:
-    path: "{{ path_sshd }}"
+    path: /etc/ssh/sshd_config
     regexp: '.*SyslogFacility AUTHPRIV$'
     # regexp: '.*SyslogFacility [AUTHPRIV]{8}'
     replace: '{{ syslog_authpriv }}'
 
 - name: Editar Fichero sshd_config LogLevel INFO
   replace:
-    path: "{{ path_sshd }}"
+    path: /etc/ssh/sshd_config
     regexp: '.*LogLevel.*'
     replace: '{{ log_level }}'
 
 - name: Editar Fichero sshd_config PubkeyAuthentication
   replace:
-    path: "{{ path_sshd }}"
+    path: /etc/ssh/sshd_config
     regexp: '.*PubkeyAuthentication.*'
     replace: '{{ public_key }}'
 
@@ -88,7 +88,7 @@
 
 - name: Agregar Parametros SFTP a sshd_config
   lineinfile:
-    path: "{{ path_sshd }}"
+    path: /etc/ssh/sshd_config
     line: "{{ item }}"
   loop: "{{ parametros_sftp }}"
 
@@ -106,7 +106,7 @@
 - name: Verificar Actualzaciones
   yum:
     list: updates
-    security: no
+    # security: no
   register: yumupdate_out
 
 - name: Imprimir Actualizaciones
@@ -124,25 +124,31 @@
 
 - name: Borrar Banner
   lineinfile:
-    path: "{{ path_baner }}"
+    path: /etc/motd
     line: '{{ texto_baner }}'
 
 - name: Agregar local5 a Fichero rsyslog.conf
   lineinfile:
-    path: "{{ path_rsyslog }}"
+    path: /etc/rsyslog.conf
     line: "{{ item }}"
   loop: "{{ lista_local5 }}"
 
 - name: Agregar Usuarios Permitidos
   blockinfile:
-    path: "{{ path_sshd }}"
+    path: /etc/ssh/sshd_config
     block: "{{ usuarios_permitidos }}"
 
 - name: Agregar Hosts
   blockinfile:
-    path: "{{ path_hosts }}"
+    path: /etc/hosts
     block: "{{ lista_hosts }}"
-  notify: Iniciar-sshd
+
+- name: Reiniciar-sshd
+  service:
+    name: sshd
+    enabled: true
+    state: restarted
+  ignore_errors: yes
 
 # - name: Editar Fichero sshd_config PermitRootLogin
 #   replace:
