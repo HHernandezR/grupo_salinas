@@ -24,7 +24,7 @@ jboss7_home: "{{ path_instalacion }}{{ nombre_fichero_jbosseap7 }}"
 jboss6_home: "{{ path_instalacion }}{{ nombre_fichero_jbosseap6 }}"
 
 path_java: "/usr/java/"
-java_home: "/usr/java/jdk1.8.0_181-amd64"
+java_home: "/usr/java/jdk1.8.0_181"
 
 path_bashprofile: "/home/jboss/.bash_profile"
 jboss_installer_directory: "/usr/share/"
