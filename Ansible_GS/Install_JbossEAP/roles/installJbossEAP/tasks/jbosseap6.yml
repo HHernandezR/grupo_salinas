@@ -50,6 +50,7 @@
     # name: "/var/tmp/{{ nombre_oracle_jdk8 }}"
     name: "{{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
     state: present
+    disable_gpg_check: yes
 
 - name: Descomprimir Jboss EAP 6 ZIP
   unarchive:
