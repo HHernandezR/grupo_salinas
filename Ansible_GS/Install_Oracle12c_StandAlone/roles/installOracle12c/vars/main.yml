@@ -1,7 +1,8 @@
 punto_montaje_nfs: /var/tmp/nfs
 path_fstab: /etc/fstab
 ip_servidor_maestro: 192.168.72.150
-recurso_nfs: "{{ ip_servidor_maestro }}:/usr/databases_resources {{ punto_montaje_nfs }}  nfs _netdev 0 0"
+path_recursos_maestro: /usr/databases_resources
+recurso_nfs: "{{ ip_servidor_maestro }}:{{ path_recursos_maestro }} {{ punto_montaje_nfs }}  nfs _netdev 0 0"
 
 usaurio_oracle: oracle
 grupo_oracle: oinstall
