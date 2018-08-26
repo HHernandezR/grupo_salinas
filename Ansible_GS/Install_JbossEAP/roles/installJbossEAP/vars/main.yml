@@ -4,8 +4,7 @@ path_instalacion: /opt/rh/
 nombre_fichero_jbosseap7: jboss-eap-7.1
 nombre_fichero_jbosseap6: jboss-eap-6.4
 
-punto_montaje_nfs: /home/jboss/nfs
-punto_montaje_permisos: 0777
+punto_montaje_nfs: /var/tmp/nfs
 path_fstab: /etc/fstab
 ip_servidor_maestro: 192.168.72.150
 path_recursos_maestro: /usr/app_resources

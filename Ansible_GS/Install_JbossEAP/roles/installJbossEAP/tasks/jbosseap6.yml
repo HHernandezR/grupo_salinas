@@ -1,4 +1,4 @@
-- name: Versión Jboss 6
+- name: Versión Jboss 7
   debug:
     msg: "Iniciar Ejecución de JBoss EAP Version: 6"
 
@@ -7,9 +7,6 @@
     path: "{{ item }}"
     state: directory
     force: yes
-    owner: "{{ usaurio_jboss }}"
-    group: "{{ grupo_jboss }}"
-    mode: "{{ jboss_home_permisos }}"
   loop:
     - "{{ punto_montaje_nfs }}"
 
@@ -31,20 +28,13 @@
     name: java
     state: absent
 
-# - name: Instalar Oracle JDK 8
-#   become: true
-#   become_method: su
-#   become_user: root
-#   yum:
-#     # name: "/var/tmp/{{ nombre_oracle_jdk8 }}"
-#     # name: "{{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
-#     state: present
-#     disable_gpg_check: yes
-
 - name: Instalar Oracle JDK 8
-  command: "su rpm -Uvh {{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
+  yum:
+    name: "{{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
+    disable_gpg_check: yes
+    state: present
 
-- name: Descomprimir Jboss EAP 6 ZIP
+- name: Descomprimir Jboss EAP 7 ZIP
   unarchive:
     src: "{{ punto_montaje_nfs }}/{{ nombre_jboss6_zip }}"
     dest: "{{ path_instalacion }}"
@@ -67,8 +57,8 @@
 
 # - name: Preparar Template de Configuracion StandAlone.xml
 #   template:
-#     src: "{{ nombre_template6 }}"
-#     dest: "{{ path_fichero_standalone6 }}"
+#     src: "{{ nombre_template7 }}"
+#     dest: "{{ path_fichero_standalone7 }}"
 
 - name: Setear Variable de Entorno Java Home
   lineinfile:
