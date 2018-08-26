@@ -34,8 +34,22 @@
 #     disable_gpg_check: yes
 #     state: present
 
+- name: Copiar Oracle JDK 8
+  copy:
+    src: "{{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
+    dest: /var/tmp
+    owner: "{{ usaurio_jboss }}"
+    group: "{{ grupo_jboss }}"
+    mode: 0777
+    force: yes
+- pause:
+    seconds: 2
+
+# - name: Instalar Oracle JDK 8
+#   command: "rpm -Uvh {{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
+
 - name: Instalar Oracle JDK 8
-  command: "rpm -Uvh {{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
+  command: "rpm -Uvh /var/tmp/{{ nombre_oracle_jdk8 }}"
 
 - name: Descomprimir Jboss EAP 7 ZIP
   unarchive:
