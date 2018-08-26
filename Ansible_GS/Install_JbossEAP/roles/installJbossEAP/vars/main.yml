@@ -1,5 +1,5 @@
 version_jboss: 7
-path_instalacion: /opt/rh/
+path_instalacion: /opt/
 
 nombre_fichero_jbosseap7: jboss-eap-7.1
 nombre_fichero_jbosseap6: jboss-eap-6.4
