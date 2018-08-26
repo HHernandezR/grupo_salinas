@@ -29,19 +29,8 @@
     name: java
     state: absent
 
-# - name: Instalar Oracle JDK 8
-  # yum:
-  #   name: "{{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
-  #   state: present
-
 - name: Instalar Oracle JDK 8
-  unarchive:
-    src: "{{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
-    dest: "{{ path_java }}"
-    copy: false
-    owner: "{{ usaurio_jboss }}"
-    group: "{{ grupo_jboss }}"
-    mode: "{{ jboss_home_permisos }}"
+  command: "tar xzvf {{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }} -C {{ path_java }}"
 
 - name: Descomprimir Jboss EAP 7 ZIP
   unarchive:
