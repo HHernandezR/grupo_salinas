@@ -18,11 +18,12 @@ jdk_permisos: 0777
 nombre_jboss7_zip: jboss-eap-7.1.0.zip
 nombre_jboss6_zip: jboss-eap-6.4.0.zip
 
-nombre_oracle_jdk8: jdk-8u181-linux-x64.rpm
+nombre_oracle_jdk8: jdk-8u181-linux-x64.tar.gz
 
 jboss7_home: "{{ path_instalacion }}{{ nombre_fichero_jbosseap7 }}"
 jboss6_home: "{{ path_instalacion }}{{ nombre_fichero_jbosseap6 }}"
 
+path_java: "/usr/java/"
 java_home: "/usr/java/jdk1.8.0_181-amd64"
 
 path_bashprofile: "/home/jboss/.bash_profile"
