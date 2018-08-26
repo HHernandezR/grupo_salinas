@@ -9,7 +9,7 @@
     force: yes
     owner: "{{ usaurio_jboss }}"
     group: "{{ grupo_jboss }}"
-    mode: "{{ punto_montaje_permisos }}"
+    mode: "{{ jboss_home_permisos }}"
   loop:
     - "{{ punto_montaje_nfs }}"
 
