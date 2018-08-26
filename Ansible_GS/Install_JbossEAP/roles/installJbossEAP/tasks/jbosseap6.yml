@@ -30,7 +30,13 @@
     state: absent
 
 - name: Instalar Oracle JDK 8
-  command: "tar xzvf {{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }} -C {{ path_java }}"
+  unarchive:
+    src: "{{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
+    dest: "{{ path_java }}"
+    copy: false
+    owner: "{{ usaurio_jboss }}"
+    group: "{{ grupo_jboss }}"
+    mode: "{{ jboss_home_permisos }}"
 
 - name: Descomprimir Jboss EAP 7 ZIP
   unarchive:
