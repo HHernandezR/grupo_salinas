@@ -10,6 +10,16 @@
   loop:
     - "{{ punto_montaje_nfs }}"
 
+- name: Cambiar Permisos Directorio
+  file:
+    path: "{{ item }}"
+    owner: "{{ usaurio_jboss }}"
+    group: "{{ grupo_jboss }}"
+    mode: "{{ jboss_home_permisos }}"
+    recurse: yes
+  loop:
+    - "{{ punto_montaje_nfs }}"
+
 - name: Instalar NFS-Utils
   yum:
     name: nfs-utils
