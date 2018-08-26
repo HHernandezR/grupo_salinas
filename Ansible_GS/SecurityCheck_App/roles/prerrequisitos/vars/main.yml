@@ -18,6 +18,7 @@ paquetes_prerrequisitos:
   #- compat-libstdc++-33-3.2.3-69.el6.x86_64, Paquete No encontrado en RHEL7
   #- compat-libstdc++-33.i686, Paquete No encontrado en RHEL7
   - libstdc++.i686
+  - unzip
 
 lista_grupos_paquetes:
   # Paquete No encontrado
