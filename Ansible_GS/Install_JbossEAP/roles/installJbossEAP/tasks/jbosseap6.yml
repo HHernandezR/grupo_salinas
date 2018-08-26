@@ -31,26 +31,21 @@
     name: java
     state: absent
 
-# - name: Copiar Oracle JDK 8
+# - name: Instalar Oracle JDK 8
 #   become: true
 #   become_method: su
 #   become_user: root
-#   copy:
-#     src:  "{{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
-#     dest: /var/tmp/
-#     owner: "{{ usaurio_jboss }}"
-#     group: "{{ grupo_jboss }}"
-#     mode: "{{ jdk_permisos }}"
-#     force: yes
-# - pause:
-#     seconds: 2
+#   yum:
+#     # name: "/var/tmp/{{ nombre_oracle_jdk8 }}"
+#     # name: "{{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
+#     state: present
+#     disable_gpg_check: yes
 
 - name: Instalar Oracle JDK 8
-  yum:
-    # name: "/var/tmp/{{ nombre_oracle_jdk8 }}"
-    name: "{{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
-    state: present
-    disable_gpg_check: yes
+  become: true
+  become_method: su
+  become_user: root
+  command: "yum install -y {{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
 
 - name: Descomprimir Jboss EAP 6 ZIP
   unarchive:
