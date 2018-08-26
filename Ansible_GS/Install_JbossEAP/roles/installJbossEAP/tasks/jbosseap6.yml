@@ -28,11 +28,14 @@
     name: java
     state: absent
 
+# - name: Instalar Oracle JDK 8
+#   yum:
+#     name: "{{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
+#     disable_gpg_check: yes
+#     state: present
+
 - name: Instalar Oracle JDK 8
-  yum:
-    name: "{{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
-    disable_gpg_check: yes
-    state: present
+  command: "rpm -Uvh {{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
 
 - name: Descomprimir Jboss EAP 7 ZIP
   unarchive:
