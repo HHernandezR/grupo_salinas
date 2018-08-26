@@ -1,7 +1,0 @@
-- name: Ejecutar Post-Installation Scripts
-  become: yes
-  become_user: root
-  shell: "{{ item }}"
-  loop:
-    - "{{ oracle_inventory }}/orainstRoot.sh"
-    - "{{ oracle_home }}/root.sh"

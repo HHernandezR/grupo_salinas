@@ -1,5 +1,0 @@
-- name: "Ejecutar Post-Instalacion Oracle 12c"
-  hosts: all
-  become: true
-  roles:
-    - postInstallOracle12c

@@ -13,6 +13,7 @@ recurso_nfs: "{{ ip_servidor_maestro }}:{{ path_recursos_maestro }} {{ punto_mon
 usaurio_jboss: jboss
 grupo_jboss: jboss
 jboss_home_permisos: 0755
+jdk_permisos: 0777
 
 nombre_jboss7_zip: jboss-eap-7.1.0.zip
 nombre_jboss6_zip: jboss-eap-6.4.0.zip
