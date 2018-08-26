@@ -12,6 +12,7 @@
 - name: Agregar Servidores NTP
   lineinfile:
     path: "{{ path_ntp }}"
+    insertbefore: '.*Please consider joining the pool'
     line: 'server {{ item }} iburst'
   loop: "{{ ntp_servers }}"
 

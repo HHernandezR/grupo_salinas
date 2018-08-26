@@ -2,3 +2,4 @@ path_ntp: /etc/ntp.conf
 
 ntp_servers:
   - 10.53.21.136
+  - 10.53.21.137
