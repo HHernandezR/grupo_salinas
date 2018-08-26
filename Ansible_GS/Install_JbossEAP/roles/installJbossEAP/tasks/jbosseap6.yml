@@ -10,15 +10,15 @@
   loop:
     - "{{ punto_montaje_nfs }}"
 
-- name: Cambiar Permisos Directorio
-  file:
-    path: "{{ item }}"
-    owner: "{{ usaurio_jboss }}"
-    group: "{{ grupo_jboss }}"
-    mode: "{{ jboss_home_permisos }}"
-    recurse: yes
-  loop:
-    - "{{ punto_montaje_nfs }}"
+# - name: Cambiar Permisos Directorio
+#   file:
+#     path: "{{ item }}"
+#     owner: "{{ usaurio_jboss }}"
+#     group: "{{ grupo_jboss }}"
+#     mode: "{{ jboss_home_permisos }}"
+#     recurse: yes
+#   loop:
+#     - "{{ punto_montaje_nfs }}"
 
 - name: Instalar NFS-Utils
   yum:
@@ -39,6 +39,9 @@
     state: absent
 
 - name: Copiar Oracle JDK 8
+  become: true
+  become_method: su
+  become_user: root
   copy:
     src:  "{{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
     dest: /var/tmp/
