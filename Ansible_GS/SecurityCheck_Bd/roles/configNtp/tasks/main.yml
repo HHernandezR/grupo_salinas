@@ -12,7 +12,7 @@
 - name: Agregar Servidores NTP
   lineinfile:
     path: "{{ path_ntp }}"
-    insertbefore: '.*Please consider joining the pool'
+        insertbefore: '.*broadcast 192.168.1.255 autokey'
     line: 'server {{ item }} iburst'
   loop: "{{ ntp_servers }}"
 
