@@ -160,11 +160,11 @@
     path: "{{ path_certificacion }}"
     line: "{{ java_out.stdout }}"
 
-- name: Eliminar Resultado Extra
-  lineinfile:
-    path: "{{ path_certificacion }}"
-    state: absent
-    regexp: './bin/sh.'
+# - name: Eliminar Resultado Extra
+#   lineinfile:
+#     path: "{{ path_certificacion }}"
+#     state: absent
+#     regexp: "./bin/sh."
 
 - name: Imprimir Linea Inicial
   lineinfile:
@@ -180,11 +180,11 @@
     path: "{{ path_certificacion }}"
     line: "{{ jboss_out.stdout }}"
 
-- name: Eliminar Resultado Extra
-  lineinfile:
-    path: "{{ path_certificacion }}"
-    state: absent
-    regexp: './bin/sh.'
+# - name: Eliminar Resultado Extra
+#   lineinfile:
+#     path: "{{ path_certificacion }}"
+#     state: absent
+#     regexp: "./bin/sh."
 
 - name: Imprimir Linea Inicial
   lineinfile:
@@ -200,11 +200,11 @@
     path: "{{ path_certificacion }}"
     line: "{{ apache_out.stdout }}"
 
-- name: Eliminar Resultado Extra
-  lineinfile:
-    path: "{{ path_certificacion }}"
-    state: absent
-    regexp: './bin/sh.'
+# - name: Eliminar Resultado Extra
+#   lineinfile:
+#     path: "{{ path_certificacion }}"
+#     state: absent
+#     regexp: "./bin/sh."
 
 - name: Imprimir Linea Inicial
   lineinfile:
@@ -220,11 +220,11 @@
     path: "{{ path_certificacion }}"
     line: "{{ crtlm_out.stdout }}"
 
-- name: Eliminar Resultado Extra
-  lineinfile:
-    path: "{{ path_certificacion }}"
-    state: absent
-    regexp: './bin/sh.'
+# - name: Eliminar Resultado Extra
+#   lineinfile:
+#     path: "{{ path_certificacion }}"
+#     state: absent
+#     regexp: "./bin/sh."
 
 - name: Imprimir Linea Inicial
   lineinfile:
