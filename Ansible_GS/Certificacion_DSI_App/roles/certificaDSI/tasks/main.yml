@@ -1,8 +1,8 @@
 - name: Cambiar Umask a login.defs
   replace:
     path: /etc/login.defs
-    regexp: '.*UMASK.*'
-    replace: 'UMASK           {{ umask }}'
+    regexp: ".*UMASK.*"
+    replace: "UMASK           {{ umask }}"
 
 - name: Cambiar Permisos a login.defs
   file:
@@ -38,27 +38,27 @@
 - name: Editar Fichero sshd_config SyslogFacility AUTH
   replace:
     path: /etc/ssh/sshd_config
-    regexp: '.*SyslogFacility AUTH$'
-    replace: '{{ syslog_auth }}'
+    regexp: ".*SyslogFacility AUTH$"
+    replace: "{{ syslog_auth }}"
 
 - name: Editar Fichero sshd_config SyslogFacility AUTHPRIV
   replace:
     path: /etc/ssh/sshd_config
-    regexp: '.*SyslogFacility AUTHPRIV$'
+    regexp: ".*SyslogFacility AUTHPRIV$"
     # regexp: '.*SyslogFacility [AUTHPRIV]{8}'
-    replace: '{{ syslog_authpriv }}'
+    replace: "{{ syslog_authpriv }}"
 
 - name: Editar Fichero sshd_config LogLevel INFO
   replace:
     path: /etc/ssh/sshd_config
-    regexp: '.*LogLevel.*'
-    replace: '{{ log_level }}'
+    regexp: ".*LogLevel.*"
+    replace: "{{ log_level }}"
 
 - name: Editar Fichero sshd_config PubkeyAuthentication
   replace:
     path: /etc/ssh/sshd_config
-    regexp: '.*PubkeyAuthentication.*'
-    replace: '{{ public_key }}'
+    regexp: ".*PubkeyAuthentication.*"
+    replace: "{{ public_key }}"
 
 - name: Elimiar Usuarios
   user:
@@ -125,7 +125,7 @@
 - name: Borrar Banner
   lineinfile:
     path: /etc/motd
-    line: '{{ texto_baner }}'
+    line: "{{ texto_baner }}"
 
 - name: Agregar local5 a Fichero rsyslog.conf
   lineinfile:
@@ -153,5 +153,5 @@
 # - name: Editar Fichero sshd_config PermitRootLogin
 #   replace:
 #     path: /etc/ssh/sshd_config
-#     regexp: '.*PermitRootLogin.*'
+#     regexp: ".*PermitRootLogin.*"
 #     replace: "{{ permit_root_login }}"
