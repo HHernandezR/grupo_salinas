@@ -212,7 +212,7 @@
     line: ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  SERVICIOS CONTROL-M  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<"
 
 - name: Obtener Servicios CONTROL-M
-  shell: ps -fea | grep "cmagt"
+  shell: ps -fea | grep cmagt
   register: crtlm_out
 
 - name: Imprimir Servicios CONTROL-M
@@ -240,11 +240,11 @@
     path: "{{ path_certificacion }}"
     line: "{{ smon_out.stdout }}"
 
-- name: Eliminar Resultado Extra
-  lineinfile:
-    path: "{{ path_certificacion }}"
-    state: absent
-    regexp: './bin/sh.'
+# - name: Eliminar Resultado Extra
+#   lineinfile:
+#     path: "{{ path_certificacion }}"
+#     state: absent
+#     regexp: "./bin/sh."
 
 - name: Imprimir Linea Inicial
   lineinfile:
@@ -260,11 +260,11 @@
     path: "{{ path_certificacion }}"
     line: "{{ pmon_out.stdout }}"
 
-- name: Eliminar Resultado Extra
-  lineinfile:
-    path: "{{ path_certificacion }}"
-    state: absent
-    regexp: './bin/sh.'
+# - name: Eliminar Resultado Extra
+#   lineinfile:
+#     path: "{{ path_certificacion }}"
+#     state: absent
+#     regexp: "./bin/sh."
 
 - name: Imprimir Linea Inicial
   lineinfile:
@@ -280,11 +280,11 @@
     path: "{{ path_certificacion }}"
     line: "{{ dbin_out.stdout }}"
 
-- name: Eliminar Resultado Extra
-  lineinfile:
-    path: "{{ path_certificacion }}"
-    state: absent
-    regexp: './bin/sh.'
+# - name: Eliminar Resultado Extra
+#   lineinfile:
+#     path: "{{ path_certificacion }}"
+#     state: absent
+#     regexp: "./bin/sh."
 
 - name: Imprimir Linea Inicial
   lineinfile:
