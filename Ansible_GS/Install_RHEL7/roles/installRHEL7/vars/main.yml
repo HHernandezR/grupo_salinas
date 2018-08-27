@@ -19,4 +19,16 @@ size_root:
 size_swap:
 size_opt:
 size_var:
-size_home: 
+size_home:
+
+iface1_nombre:
+iface1_vlan:
+iface1_ip:
+iface1_netmask:
+iface1_gateway:
+
+iface2_nombre:
+iface2_vlan:
+iface2_ip:
+iface2_netmask:
+iface2_gateway:
