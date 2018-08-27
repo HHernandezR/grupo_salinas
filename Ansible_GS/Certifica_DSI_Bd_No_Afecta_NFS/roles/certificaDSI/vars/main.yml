@@ -4,7 +4,7 @@ nombre_directorio_salida: /
 nombre_archivo_salida: salida_parches_seguridad.txt
 path_salida: "{{ nombre_directorio_salida }}{{ nombre_archivo_salida }}"
 
-umask: 022
+umask_value: "022"
 
 permisos_logindefs: 0600
 usuario_logindefs: root

@@ -2,7 +2,7 @@
   replace:
     path: /etc/login.defs
     regexp: ".*UMASK.*"
-    replace: "UMASK           {{ umask }}"
+    replace: "UMASK           {{ umask_value }}"
 
 - name: Cambiar Permisos a login.defs
   file:
