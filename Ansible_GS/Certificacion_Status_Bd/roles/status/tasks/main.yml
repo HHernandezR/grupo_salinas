@@ -295,7 +295,7 @@
   command: mount
   register: mount_out
 
-- name: Imprimir Servicios NFS
+- name: Imprimir Punto Montaje
   lineinfile:
     path: "{{ path_salidacertifiserv }}"
     line: "{{ mount_out.stdout }}"

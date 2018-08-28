@@ -92,7 +92,7 @@ baner_valor: Fal
 #Path fichero rsyslog.conf
 path_rsyslogconf: /etc/rsyslog.conf
 
-#Lista Parametros sftpd
+#Lista Parametros sftpd local5
 params_local5:
   - /sftpd.log/d
   - 61i local5.*  /var/log/sftpd.log

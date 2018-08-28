@@ -110,6 +110,7 @@ path_hosts: /etc/hosts
 
 #Lista de Hosts
 hosts_agregar: |
+  #UNIX
   10.50.166.52    term-ux01
   10.50.166.53    term-ux02
   10.50.166.54    term-ux03
