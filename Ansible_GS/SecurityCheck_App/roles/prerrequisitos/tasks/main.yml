@@ -1,6 +1,6 @@
 - name: Actualizar Sistema
   yum:
-    name: '*'
+    name: "*"
     state: latest
 - pause:
     seconds: 2

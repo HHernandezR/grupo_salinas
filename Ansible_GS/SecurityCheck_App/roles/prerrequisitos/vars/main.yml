@@ -1,8 +1,12 @@
+#Path fichero limits.conf
 path_limits: /etc/security/limits.conf
 
+#Nombre usuario Jboss
 usuario_jboss: jboss
+#Nombre grupo Jboss
 usuario_root: root
 
+#Lista de paquetes a instalar
 paquetes_prerrequisitos:
   - xorg-x11-apps
   - compat-libcap*
@@ -20,17 +24,20 @@ paquetes_prerrequisitos:
   - libstdc++.i686
   - unzip
 
+#Lista de grupos de paquetes a instalar
 lista_grupos_paquetes:
   # Paquete No encontrado
   #- x11
   #- X Window System
   - gnome-desktop-environment
 
+#Valores de limits a agregar para el ususario jboss
 jboss_limits_soft_nproc: 65536
 jboss_limits_hard_nproc: 65536
 jboss_limits_soft_nofile: 65536
 jboss_limits_hard_nofile: 65536
 
+#Valores de limits a agregar para el ususario root
 root_limits_soft_nproc: 65536
 root_limits_hard_nproc: 65536
 root_limits_soft_nofile: 65536

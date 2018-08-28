@@ -1,2 +1,4 @@
+#Path directorio sshd_config
 path_ssh: /etc/ssh/sshd_config
+#Valor para permitir el login de usuario root
 permit_root_login: no

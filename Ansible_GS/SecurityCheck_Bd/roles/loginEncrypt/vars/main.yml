@@ -1,2 +1,4 @@
+#Path fichero login.defs
 path_loginencrypt: /etc/login.defs
+#Metodo de ecnriptacion login
 method_encrypt_login: SHA512

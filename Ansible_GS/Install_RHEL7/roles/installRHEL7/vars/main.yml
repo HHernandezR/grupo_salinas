@@ -8,27 +8,39 @@ rhel_pass:
 rhel_ip_nombre:
 #Nombre Imagen/Temp
 rhel_imagen:
-
+#Nombre del Datacenter
 datacenter_nombre:
 #Numero de CPUS Default: 2
 cantidad_cpus: 2
 #Cantidad de Memoria en GB Default: 1
 cantidad_memoria : 1
-
+#Tamaño Particion root
 size_root:
+#Tamaño Particion swap
 size_swap:
+#Tamaño Particion opt
 size_opt:
+#Tamaño Particion var
 size_var:
+#Tamaño Particion home
 size_home:
-
+#Nombre nic 1
 iface1_nombre:
+#Nombre vlan nic 1
 iface1_vlan:
+#IP nic 1
 iface1_ip:
+#Netmask nic 1
 iface1_netmask:
+#Gateway nic 1
 iface1_gateway:
-
+#Nombre nic 2
 iface2_nombre:
+#Nombre vlan nic 2
 iface2_vlan:
+#IP nic 2
 iface2_ip:
+#Netmask nic 2
 iface2_netmask:
+#Gateway nic 2
 iface2_gateway:

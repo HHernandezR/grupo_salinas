@@ -1,2 +1,4 @@
+#Path fichero Selinux config
 path_selinux: /etc/selinux/config
+#Estatus SELINUX
 state_selinux: disabled

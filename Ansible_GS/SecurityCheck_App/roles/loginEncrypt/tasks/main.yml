@@ -1,5 +1,5 @@
 - name: Cambiar metodo de encryptacion a SHA512
   replace:
     path: "{{ path_loginencrypt }}"
-    regexp: '.*ENCRYPT_METHOD.*'
-    replace: 'ENCRYPT_METHOD {{ method_encrypt_login }}'
+    regexp: ".*ENCRYPT_METHOD.*"
+    replace: "ENCRYPT_METHOD {{ method_encrypt_login }}"

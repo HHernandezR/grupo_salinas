@@ -1,25 +1,37 @@
+#Path destino copiado ficheros RPM
 path_destino_rpm: /var/tmp/
+#Nombre RPM Oracle ASM lib
 nombre_oracleasm_lib: oracleasmlib-2.0.4-1.el6.x86_64.rpm
+#Nombre RPM Oracle ASM support
 nombre_oracleasm_support: oracleasm-support-2.1.8-1.el6.x86_64.rpm
+#Nombre fichero Config ASM
 nombre_oracleasm_exp: oracleasm_config.exp
-
+#Usuario propietario Oracle ASM RPM
 usuario_asm_rpm: root
+#Grupo propietario Oracle ASM RPM
 grupo_asm_rpm: root
+#Permisos Oracle ASM RPM
 permisos_asm_rpm: 0777
-
+#Usuario propietario Oracle ASM Expect
 usaurio_asmexp: root
+#Grupo propietario Oracle ASM Expect
 grupo_asmexp: root
+#Permisos Oracle ASM Expect
 permisos_asmexp: 0777
-
+#Path fichero limits.conf
 path_limits: /etc/security/limits.conf
+#Path fichero Pamd.d Login
 path_pamd: /etc/pam.d/login
+#Path fichero profile
 path_profile: /etc/profile
+#Path fichero csh.login
 path_cshlogin: /etc/csh.login
-
+#Nombre Usuario oracle limits
 usaurio_oracle: oracle
-grupo_oracle: oinstall
+#Nombre Usuario gird limits
 usuario_grid: grid
 
+#Lista de paquetes a instalar
 paquetes_prerrequisitos:
   - elfutils-*
   - glibc-*
@@ -58,6 +70,7 @@ paquetes_prerrequisitos:
   - kmod-oracleasm #Paquete necesario para Oraclesm
   - expect #Paquete necesario para Iniciar Configuración de Oraclesm
 
+#Valores de configuracion para el Kernel
 oracle_kernel_params:
   kernel.shmmni: 4096
   kernel.sem: 250 32000 100 128
@@ -72,19 +85,23 @@ oracle_kernel_params:
   kernel.panic_on_oops: 1
   net.ipv6.conf.all.disable_ipv6: 1
 
+#Valores de limits a agregar para el ususario oracle
 oracle_limits_soft_nproc: 2047
 oracle_limits_hard_nproc: 16384
 oracle_limits_soft_nofile: 1024
 oracle_limits_hard_nofile: 65536
 
+#Valores de limits a agregar para el ususario grid
 grid_limits_soft_nproc: 2047
 grid_limits_hard_nproc: 16384
 grid_limits_soft_nofile: 1024
 grid_limits_hard_nofile: 65536
 
+#Lista de valores a agregar al fichero Pamd.d Login
 config_pamd:
   - session required pam_limits.so
 
+#Bloque de código a agregar al fichero profile
 config_profile: |
   if [ \$USER = "oracle" ]; then
   if [ \$SHELL = "/bin/ksh" ]; then
@@ -105,6 +122,7 @@ config_profile: |
   umask 022
   fi
 
+#Bloque de código a agregar al fichero csh.login
 config_cshlogin: |
   if ( \$USER == "oracle" ) then
   limit maxproc 16384
@@ -117,6 +135,7 @@ config_cshlogin: |
   umask 022
   endif
 
+#Lista de servicios rlogin
 servicios_rlogin:
   - rsh.socket
   - rlogin.socket

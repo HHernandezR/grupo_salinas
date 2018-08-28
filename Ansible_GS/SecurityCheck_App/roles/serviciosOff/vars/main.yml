@@ -1,3 +1,4 @@
+#Lista de servicios a deshabilitar
 lista_servicios_off:
   - cups
   - sendmail #Servicio no encontrado en RHEL 7
