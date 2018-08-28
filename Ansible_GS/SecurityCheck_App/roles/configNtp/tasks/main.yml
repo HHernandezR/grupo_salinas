@@ -6,7 +6,7 @@
 - name: Eliminar configuracion por defecto de hora y fecha
   lineinfile:
     path: "{{ path_ntp }}"
-    regexp: '^server.*$'
+    regexp: "^server.*$"
     state: absent
 
 - name: Agregar Servidores NTP
