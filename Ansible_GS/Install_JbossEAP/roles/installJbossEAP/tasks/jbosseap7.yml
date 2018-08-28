@@ -2,27 +2,22 @@
   debug:
     msg: "Iniciar Ejecución de JBoss EAP Version: 7"
 
-- name: Crear Directorios Punto de Montaje
+- name: Crear Directorios
   file:
     path: "{{ item }}"
     state: directory
     force: yes
   loop:
-    - "{{ punto_montaje_nfs }}"
+    # - "{{ punto_montaje_nfs }}"
     - "{{ path_java }}"
 
-- name: Instalar NFS-Utils
-  yum:
-    name: nfs-utils
-    state: present
-
-- name: Agregar Recurso NFS Fstab
-  lineinfile:
-    path: "{{ path_fstab }}"
-    line: "{{ recurso_nfs }}"
-
-- name: Montar Recurso NFS
-  command: "mount -a"
+- name: Copiar Oracle JDK 8 ZIP
+  copy:
+    src: "{{ path_recursos_maestro }}/{{ nombre_oraclejdk8_zip }}"
+    dest: "{{ path_recursos_nodo }}"
+    owner: "{{ usaurio_jboss }}"
+    group: "{{ grupo_jboss }}"
+    mode: "{{ jboss_home_permisos }}"
 
 - name: Elimar Version Actual de Java
   yum:
@@ -31,7 +26,7 @@
 
 - name: Instalar Oracle JDK 8
   unarchive:
-    src: "{{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
+    src: "{{ path_recursos_nodo }}/{{ nombre_oraclejdk8_zip }}"
     dest: "{{ path_java }}"
     copy: false
     owner: "{{ usaurio_jboss }}"
@@ -43,9 +38,17 @@
 #     name: "{{ punto_montaje_nfs }}/{{ nombre_oracle_jdk8 }}"
 #     state: present
 
+- name: Copiar Jboss EAP 7 ZIP
+  copy:
+    src: "{{ path_recursos_maestro }}/{{ nombre_jboss7_zip }}"
+    dest: "{{ path_recursos_nodo }}"
+    owner: "{{ usaurio_jboss }}"
+    group: "{{ grupo_jboss }}"
+    mode: "{{ jboss_home_permisos }}"
+
 - name: Descomprimir Jboss EAP 7 ZIP
   unarchive:
-    src: "{{ punto_montaje_nfs }}/{{ nombre_jboss7_zip }}"
+    src: "{{ path_recursos_nodo }}/{{ nombre_jboss7_zip }}"
     dest: "{{ path_instalacion }}"
     copy: false
     owner: "{{ usaurio_jboss }}"

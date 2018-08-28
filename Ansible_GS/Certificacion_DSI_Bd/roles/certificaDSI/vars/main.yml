@@ -1,31 +1,28 @@
-nombre_directorio_salida: "/"
-nombre_archivo_salida: "salida_parches_seguridad.txt"
-path_salida: "{{ nombre_directorio_salida }}{{ nombre_archivo_salida }}"
-
+#Ruta fichero login.defs
+path_logindefs: /etc/login.defs
+#Valor Umask
 umask_value: "022"
-
+#Permisos fichero login.defs
 permisos_logindefs: 0600
-usuario_logindefs: "root"
-grupo_logindefs: "root"
-
+#Usuario Propietario fichero login.defs
+usuario_logindefs: root
+#Grupo Propietario fichero login.defs
+grupo_logindefs: root
+#Ruta fichero wtmp
+path_wtmp: /var/log/wtmp
+#Permisos fichero wtmp
 permisos_wtmp: 0644
+#Path fichero hosts.allow
+path_hostsallow: /etc/hosts.allow
+#Permisos fichero hosts.allow
 permisos_hostsallow: 0750
+#Path fichero xinetd
+path_xinetd: /etc/xinetd.d/
+#Permisos fichero xinetd
 permisos_xinetd: 0600
-permisos_services: 0600
-usuario_services: "root"
-grupo_services: "root"
-permisos_security: 0600
-usuario_security: "root"
-grupo_security: "root"
 
-texto_baner: "Fal"
-
-permit_root_login: "PermitRootLogin no"
-syslog_auth: "SyslogFacility AUTH"
-syslog_authpriv: "#SyslogFacility AUTHPRIV"
-log_level: "LogLevel INFO"
-
-lista_servicios:
+#Lista de servicios a Deshabilitar
+servicios_deshabilitar:
   - cups
   - sendmail #Servicio no encontrado en RHEL 7
   - bluetooth
@@ -42,22 +39,73 @@ lista_servicios:
   - rpcbind
   - rpcsvcgssd #Servicio no encontrado en RHEL 7
 
+#Path fichero sshd_config
+path_sshdconfig: /etc/ssh/sshd_config
+#Valor SyslogFacility AUTH
+syslogfacility_auth_valor: SyslogFacility AUTH
+#Valor SyslogFacility AUTHPRIV
+syslogfacility_authpriv_valor: "#SyslogFacility AUTHPRIV"
+#Valor Log Level
+loglevel_valor: LogLevel INFO
+#Valor PubkeyAuthentication
+pubkey_authentication_valor: PubkeyAuthentication no
+
+#Lista de usuarios a Eliminar
 usuarios_eliminar:
   - uucp
   - games
 
+#Path directorio Services
+path_services: /etc/services
+#Usuario Propietario directorio Services
+usuario_services: root
+#Grupo Propietario directorio Services
+grupo_services: root
+#Permisos directorio Services
+permisos_services: 0600
+#Path Fichero hosts.equiv
+path_hostsequiv: /etc/hosts.equiv
+
+#Lista Parametros Sftp en fichero sshd_config
 parametros_sftp:
   - /sftp-server/d
   - 133i Subsystem  sftp  /usr/libexec/openssh/sftp-server -f LOCAL5 -l INFO
 
-lista_local5:
+#Nombre Directorio de Salida para Fichero salida_parches_seguridad.txt
+directorio_salidaparchessec: /
+#Nombre Fiechero de Salida salida_parches_seguridad.txt
+nombre_salidaparchessec: salida_parches_seguridad.txt
+#Path Fichero salida_parches_seguridad.txt
+path_salidaparchessec: "{{ directorio_salidaparchessec }}{{ nombre_salidaparchessec }}"
+#Path directorio Security
+path_security: /etc/security
+#Usuario propietario directorio Security
+usuario_security: root
+#Grupo propietario directorio Security
+grupo_security: root
+#PErmisos propietario directorio Security
+permisos_security: 0600
+#Path fichero motd
+path_motd: /etc/motd
+#Valor Texto Baner
+baner_valor: Fal
+#Path fichero rsyslog.conf
+path_rsyslogconf: /etc/rsyslog.conf
+
+#Lista Parametros sftpd
+params_local5:
   - /sftpd.log/d
   - 61i local5.*  /var/log/sftpd.log
 
+#Bloque de texto que contiene los usuarios permitidos
 usuarios_permitidos: |
   AllowUsers b755236@term-ux?? b708700@term-ux?? b780919@term-ux?? b923430@term-ux?? b925442@term-ux?? b936196@term-ux?? b937777@term-ux?? b253861@term-ux?? b766998@term-ux?? b280667@term-ux?? b666268@term-ux?? b180683@term-ux?? b199550@term-ux?? b209097@term-ux?? b291457@term-ux?? b296510@term-ux?? b312527@term-ux?? b318015@term-ux?? b329465@term-ux?? b320831@term-ux?? b330578@term-ux?? b333289@term-ux?? b178308@term-ux?? b315458@term-ux?? b318100@term-ux?? b323426@term-ux?? b333289@term-ux?? b346337@term-ux?? b347415@term-ux?? b347550@term-ux?? b201521@term-ux?? b351377@term-ux?? scom@term-scom?? usrmon@term-usrmon?? oracle@term-oracle?? grid@term-oracle?? grid@term-grid?? oracle@term-grid?? nagios@term-nagios?? nagios@term-oracle??
 
-lista_hosts: |
+#Path fichero hosts
+path_hosts: /etc/hosts
+
+#Lista de Hosts
+hosts_agregar: |
   #UNIX
   10.50.166.52    term-ux01
   10.50.166.53    term-ux02
@@ -109,3 +157,6 @@ lista_hosts: |
   10.63.10.232	term-oracle08
   10.53.42.84	term-oracle09
   10.80.166.84	term-oracle10
+
+#Valor PermitRootLogin
+permit_root_login: PermitRootLogin no

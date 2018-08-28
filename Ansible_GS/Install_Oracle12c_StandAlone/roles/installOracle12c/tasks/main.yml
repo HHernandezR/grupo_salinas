@@ -12,29 +12,31 @@
 # - pause:
 #     seconds: 3
 
-- name: Crear Directorios Punto de Montaje, Stage y Database
+- name: Crear Directorios Necesarios
   file:
     path: "{{ item }}"
     state: directory
     force: yes
   loop:
-    - "{{ punto_montaje_nfs }}"
-    - "{{ oracle_stage }}"
-    - "{{ oracle_bin_files }}"
-    - "{{ oracle_db_files }}"
+    # - "{{ punto_montaje_nfs }}"
+    - "{{ path_oracle_binfiles }}"
+    - "{{ path_oracle_dbfiles }}"
+    - "{{ path_oracle_stage }}"
+    - "{{ path_oracle_grid }}"
+    - "{{ path_oracle_dump }}"
 
-- name: Instalar NFS-Utils
-  yum:
-    name: nfs-utils
-    state: present
-
-- name: Agregar Recurso NFS Fstab
-  lineinfile:
-    path: "{{ path_fstab }}"
-    line: "{{ recurso_nfs }}"
-
-- name: Montar Recurso NFS
-  command: "mount -a"
+# - name: Instalar NFS-Utils
+#   yum:
+#     name: nfs-utils
+#     state: present
+#
+# - name: Agregar Recurso NFS Fstab
+#   lineinfile:
+#     path: "{{ path_fstab }}"
+#     line: "{{ recurso_nfs }}"
+#
+# - name: Montar Recurso NFS
+#   command: "mount -a"
 
 - name: Cambiar Permisos Directorio
   file:
@@ -44,15 +46,40 @@
     mode: "{{ permisos_oracle }}"
     recurse: yes
   loop:
-    - "{{ oracle_bin_files }}"
-    - "{{ oracle_db_files }}"
-    - "{{ oracle_stage }}"
+    - "{{ path_oracle_binfiles }}"
+    - "{{ path_oracle_dbfiles }}"
+    - "{{ path_oracle_stage }}"
+    - "{{ path_oracle_grid }}"
+    - "{{ path_oracle_dump }}"
 
-- name: Descomprimir Oracle DataBase ZIP
-  command: "unzip {{ punto_montaje_nfs }}/{{ item }} -d {{ oracle_stage }}"
+- name: Copiar Oracle DataBase ZIP
+  copy:
+    src: "{{ path_recursos_maestro }}/{{ item }}"
+    dest: "{{ path_recursos_nodo }}"
+    owner: "{{ usaurio_oracle }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
   loop:
     - "{{ nombre_dabatase_zip1 }}"
     - "{{ nombre_dabatase_zip2 }}"
+
+- name: Descomprimir Oracle DataBase ZIP
+  unarchive:
+    src: "{{ path_recursos_nodo }}/{{ item }}"
+    dest: "{{ path_oracle_stage }}"
+    copy: false
+    owner: "{{ usaurio_jboss }}"
+    group: "{{ grupo_jboss }}"
+    mode: "{{ jboss_home_permisos }}"
+    loop:
+      - "{{ nombre_dabatase_zip1 }}"
+      - "{{ nombre_dabatase_zip2 }}"
+
+# - name: Descomprimir Oracle DataBase ZIP
+#   command: "unzip {{ path_recursos_nodo }}/{{ item }} -d {{ oracle_stage }}"
+#   loop:
+#     - "{{ nombre_dabatase_zip1 }}"
+#     - "{{ nombre_dabatase_zip2 }}"
 
 - name: Preparar Template de Instalacion
   template:
@@ -60,9 +87,9 @@
     dest: "{{ path_destino_template }}"
 
 - name: Ejecutar Instalador Oracle
-  shell: "{{ oracle_stage }}/database/runInstaller -silent -waitforcompletion -ignoreSysPrereqs -responseFile {{ path_destino_template }}"
+  shell: "{{ path_oracle_stage }}/database/runInstaller -silent -waitforcompletion -ignoreSysPrereqs -responseFile {{ path_destino_template }}"
   args:
-    creates: "{{ oracle_home }}/bin/sqlplus"
+    creates: "{{ path_oracle_home }}/bin/sqlplus"
   become: yes
   become_user: oracle
   register: command_result
@@ -81,7 +108,7 @@
   loop:
     -
       regexp: ^ORACLE_HOME=
-      line: "ORACLE_HOME={{ oracle_home }}"
+      line: "ORACLE_HOME={{ path_oracle_home }}"
     -
       regexp: PATH=\$ORACLE_HOME/bin
       line: PATH=$ORACLE_HOME/bin:$PATH
@@ -92,13 +119,13 @@
 - name: Setear Variable de Entorno Oracle SID
   lineinfile:
    dest: "{{ path_bashprofile }}"
-   line: "export ORACLE_SID={{ oracle_sid }}"
+   line: "export ORACLE_SID={{ oracle_sid_nombre }}"
    insertbefore: "export PATH"
 
 - name: Setear Variable de Entorno Oracle Base
   lineinfile:
    dest: "{{ path_bashprofile }}"
-   line: "export ORACLE_BASE={{ oracle_base }}"
+   line: "export ORACLE_BASE={{ path_oracle_base }}"
    insertbefore: "export PATH"
 
 - name: Ejecutar Post-Installation Scripts
@@ -106,5 +133,5 @@
   become_user: root
   shell: "{{ item }}"
   loop:
-    - "{{ oracle_inventory }}/orainstRoot.sh"
-    - "{{ oracle_home }}/root.sh"
+    - "{{ path_oracle_inventory }}/orainstRoot.sh"
+    - "{{ path_oracle_home }}/root.sh"

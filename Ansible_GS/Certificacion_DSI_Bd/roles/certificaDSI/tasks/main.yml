@@ -1,29 +1,29 @@
 - name: Cambiar Umask a login.defs
   replace:
-    path: /etc/login.defs
+    path: "{{ path_logindefs }}"
     regexp: ".*UMASK.*"
     replace: "UMASK           {{ umask_value }}"
 
 - name: Cambiar Permisos a login.defs
   file:
-    path: /etc/login.defs
+    path: "{{ path_logindefs }}"
     owner: "{{ usuario_logindefs }}"
     group: "{{ grupo_logindefs }}"
     mode: "{{ permisos_logindefs }}"
 
 - name: Cambiar Permisos a wtmp
   file:
-    path: /var/log/wtmp
+    path: "{{ path_wtmp }}"
     mode: "{{ permisos_wtmp }}"
 
 - name: Cambiar Permisos a hosts.allow
   file:
-    path: /etc/hosts.allow
+    path: "{{ path_hostsallow }}"
     mode: "{{ permisos_hostsallow }}"
 
 - name: Cambiar Permisos a xinetd.d
   file:
-    path: /etc/xinetd.d/
+    path: "{{ path_xinetd }}"
     mode: "{{ permisos_xinetd }}"
     recurse: yes
 
@@ -33,26 +33,26 @@
     state: stopped
     enabled: no
   ignore_errors: yes
-  loop: "{{ lista_servicios }}"
+  loop: "{{ servicios_deshabilitar }}"
 
 - name: Editar Fichero sshd_config SyslogFacility AUTH
   replace:
-    path: /etc/ssh/sshd_config
+    path: "{{ path_sshdconfig }}"
     regexp: ".*SyslogFacility AUTH$"
-    replace: "{{ syslog_auth }}"
+    replace: "{{ syslogfacility_auth_valor }}"
 
 - name: Editar Fichero sshd_config SyslogFacility AUTHPRIV
   replace:
-    path: /etc/ssh/sshd_config
+    path: "{{ path_sshdconfig }}"
     regexp: ".*SyslogFacility AUTHPRIV$"
-    # regexp: '.*SyslogFacility [AUTHPRIV]{8}'
-    replace: "{{ syslog_authpriv }}"
+    # regexp: ".*SyslogFacility [AUTHPRIV]{8}"
+    replace: "{{ syslogfacility_authpriv_valor }}"
 
 - name: Editar Fichero sshd_config LogLevel INFO
   replace:
-    path: /etc/ssh/sshd_config
+    path: "{{ path_sshdconfig }}"
     regexp: ".*LogLevel.*"
-    replace: "{{ log_level }}"
+    replace: "{{ loglevel_valor }}"
 
 - name: Elimiar Usuarios
   user:
@@ -69,32 +69,32 @@
 
 - name: Cambiar Perisos a Directorio Services
   file:
-    path: /etc/services
+    path: "{{ path_services }}"
     owner: "{{ usuario_services }}"
     group: "{{ grupo_services }}"
     mode: "{{ permisos_services }}"
 
 - name: Eliminar Fichero hosts.equiv
   file:
-    path: /etc/hosts.equiv
+    path: "{{ path_hostsequiv }}"
     state: absent
   ignore_errors: yes
 
 - name: Agregar Parametros SFTP a sshd_config
   lineinfile:
-    path: /etc/ssh/sshd_config
+    path: "{{ path_sshdconfig }}"
     line: "{{ item }}"
   loop: "{{ parametros_sftp }}"
 
 - name: Crear Fichero salida_parches_seguridad
   copy:
     content: ""
-    dest: "{{ path_salida }}"
+    dest: "{{ path_salidaparchessec }}"
     force: yes
 
 - name: Agregar Cabecero Parches de Seguridad
   lineinfile:
-    path: "{{ path_salida }}"
+    path: "{{ path_salidaparchessec }}"
     line: "======================= yum check-update  ======================="
 
 - name: Verificar Actualzaciones
@@ -105,37 +105,37 @@
 
 - name: Imprimir Actualizaciones
   lineinfile:
-    path: "{{ path_salida }}"
+    path: "{{ path_salidaparchessec }}"
     line: "{{ item.name }} -- {{ item.version }} -- {{ item.release }} -- {{ item.repo }}"
   loop: "{{ yumupdate_out.results }}"
 
 - name: Cambiar Permisos a Fichero Security
   file:
-    path: /etc/security
+    path: "{{ path_security }}"
     owner: "{{ usuario_security }}"
     group: "{{ grupo_security }}"
     mode: "{{ permisos_security }}"
 
 - name: Borrar Banner
   lineinfile:
-    path: /etc/motd
-    line: "{{ texto_baner }}"
+    path: "{{ path_motd }}"
+    line: "{{ baner_valor }}"
 
 - name: Agregar local5 a Fichero rsyslog.conf
   lineinfile:
-    path: /etc/rsyslog.conf
+    path: "{{ path_rsyslogconf }}"
     line: "{{ item }}"
-  loop: "{{ lista_local5 }}"
+  loop: "{{ params_local5 }}"
 
 - name: Agregar Usuarios Permitidos
   blockinfile:
-    path: /etc/ssh/sshd_config
+    path: "{{ path_sshdconfig }}"
     block: "{{ usuarios_permitidos }}"
 
 - name: Agregar Hosts
   blockinfile:
-    path: /etc/hosts
-    block: "{{ lista_hosts }}"
+    path: "{{ path_hosts }}"
+    block: "{{ hosts_agregar }}"
 
 - name: Reiniciar-sshd
   service:

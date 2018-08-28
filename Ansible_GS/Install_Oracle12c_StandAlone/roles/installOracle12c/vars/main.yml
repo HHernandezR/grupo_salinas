@@ -1,51 +1,65 @@
-punto_montaje_nfs: /var/tmp/nfs
-path_fstab: /etc/fstab
-ip_servidor_maestro: 192.168.72.150
+# punto_montaje_nfs: /var/tmp/nfs
+# path_fstab: /etc/fstab
+# ip_servidor_maestro: 192.168.72.150
+# path_recursos_maestro: /usr/databases_resources
+# recurso_nfs: "{{ ip_servidor_maestro }}:{{ path_recursos_maestro }} {{ punto_montaje_nfs }}  nfs _netdev 0 0"
+
+#Path del servidor maestro en el cual se obtienen los recursos linuxamd64_12102_database_1of2.zip y linuxamd64_12102_database_2of2.zip
 path_recursos_maestro: /usr/databases_resources
-recurso_nfs: "{{ ip_servidor_maestro }}:{{ path_recursos_maestro }} {{ punto_montaje_nfs }}  nfs _netdev 0 0"
-
+#Usuario Propietario de directorios BD Oracle
 usaurio_oracle: oracle
+#Grupo Propietario de directorios BD Oracle
 grupo_oracle: oinstall
+#Permisos de directorios BD Oracle
 permisos_oracle: 0775
-
+#Nombre fichero ZIP Oracle DB Parte 1
 nombre_dabatase_zip1: linuxamd64_12102_database_1of2.zip
+#Nombre fichero ZIP Oracle DB Parte 2
 nombre_dabatase_zip2: linuxamd64_12102_database_2of2.zip
-
+#Nombre fichero Template Instalacion Oracle Data Base
 nombre_original_template: db-install-12c.rsp.j2
+#Path destino Template Instalacion Oracle Data Base
 path_destino_template: /var/tmp/db-install.rsp
 
-permisos_zip: 0777
-usuario_zip: root
-grupo_zip: root
+# oracle_bin_files: /u01
+# oracle_db_files: /u02
 
-oracle_bin_files: /u01
-oracle_db_files: /u02
-oracle_inventory: /u01/app/oraInventory
-oracle_base: /u01/app/oracle
-oracle_home: "{{ oracle_base }}/product/12.1.0/dbhome_1"
-oracle_stage: /stage
+#Path diectorio bin Oracle Data Base
+path_oracle_binfiles: /oracle12c
+#Path diectorio data
+path_oracle_dbfiles: /oradata
+#Path diectorio Inventory
+path_oracle_inventory: /oracle12c/app/oraInventory
+#Path diectorio Oracle Base
+path_oracle_base: /oracle12c/app/oracle
+#Path diectorio Oracle Home
+path_oracle_home: "{{ oracle_base }}/product/12.1.0/dbhome_1"
+#Path diectorio Stage
+path_oracle_stage: /stage
+#Path diectorio Grid
+path_oracle_grid: /grid
+#Path directorio dump
+path_oracle_dump: /oradump
 
-oracle_directorios:
-  - "{{ oracle_bin_files }}"
-  - "{{ oracle_db_files }}"
-  - "{{ oracle_inventory }}"
-  - "{{ oracle_base }}"
-  - "{{ oracle_base }}/product/12.1.0/dbhome_1"
-
+#Parametro de Configuracion Oracle Data Base Modo de Instalacion
 oracle_modo_instalacion: INSTALL_DB_SWONLY
-oracle_version: 12c
+#Parametro de Configuracion Oracle Data Base Edicion
 oracle_edition: EE
+#Parametro de Configuracion Oracle Data Base Idioma
 oracle_idioma: en
-oracle_sid: orcll
+#Parametro de Configuracion Oracle Data Base Nombr Base de Datos
 oracle_db_nombre: db
+#Parametro de Configuracion Oracle Data Base Nombre SID
 oracle_sid_nombre: db
+#Parametro de Configuracion Oracle Data Base Proposito
 oracle_proposito: GENERAL_PURPOSE
+#Parametro de Configuracion Oracle Data Base Charset
 oracle_charset: AL32UTF8
+#Parametro de Configuracion Oracle Data Base Limite de Memoria
 oracle_memory_limit: 512
+#Parametro de Configuracion Oracle Data Base Pasword para el Sysdba
 oracle_sysdba_pass: password
+#Parametro de Configuracion Oracle Data Base Tipo de Storage
 oracle_tipo_storage: FILE_SYSTEM_STORAGE
-
-oracle_installer_directory: /var/tmp/stage
-permisos_installer_directory: 0777
-
+#Path fichero bash_profile
 path_bashprofile: /home/oracle/.bash_profile

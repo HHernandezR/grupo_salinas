@@ -1,9 +1,14 @@
-nombre_directorio_certificacion: "/Certifi-servicios"
-nombre_fichero_certificacion: "Certifi-servicios.txt"
-path_certificacion: "{{nombre_directorio_certificacion}}/{{nombre_fichero_certificacion}}"
-
+#Nombre Directorio de Salida para Fichero Certifi-servicios.txt
+directorio_salidacertifiserv: /Certifi-servicios
+#Nombre Fiechero de Salida salida_parches_seguridad.txt
+nombre_salidacertifiserv: Certifi-servicios.txt
+#Path Fichero salida_parches_seguridad.txt
+path_salidacertifiserv: "{{ directorio_salidacertifiserv }}/{{ nombre_salidacertifiserv }}"
+#Path fichero Iptables
 path_iptables: /etc/sysconfig/iptables
+#Path fichero Fstab
 path_fstab: /etc/fstab
 
-lista_ficheros_copiar_etc:
+#Lista de ficheros a copiar
+ficheros_etc:
   - /etc/hosts

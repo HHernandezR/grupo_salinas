@@ -1,58 +1,87 @@
+#Versión del JBossEAP a Instalar
 version_jboss: 7
-path_instalacion: /opt/
-
+#Versión del JDK a Instalar
+version_jdk: 8
+#Path de instalacion del JBossEAP
+path_jbosseap: /opt/
+#Nombre fichero JBOS 7
 nombre_fichero_jbosseap7: jboss-eap-7.1
+#Nombre fichero JBOS 6
 nombre_fichero_jbosseap6: jboss-eap-6.4
-
-punto_montaje_nfs: /var/tmp/nfs
-path_fstab: /etc/fstab
-ip_servidor_maestro: 192.168.72.150
+#Path del servidor maestro en el cual se obtienen los recursos jboss-eap-X.X.0.zip
 path_recursos_maestro: /usr/app_resources
-recurso_nfs: "{{ ip_servidor_maestro }}:{{ path_recursos_maestro }} {{ punto_montaje_nfs }}  nfs _netdev 0 0"
+#Path donde se copian los archivos JDK .zip
+path_recursos_nodo: /var/tmp
 
+# punto_montaje_nfs: /var/tmp/nfs
+# path_fstab: /etc/fstab
+# ip_servidor_maestro: 192.168.72.150
+# path_recursos_maestro: /usr/app_resources
+# recurso_nfs: "{{ ip_servidor_maestro }}:{{ path_recursos_maestro }} {{ punto_montaje_nfs }}  nfs _netdev 0 0"
+
+#Usuario Propietario directorio JBoss
 usaurio_jboss: jboss
+#Frupo Propietario directorio JBoss
 grupo_jboss: jboss
+#Permisos directorio JBoss
 jboss_home_permisos: 0755
+#Permisos directorio JDK
 jdk_permisos: 0777
-
+#Nombre Fichero ZIP Oracle JDK 8
+nombre_oraclejdk8_zip: jdk-8u181-linux-x64.tar.gz
+#Nombre Fichero ZIP Oracle JDK 7
+nombre_oraclejdk7_zip: jdk-7u80-linux-x64.tar.gz
+#Nombre fichero ZIP JBossEAP 7
 nombre_jboss7_zip: jboss-eap-7.1.0.zip
+#Nombre fichero ZIP JBossEAP 6
 nombre_jboss6_zip: jboss-eap-6.4.0.zip
-
-nombre_oracle_jdk8: jdk-8u181-linux-x64.tar.gz
-
+#Path JBOSS_HOME 7
 jboss7_home: "{{ path_instalacion }}{{ nombre_fichero_jbosseap7 }}"
+#Path JBOSS_HOME 6
 jboss6_home: "{{ path_instalacion }}{{ nombre_fichero_jbosseap6 }}"
-
+#Path Fichero Oracle JDK
 path_java: "/usr/java/"
+#Path JAVA_HOME 8
 java_home: "/usr/java/jdk1.8.0_181"
-
+#Path JAVA_HOME 7
+java_home: "/usr/java/jdk1.7.0_80"
+#Path Fichero bash_profile
 path_bashprofile: "/home/jboss/.bash_profile"
-jboss_installer_directory: "/usr/share/"
-
+#Nombre fichero Template JBossEAP 7
 nombre_template7: standalone7.xml.j2
+#Path destino Template JBossEAP 7
 path_fichero_standalone7: "{{ jboss7_home }}/standalone/configuration/standalone.xml"
-
+#Nombre fichero Template JBossEAP 6
 nombre_template6: standalone6.xml.j2
+#Path destino Template JBossEAP 6
 path_fichero_standalone6: "{{ jboss6_home }}/standalone/configuration/standalone.xml"
-
+#Path fichero JBossEAP 7 mgmt-users.properties
 path_mgmt_userp7: "{{ jboss7_home }}/standalone/configuration/mgmt-users.properties"
+#Path fichero JBossEAP 7 mgmt-groups.properties
 path_mgmt_groupp7: "{{ jboss7_home }}/standalone/configuration/mgmt-groups.properties"
-
+#Path fichero JBossEAP 6 mgmt-users.properties
 path_mgmt_userp6: "{{ jboss6_home }}/standalone/configuration/mgmt-users.properties"
+#Path fichero JBossEAP 6 mgmt-groups.properties
 path_mgmt_groupp6: "{{ jboss6_home }}/standalone/configuration/mgmt-groups.properties"
 
+#Lista de Users fichero mgmt-users.properties
 mgmt_user_properties_value:
   - jbossqa=2292a82e62755f722e0110bc265ed1aa
 
+#Lista de Grupos fichero mgmt-groups.properties
 mgmt_groups_properties_value:
   - jbossqa=
 
+#Valor Secret Value JBossEAP 7
 server_identities_secret_value7: <secret value="cUBKYjAkJFEi" />
+#Valor Secret Value JBossEAP 6
 server_identities_secret_value6: <secret value="cUBKYjAkJFEi" />
-
+#Valor IP WSDL Host - INET Adress JBossEAP 7
 ip_wsdl_inet_value7: XXX.111.XXX.111
+#Valor IP WSDL Host - INET Adress JBossEAP 6
 ip_wsdl_inet_value6: XXX.222.XXX.222
 
+#Valor Thread Pool JBossEAP 7
 thread_pool_value7: |
   <unbounded-queue-thread-pool name="uq-thread-pool">
     <max-threads count="800"/>
@@ -65,6 +94,7 @@ thread_pool_value7: |
     <thread-factory name="https-connector-factory"/>
   </unbounded-queue-thread-pool>
 
+#Valor Thread Pool JBossEAP 7
 thread_pool_value6: |
   <unbounded-queue-thread-pool name="uq-thread-pool">
     <max-threads count="800"/>
@@ -77,6 +107,7 @@ thread_pool_value6: |
     <thread-factory name="https-connector-factory"/>
   </unbounded-queue-thread-pool>
 
+#Valor Data Source JBossEAP 7
 datasource_value7: |
   <datasource jta="false" jndi-name="java:/jdbc/dsTarjeta" pool-name="dsTarjeta" enabled="true" use-ccm="false">
     <connection-url>jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(FAILOVER=on)(ADDRESS=(PROTOCOL=TCP) (HOST=hosts-bd-01)(PORT=1521))(ADDRESS=(PROTOCOL=TCP) (HOST=host-bd-02)(PORT=1521))) (CONNECT_DATA=(FAILOVER_MODE=(TYPE=session)(METHOD=basic)(RETRIES=180))(SERVER=dedicated)(SERVICE_NAME=ServiceName)))</connection-url>
@@ -109,6 +140,7 @@ datasource_value7: |
       </statement>
   </datasource>
 
+#Valor Data Source JBossEAP 6
 datasource_value6: |
   <datasource jta="false" jndi-name="java:/jdbc/dsTarjeta" pool-name="dsTarjeta" enabled="true" use-ccm="false">
     <connection-url>jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS_LIST=(FAILOVER=on)(ADDRESS=(PROTOCOL=TCP) (HOST=hosts-bd-01)(PORT=1521))(ADDRESS=(PROTOCOL=TCP) (HOST=host-bd-02)(PORT=1521))) (CONNECT_DATA=(FAILOVER_MODE=(TYPE=session)(METHOD=basic)(RETRIES=180))(SERVER=dedicated)(SERVICE_NAME=ServiceName)))</connection-url>
