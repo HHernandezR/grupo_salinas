@@ -7,7 +7,7 @@
 - name: Copiar Ficheros a Certifi-servicios
   copy:
     src: "{{ item }}"
-    dest: "{{ nombre_salidacertifiserv }}"
+    dest: "{{ directorio_salidacertifiserv }}"
     force: yes
   loop: "{{ ficheros_etc }}"
   ignore_errors: yes
