@@ -68,9 +68,9 @@
     src: "{{ path_recursos_nodo }}/{{ item }}"
     dest: "{{ path_oracle_stage }}"
     copy: false
-    owner: "{{ usaurio_jboss }}"
-    group: "{{ grupo_jboss }}"
-    mode: "{{ jboss_home_permisos }}"
+    owner: "{{ usaurio_oracle }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
   loop:
     - "{{ nombre_dabatase_zip1 }}"
     - "{{ nombre_dabatase_zip2 }}"
