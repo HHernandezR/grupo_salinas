@@ -71,9 +71,9 @@
     owner: "{{ usaurio_jboss }}"
     group: "{{ grupo_jboss }}"
     mode: "{{ jboss_home_permisos }}"
-    loop:
-      - "{{ nombre_dabatase_zip1 }}"
-      - "{{ nombre_dabatase_zip2 }}"
+  loop:
+    - "{{ nombre_dabatase_zip1 }}"
+    - "{{ nombre_dabatase_zip2 }}"
 
 # - name: Descomprimir Oracle DataBase ZIP
 #   command: "unzip {{ path_recursos_nodo }}/{{ item }} -d {{ oracle_stage }}"
