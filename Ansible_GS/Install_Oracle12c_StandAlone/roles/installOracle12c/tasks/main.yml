@@ -1,65 +1,65 @@
-# - name: Crear Directorios Necesarios
-#   file:
-#     path: "{{ item }}"
-#     state: directory
-#     force: yes
-#   loop:
-#     # - "{{ punto_montaje_nfs }}"
-#     - "{{ path_oracle_binfiles }}"
-#     - "{{ path_oracle_dbfiles }}"
-#     - "{{ path_oracle_stage }}"
-#     - "{{ path_oracle_grid }}"
-#     - "{{ path_oracle_dump }}"
+- name: Crear Directorios Necesarios
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: yes
+  loop:
+    # - "{{ punto_montaje_nfs }}"
+    - "{{ path_oracle_binfiles }}"
+    - "{{ path_oracle_dbfiles }}"
+    - "{{ path_oracle_stage }}"
+    - "{{ path_oracle_grid }}"
+    - "{{ path_oracle_dump }}"
+
+# - name: Instalar NFS-Utils
+#   yum:
+#     name: nfs-utils
+#     state: present
 #
-# # - name: Instalar NFS-Utils
-# #   yum:
-# #     name: nfs-utils
-# #     state: present
-# #
-# # - name: Agregar Recurso NFS Fstab
-# #   lineinfile:
-# #     path: "{{ path_fstab }}"
-# #     line: "{{ recurso_nfs }}"
-# #
-# # - name: Montar Recurso NFS
-# #   command: "mount -a"
+# - name: Agregar Recurso NFS Fstab
+#   lineinfile:
+#     path: "{{ path_fstab }}"
+#     line: "{{ recurso_nfs }}"
 #
-# - name: Cambiar Permisos Directorio
-#   file:
-#     path: "{{ item }}"
-#     owner: "{{ usaurio_oracle }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#     recurse: yes
-#   loop:
-#     - "{{ path_oracle_binfiles }}"
-#     - "{{ path_oracle_dbfiles }}"
-#     - "{{ path_oracle_stage }}"
-#     - "{{ path_oracle_grid }}"
-#     - "{{ path_oracle_dump }}"
-#
-# - name: Copiar Oracle DataBase ZIP
-#   copy:
-#     src: "{{ path_recursos_maestro }}/{{ item }}"
-#     dest: "{{ path_recursos_nodo }}"
-#     owner: "{{ usaurio_oracle }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#   loop:
-#     - "{{ nombre_dabatase_zip1 }}"
-#     - "{{ nombre_dabatase_zip2 }}"
-#
-# - name: Descomprimir Oracle DataBase ZIP
-#   unarchive:
-#     src: "{{ path_recursos_nodo }}/{{ item }}"
-#     dest: "{{ path_oracle_stage }}"
-#     copy: false
-#     owner: "{{ usaurio_oracle }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#   loop:
-#     - "{{ nombre_dabatase_zip1 }}"
-#     - "{{ nombre_dabatase_zip2 }}"
+# - name: Montar Recurso NFS
+#   command: "mount -a"
+
+- name: Cambiar Permisos Directorio
+  file:
+    path: "{{ item }}"
+    owner: "{{ usaurio_oracle }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+    recurse: yes
+  loop:
+    - "{{ path_oracle_binfiles }}"
+    - "{{ path_oracle_dbfiles }}"
+    - "{{ path_oracle_stage }}"
+    - "{{ path_oracle_grid }}"
+    - "{{ path_oracle_dump }}"
+
+- name: Copiar Oracle DataBase ZIP
+  copy:
+    src: "{{ path_recursos_maestro }}/{{ item }}"
+    dest: "{{ path_recursos_nodo }}"
+    owner: "{{ usaurio_oracle }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+  loop:
+    - "{{ nombre_dabatase_zip1 }}"
+    - "{{ nombre_dabatase_zip2 }}"
+
+- name: Descomprimir Oracle DataBase ZIP
+  unarchive:
+    src: "{{ path_recursos_nodo }}/{{ item }}"
+    dest: "{{ path_oracle_stage }}"
+    copy: false
+    owner: "{{ usaurio_oracle }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+  loop:
+    - "{{ nombre_dabatase_zip1 }}"
+    - "{{ nombre_dabatase_zip2 }}"
 
 # - name: Descomprimir Oracle DataBase ZIP
 #   command: "unzip {{ path_recursos_nodo }}/{{ item }} -d {{ oracle_stage }}"
