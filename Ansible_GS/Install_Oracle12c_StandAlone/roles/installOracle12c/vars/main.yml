@@ -6,6 +6,8 @@
 
 #Path del servidor maestro en el cual se obtienen los recursos linuxamd64_12102_database_1of2.zip y linuxamd64_12102_database_2of2.zip
 path_recursos_maestro: /usr/databases_resources
+#Path destino donde se copian los recursos del servidor maestro
+path_recursos_nodo: /var/tmp
 #Usuario Propietario de directorios BD Oracle
 usaurio_oracle: oracle
 #Grupo Propietario de directorios BD Oracle
