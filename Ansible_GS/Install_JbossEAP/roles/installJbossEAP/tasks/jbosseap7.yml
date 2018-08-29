@@ -39,23 +39,6 @@
     src: "{{ nombre_template7 }}"
     dest: "{{ path_fichero_standalone7 }}"
 
-- name: Setear Variable de Entorno Java Home
-  lineinfile:
-    dest: "{{ path_bashprofile }}"
-    regexp: "{{ item.regexp }}"
-    line: "{{ item.line }}"
-    insertbefore: "export PATH"
-  loop:
-    -
-      regexp: ^JAVA_HOME=
-      line: "JAVA_HOME={{ java_home }}"
-    -
-      regexp: PATH=\$JAVA_HOME/bin
-      line: PATH=$JAVA_HOME/bin:$PATH
-    -
-      regexp: ^export JAVA_HOME
-      line: export JAVA_HOME
-
 - name: Setear Variable de Entorno Jboss Home
   lineinfile:
     dest: "{{ path_bashprofile }}"
