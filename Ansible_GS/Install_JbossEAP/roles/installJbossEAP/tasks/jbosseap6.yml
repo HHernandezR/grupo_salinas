@@ -2,57 +2,8 @@
   debug:
     msg: "Iniciar Ejecución de JBoss EAP Version: 6"
 
-- name: Crear Directorios
-  file:
-    path: "{{ item }}"
-    state: directory
-    force: yes
-  loop:
-    # - "{{ punto_montaje_nfs }}"
-    - "{{ path_java }}"
-
-- name: Copiar Oracle JDK 8 ZIP
-  copy:
-    src: "{{ path_recursos_maestro }}/{{ nombre_oraclejdk8_zip }}"
-    dest: "{{ path_recursos_nodo }}"
-    owner: "{{ usaurio_jboss }}"
-    group: "{{ grupo_jboss }}"
-    mode: "{{ jboss_home_permisos }}"
-  when: "{{ version_jdk }} == 8"
-
-- name: Copiar Oracle JDK 7 ZIP
-  copy:
-    src: "{{ path_recursos_maestro }}/{{ nombre_oraclejdk7_zip }}"
-    dest: "{{ path_recursos_nodo }}"
-    owner: "{{ usaurio_jboss }}"
-    group: "{{ grupo_jboss }}"
-    mode: "{{ jboss_home_permisos }}"
-  when: "{{ version_jdk }} == 7"
-
-- name: Elimar Version Actual de Java
-  yum:
-    name: java
-    state: absent
-
-- name: Instalar Oracle JDK 8
-  unarchive:
-    src: "{{ path_recursos_nodo }}/{{ nombre_oraclejdk8_zip }}"
-    dest: "{{ path_java }}"
-    copy: false
-    owner: "{{ usaurio_jboss }}"
-    group: "{{ grupo_jboss }}"
-    mode: "{{ jboss_home_permisos }}"
-  when: "{{ version_jdk }} == 8"
-
-- name: Instalar Oracle JDK 7
-  unarchive:
-    src: "{{ path_recursos_nodo }}/{{ nombre_oraclejdk7_zip }}"
-    dest: "{{ path_java }}"
-    copy: false
-    owner: "{{ usaurio_jboss }}"
-    group: "{{ grupo_jboss }}"
-    mode: "{{ jboss_home_permisos }}"
-  when: "{{ version_jdk }} == 7"
+- name: Ejecutar Instalacion de Oracle JDK
+  include: installjdk{{ version_jdk }}.yml
 
 # - name: Copiar Jboss EAP 6 ZIP
 #   copy:
@@ -87,23 +38,6 @@
 #   template:
 #     src: "{{ nombre_template6 }}"
 #     dest: "{{ path_fichero_standalone6 }}"
-#
-# - name: Setear Variable de Entorno Java Home
-#   lineinfile:
-#     dest: "{{ path_bashprofile }}"
-#     regexp: "{{ item.regexp }}"
-#     line: "{{ item.line }}"
-#     insertbefore: "export PATH"
-#   loop:
-#     -
-#       regexp: ^JAVA_HOME=
-#       line: "JAVA_HOME={{ java_home }}"
-#     -
-#       regexp: PATH=\$JAVA_HOME/bin
-#       line: PATH=$JAVA_HOME/bin:$PATH
-#     -
-#       regexp: ^export JAVA_HOME
-#       line: export JAVA_HOME
 #
 # - name: Setear Variable de Entorno Jboss Home
 #   lineinfile:

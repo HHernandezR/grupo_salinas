@@ -12,13 +12,6 @@ nombre_fichero_jbosseap6: jboss-eap-6.4
 path_recursos_maestro: /usr/app_resources
 #Path donde se copian los archivos JDK .zip
 path_recursos_nodo: /var/tmp
-
-# punto_montaje_nfs: /var/tmp/nfs
-# path_fstab: /etc/fstab
-# ip_servidor_maestro: 192.168.72.150
-# path_recursos_maestro: /usr/app_resources
-# recurso_nfs: "{{ ip_servidor_maestro }}:{{ path_recursos_maestro }} {{ punto_montaje_nfs }}  nfs _netdev 0 0"
-
 #Usuario Propietario directorio JBoss
 usaurio_jboss: jboss
 #Frupo Propietario directorio JBoss
@@ -40,13 +33,13 @@ jboss7_home: "{{ path_instalacion }}{{ nombre_fichero_jbosseap7 }}"
 #Path JBOSS_HOME 6
 jboss6_home: "{{ path_instalacion }}{{ nombre_fichero_jbosseap6 }}"
 #Path Fichero Oracle JDK
-path_java: "/usr/java/"
+path_java: /usr/java/
 #Path JAVA_HOME 8
-java_home: "/usr/java/jdk1.8.0_181"
+java_home8: /usr/java/jdk1.8.0_181
 #Path JAVA_HOME 7
-java_home: "/usr/java/jdk1.7.0_80"
+java_home7: /usr/java/jdk1.7.0_80
 #Path Fichero bash_profile
-path_bashprofile: "/home/jboss/.bash_profile"
+path_bashprofile: /home/jboss/.bash_profile
 #Nombre fichero Template JBossEAP 7
 nombre_template7: standalone7.xml.j2
 #Path destino Template JBossEAP 7

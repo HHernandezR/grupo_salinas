@@ -1,0 +1,50 @@
+- name: Versión Oracle JDK 8
+  debug:
+    msg: "Iniciar Instalacion de Oracle JDK 8"
+
+- name: Crear Directorios Java
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: yes
+  loop:
+    - "{{ path_java }}"
+
+- name: Copiar Oracle JDK 8 ZIP
+  copy:
+    src: "{{ path_recursos_maestro }}/{{ nombre_oraclejdk8_zip }}"
+    dest: "{{ path_recursos_nodo }}"
+    owner: "{{ usaurio_jboss }}"
+    group: "{{ grupo_jboss }}"
+    mode: "{{ jboss_home_permisos }}"
+
+- name: Elimar Version Actual de Java
+  yum:
+    name: java
+    state: absent
+
+- name: Instalar Oracle JDK 8
+  unarchive:
+    src: "{{ path_recursos_nodo }}/{{ nombre_oraclejdk8_zip }}"
+    dest: "{{ path_java }}"
+    copy: false
+    owner: "{{ usaurio_jboss }}"
+    group: "{{ grupo_jboss }}"
+    mode: "{{ jboss_home_permisos }}"
+
+- name: Setear Variable de Entorno Java Home
+  lineinfile:
+    dest: "{{ path_bashprofile }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    insertbefore: "export PATH"
+  loop:
+    -
+      regexp: ^JAVA_HOME=
+      line: "JAVA_HOME={{ java_home8 }}"
+    -
+      regexp: PATH=\$JAVA_HOME/bin
+      line: PATH=$JAVA_HOME/bin:$PATH
+    -
+      regexp: ^export JAVA_HOME
+      line: export JAVA_HOME
