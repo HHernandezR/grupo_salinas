@@ -29,9 +29,9 @@ nombre_jboss7_zip: jboss-eap-7.1.0.zip
 #Nombre fichero ZIP JBossEAP 6
 nombre_jboss6_zip: jboss-eap-6.4.0.zip
 #Path JBOSS_HOME 7
-jboss7_home: "{{ path_instalacion }}{{ nombre_fichero_jbosseap7 }}"
+jboss7_home: "{{ path_jbosseap }}{{ nombre_fichero_jbosseap7 }}"
 #Path JBOSS_HOME 6
-jboss6_home: "{{ path_instalacion }}{{ nombre_fichero_jbosseap6 }}"
+jboss6_home: "{{ path_jbosseap }}{{ nombre_fichero_jbosseap6 }}"
 #Path Fichero Oracle JDK
 path_java: /usr/java/
 #Path JAVA_HOME 8

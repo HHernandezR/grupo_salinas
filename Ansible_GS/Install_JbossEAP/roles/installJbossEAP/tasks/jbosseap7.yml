@@ -16,7 +16,7 @@
 - name: Descomprimir Jboss EAP 7 ZIP
   unarchive:
     src: "{{ path_recursos_nodo }}/{{ nombre_jboss7_zip }}"
-    dest: "{{ path_instalacion }}"
+    dest: "{{ path_jbosseap }}"
     copy: false
     owner: "{{ usaurio_jboss }}"
     group: "{{ grupo_jboss }}"
