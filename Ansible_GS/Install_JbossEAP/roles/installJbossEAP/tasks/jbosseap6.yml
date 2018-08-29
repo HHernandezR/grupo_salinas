@@ -18,7 +18,7 @@
     owner: "{{ usaurio_jboss }}"
     group: "{{ grupo_jboss }}"
     mode: "{{ jboss_home_permisos }}"
-  when: version_jdk == "8"
+  when: "{{ version_jdk }}" == "8"
 
 - name: Copiar Oracle JDK 7 ZIP
   copy:
@@ -27,20 +27,7 @@
     owner: "{{ usaurio_jboss }}"
     group: "{{ grupo_jboss }}"
     mode: "{{ jboss_home_permisos }}"
-  when: version_jdk == "7"
-
-# - name: Instalar NFS-Utils
-#   yum:
-#     name: nfs-utils
-#     state: present
-#
-# - name: Agregar Recurso NFS Fstab
-#   lineinfile:
-#     path: "{{ path_fstab }}"
-#     line: "{{ recurso_nfs }}"
-#
-# - name: Montar Recurso NFS
-#   command: "mount -a"
+  when: "{{ version_jdk }}" == "7"
 
 - name: Elimar Version Actual de Java
   yum:
@@ -55,7 +42,7 @@
     owner: "{{ usaurio_jboss }}"
     group: "{{ grupo_jboss }}"
     mode: "{{ jboss_home_permisos }}"
-  when: version_jdk == "8"
+  when: "{{ version_jdk }}" == "8"
 
 - name: Instalar Oracle JDK 7
   unarchive:
@@ -65,7 +52,7 @@
     owner: "{{ usaurio_jboss }}"
     group: "{{ grupo_jboss }}"
     mode: "{{ jboss_home_permisos }}"
-  when: version_jdk == "7"
+  when: "{{ version_jdk }}" == "7"
 
 # - name: Copiar Jboss EAP 6 ZIP
 #   copy:
