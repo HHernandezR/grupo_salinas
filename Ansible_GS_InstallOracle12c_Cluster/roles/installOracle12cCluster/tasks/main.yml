@@ -1,0 +1,3 @@
+- name: Instalacion Oracle Data Base 12c Cluster
+  debug:
+    msg: "Iniciar Instalacion Oracle Data Base 12c: Cluster"

@@ -1,28 +1,18 @@
+- name: Instalacion Oracle Data Base 12c StandAlone
+  debug:
+    msg: "Iniciar Instalacion Oracle Data Base 12c: StandAlone"
+
 - name: Crear Directorios Necesarios
   file:
     path: "{{ item }}"
     state: directory
     force: yes
   loop:
-    # - "{{ punto_montaje_nfs }}"
     - "{{ path_oracle_binfiles }}"
     - "{{ path_oracle_dbfiles }}"
     - "{{ path_oracle_stage }}"
     - "{{ path_oracle_grid }}"
     - "{{ path_oracle_dump }}"
-
-# - name: Instalar NFS-Utils
-#   yum:
-#     name: nfs-utils
-#     state: present
-#
-# - name: Agregar Recurso NFS Fstab
-#   lineinfile:
-#     path: "{{ path_fstab }}"
-#     line: "{{ recurso_nfs }}"
-#
-# - name: Montar Recurso NFS
-#   command: "mount -a"
 
 - name: Cambiar Permisos Directorio
   file:
