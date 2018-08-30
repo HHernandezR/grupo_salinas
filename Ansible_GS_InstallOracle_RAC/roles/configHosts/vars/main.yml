@@ -1,3 +1,7 @@
+#Path fichero hosts
+path_hosts: /etc/hosts
+
+#Lista de Sevidores a agregar al fichero Hosts
 lista_servidores:
   #IP´s Publicas
   - 192.168.72.170
