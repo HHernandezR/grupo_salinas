@@ -1,0 +1,14 @@
+- name: "Ejecucion de SecurityCheck BD"
+  hosts: all
+  become: true
+  roles:
+    - serviciosOff
+    - loginEncrypt
+    - configNtp
+    - usersUnix
+    - usersMonitor
+    - usersOracle
+    - configSelinux
+    - ipTables
+    - prerrequisitos
+    #- sshRoot

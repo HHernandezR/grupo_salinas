@@ -1,0 +1,16 @@
+#Lista de servicios a deshabilitar
+lista_servicios_off:
+  - cups
+  - sendmail #Servicio no encontrado en RHEL 7
+  - bluetooth
+  - hplip #HP Printer and Scaner, Servicio no encontrado en RHEL 7
+  - postfix
+  - autofs
+  - atd
+  - ip6tables
+  - rhnsd #Red Hat Network Service, Servicio no encontrado en RHEL 7
+  - nfs
+  - nfslock
+  - rpcgssd
+  - rpcidmapd
+  - rpcsvcgssd #Servicio no encontrado en RHEL 7

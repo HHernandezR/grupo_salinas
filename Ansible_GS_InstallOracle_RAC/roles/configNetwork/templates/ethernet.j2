@@ -1,0 +1,8 @@
+# {{ ansible_managed }}
+DEVICE={{ item.device }}
+NAME={{ item.name }}
+BOOTPROTO=static
+ONBOOT={{ item.onboot }}
+IPADDR={{ item.address }}
+NETMASK={{ item.netmask }}
+GATEWAY={{ item.gateway }}

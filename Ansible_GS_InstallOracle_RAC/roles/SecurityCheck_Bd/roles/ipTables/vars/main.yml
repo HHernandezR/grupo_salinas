@@ -1,0 +1,8 @@
+#Path Directorio sysconfig
+path_iptables: /etc/sysconfig/
+#Grupo propietario fichero IpTables
+grupo_iptables: root
+#Grupo propietario fichero IpTables
+usuario_iptables: root
+#Permisos fichero IpTables
+permisos_iptables: 0600

@@ -1,0 +1,7 @@
+#Path fichero ntp.conf
+path_ntp: /etc/ntp.conf
+
+#Lista de servers NTP
+ntp_servers:
+  - 10.53.21.136
+  - 10.53.21.137
