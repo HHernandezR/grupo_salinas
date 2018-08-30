@@ -23,17 +23,6 @@
 - pause:
     seconds: 2
 
-# - name: Copiar RPM Oracleasm Support
-#   copy:
-#     src: "{{ nombre_oracleasm_support }}"
-#     dest: "{{ path_destino_rpm }}"
-#     owner: "{{ usuario_asm_rpm }}"
-#     group: "{{ grupo_asm_rpm }}"
-#     mode: "{{ permisos_asm_rpm }}"
-#     force: yes
-# - pause:
-#     seconds: 2
-
 - name: Instalar Oracleasm
   yum:
     name: "{{ item }}"

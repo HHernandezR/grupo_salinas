@@ -1,0 +1,10 @@
+- name: Particionar Discos
+  parted:
+    device: "{{ item.device }}"
+    number: "{{ item.number }}"
+    part_end:   100%
+    part_type:  primary
+    state: present
+    unit: MB
+  loop: "{{ discos_particionar }}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
