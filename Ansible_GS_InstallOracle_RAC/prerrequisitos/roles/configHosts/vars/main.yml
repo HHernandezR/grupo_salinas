@@ -1,0 +1,14 @@
+#Path fichero hosts
+path_hosts: /etc/hosts
+
+#Lista de servers a agregar
+lista_hosts:
+  #Ips Publicas
+  - { ip: 192.168.72.160, dominio: "oralab1.localdomain", prefijo: "oralab1" }
+  - { ip: 192.168.72.170, dominio: "oralab2.localdomain", prefijo: "oralab2" }
+  #Ips Privadas
+  - { ip: 192.168.72.161, dominio: "oralab1-priv.localdomain", prefijo: "oralab1-priv" }
+  - { ip: 192.168.72.171, dominio: "oralab2-priv.localdomain", prefijo: "oralab2-priv" }
+  #Ips Virtuales
+  - { ip: 192.168.72.162, dominio: "oralab1-vip.localdomain", prefijo: "oralab1-vip" }
+  - { ip: 192.168.72.172, dominio: "oralab2-vip.localdomain", prefijo: "oralab2-vip" }

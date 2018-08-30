@@ -1,0 +1,25 @@
+- name: Crear Directorios Necesarios
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: yes
+  loop:
+    - "{{ path_oracle_binfiles }}"
+    - "{{ path_oracle_dbfiles }}"
+    - "{{ path_oracle_stage }}"
+    - "{{ path_oracle_grid }}"
+    - "{{ path_oracle_dump }}"
+
+- name: Cambiar Permisos Directorio
+  file:
+    path: "{{ item }}"
+    owner: "{{ usuario_oracle }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+    recurse: yes
+  loop:
+    - "{{ path_oracle_binfiles }}"
+    - "{{ path_oracle_dbfiles }}"
+    - "{{ path_oracle_stage }}"
+    - "{{ path_oracle_grid }}"
+    - "{{ path_oracle_dump }}"

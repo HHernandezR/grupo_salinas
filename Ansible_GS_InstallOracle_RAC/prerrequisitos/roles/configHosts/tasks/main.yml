@@ -1,0 +1,5 @@
+- name: Agregar lista de Hosts
+  lineinfile:
+    path: "{{ path_hosts }}"
+    line: "{{ item.ip }}    {{ item.dominio }}    {{ item.prefijo }}"
+  loop: "{{ lista_hosts }}"

@@ -1,5 +1,0 @@
-- name: "Ejecutar Instalacion Oracle DataBase Cluster 12c"
-  hosts: all
-  become: true
-  roles:
-    - installOracle12cCluster
