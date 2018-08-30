@@ -1,0 +1,5 @@
+- name: Agregar Hosts
+  lineinfile:
+    path: /tmp/testfile
+    line: "{{ item }}"
+  loop: "{{ lista_servidores }}"
