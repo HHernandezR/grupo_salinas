@@ -1,4 +1,0 @@
-- name: Deshabilitar SeLinux
-  selinux:
-    conf: "{{ path_selinux }}"
-    state: "{{ state_selinux }}"

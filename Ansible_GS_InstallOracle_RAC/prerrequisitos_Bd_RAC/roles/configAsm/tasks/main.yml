@@ -1,0 +1,39 @@
+- name: Copiar RPM Oracleasm
+  copy:
+    src: "{{ path_recursos_maestro }}/{{ item }}"
+    dest: "{{ path_destino_rpm }}"
+    owner: "{{ usuario_asm_rpm }}"
+    group: "{{ grupo_asm_rpm }}"
+    mode: "{{ permisos_asm_rpm }}"
+    force: yes
+  loop:
+    - "{{ nombre_oracleasm_lib }}"
+    - "{{ nombre_oracleasm_support }}"
+- pause:
+    seconds: 2
+
+- name: Instalar Oracleasm
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - "{{ path_destino_rpm }}{{ nombre_oracleasm_lib }}"
+    - "{{ path_destino_rpm }}{{ nombre_oracleasm_support }}"
+
+- name: Copiar Expect Oracleasm Config
+  copy:
+    src: "{{ nombre_oracleasm_exp }}"
+    dest: "{{ path_destino_rpm }}"
+    owner: "{{ usaurio_asmexp }}"
+    group: "{{ grupo_asmexp }}"
+    mode: "{{ permisos_asmexp }}"
+    force: yes
+- pause:
+    seconds: 2
+
+- name: Ejecutar Oracleasm Config
+  command: "expect {{ path_destino_rpm }}{{ nombre_oracleasm_exp }}"
+
+- name: Crear Discos ASM
+  shell: "oracleasm  createdisk disk{{ item.number }}  {{ item.device }}1"
+  loop: "{{ discos_particionar }}"

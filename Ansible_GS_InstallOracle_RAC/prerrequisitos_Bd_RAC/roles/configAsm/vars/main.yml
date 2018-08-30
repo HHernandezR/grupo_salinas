@@ -1,0 +1,24 @@
+#Path del servidor maestro en el cual se obtienen los recursos rpm
+path_recursos_maestro: /usr/databases_resources
+#Path destino copiado ficheros RPM
+path_destino_rpm: /var/tmp/
+#Nombre RPM Oracle ASM lib
+nombre_oracleasm_lib: oracleasmlib-2.0.4-1.el6.x86_64.rpm
+#Nombre RPM Oracle ASM support
+nombre_oracleasm_support: oracleasm-support-2.1.8-1.el6.x86_64.rpm
+#Nombre fichero Config ASM
+nombre_oracleasm_exp: oracleasm_config.exp
+#Usuario propietario Oracle ASM RPM
+usuario_asm_rpm: root
+#Grupo propietario Oracle ASM RPM
+grupo_asm_rpm: root
+#Permisos Oracle ASM RPM
+permisos_asm_rpm: 0777
+#Usuario propietario Oracle ASM Expect
+usaurio_asmexp: root
+#Grupo propietario Oracle ASM Expect
+grupo_asmexp: root
+#Permisos Oracle ASM Expect
+permisos_asmexp: 0777
+#Path binario ASM
+path_asm: /usr/sbin/oracleasm
