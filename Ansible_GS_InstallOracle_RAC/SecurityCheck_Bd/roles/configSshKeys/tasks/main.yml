@@ -23,7 +23,7 @@
   become_user: "{{ usuario_become }}"
   authorized_key:
     user: "{{ usuario_oracle }}"
-    key: "{{ lookup('file', '{{ path_oracle_key }}') }}"
+    key: "{{ lookup('file', 'oracle_id_rsa.{{ item }}') }}"
     state: present
   loop: "{{groups['all']}}"
 
