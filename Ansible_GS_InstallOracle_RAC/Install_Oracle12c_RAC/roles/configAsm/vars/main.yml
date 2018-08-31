@@ -3,9 +3,9 @@ path_recursos_maestro: /usr/databases_resources
 #Path destino copiado ficheros RPM
 path_destino_rpm: /var/tmp/
 #Nombre RPM Oracle ASM lib
-nombre_oracleasm_lib: oracleasmlib-2.0.4-1.el6.x86_64.rpm
+nombre_oracleasm_lib: oracleasmlib-2.0.12-1.el7.x86_64.rpm
 #Nombre RPM Oracle ASM support
-nombre_oracleasm_support: oracleasm-support-2.1.8-1.el6.x86_64.rpm
+nombre_oracleasm_support: oracleasm-support-2.1.11-2.el7.x86_64.rpm
 #Nombre fichero Config ASM
 nombre_oracleasm_exp: oracleasm_config.exp
 #Usuario propietario Oracle ASM RPM

@@ -36,46 +36,46 @@ usuario_grid: grid
 #Lista de paquetes a instalar
 paquetes_prerrequisitos:
   #Paquetes Grupo Salinas
-  # - elfutils-*
-  # - glibc-*
-  # - gcc-4*
-  # - gcc-c++*
-  # - glibc-headers*
-  # - libgomp*
-  # #- compat-libstdc++*
-  # - unixODBC*
-  # - rsh-*
-  # - ksh
-  # - compat-libcap*
-  # #- compat-libcap1
-  # #- gcc
-  # #- gcc-c++
-  # #- glibc
-  # - glibc.i686
-  # - glibc-devel
-  # - glibc-devel.i686
-  # - ksh
-  # - libaio.i686
-  # - libaio-devel
-  # - libaio-devel.i686
-  # - libstdc++.i686
-  # - libstdc++-devel
-  # - libstdc++-devel.i686
-  # - libXi
-  # - libXi.i686
-  # - libXtst
-  # - libXtst.i686
-  # - sysstat
-  # - unixODBC
-  #Paquetes Preinstall
-  - epel-release
-  - oracle-rdbms-server-12cR1-preinstall
-  - "@Development tools"
+  - elfutils-*
+  - glibc-*
+  - gcc-4*
+  - gcc-c++*
+  - glibc-headers*
+  - libgomp*
+  #- compat-libstdc++*
+  - unixODBC*
+  - rsh-*
+  - ksh
+  - compat-libcap*
+  #- compat-libcap1
+  #- gcc
+  #- gcc-c++
+  #- glibc
+  - glibc.i686
+  - glibc-devel
+  - glibc-devel.i686
+  - ksh
+  - libaio.i686
+  - libaio-devel
+  - libaio-devel.i686
+  - libstdc++.i686
+  - libstdc++-devel
+  - libstdc++-devel.i686
+  - libXi
+  - libXi.i686
+  - libXtst
+  - libXtst.i686
+  - sysstat
+  - unixODBC
   - unzip
   - telnet
   - tuned
   - kmod-oracleasm #Paquete necesario para Oraclesm
   - expect #Paquete necesario para Iniciar Configuración de Oraclesm
+  # #Paquetes Preinstall
+  # - epel-release
+  # - oracle-rdbms-server-12cR1-preinstall
+  # - "@Development tools"
 
 #Valores de configuracion para el Kernel
 oracle_kernel_params:

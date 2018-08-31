@@ -1,8 +1,0 @@
-- name: "Ejecutar Instalacion Oracle DataBase RAC 12c"
-  hosts: all
-  become: true
-  roles:
-    - configHosts
-    - SecurityCheck_Bd
-    - particionarDiscos
-    - configAsm
