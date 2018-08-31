@@ -27,7 +27,7 @@
     state: present
   loop: "{{groups['all']}}"
 
-- name: Make sure the known hosts file exists
+- name: Verificar existencia del fichero known hosts
   become: yes
   become_user: "{{ usuario_become }}"
   file:
