@@ -35,5 +35,6 @@
   command: "expect {{ path_destino_rpm }}{{ nombre_oracleasm_exp }}"
 
 - name: Crear Discos ASM
-  shell: "oracleasm  createdisk disk{{ item.number }}  {{ item.device }}1"
+  shell: "oracleasm createdisk disk{{ item.number }}  {{ item.device }}1"
   loop: "{{ discos_particionar }}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"

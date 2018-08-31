@@ -1,0 +1,39 @@
+- name: Generar llave para usuarios Oracle y Grid
+  user:
+    name: {{ usuario_oracle }}
+    generate_ssh_key: yes
+    state: present
+
+- name: Descargar llaves publicas Nodo 1
+  fetch:
+    src: /home/{{ usuario_oracle }}/.ssh/id_rsa.pub
+    dest: oracle_id_rsa.{{ ip_nombre_node1 }}
+    flat: yes
+  with_items: "{{groups['all']}}"
+
+- name: Descargar llaves publicas Nodo 2
+  fetch:
+    src: /home/{{ usuario_oracle }}/.ssh/id_rsa.pub
+    dest: oracle_id_rsa.{{ ip_nombre_node2 }}
+    flat: yes
+  with_items: "{{groups['all']}}"
+
+- name: Copiar llaves Publicas a todos los nodos
+  authorized_key:
+    user: oracle key="{{ lookup('file', 'oracle_id_rsa.{{ item }}') }}"
+  with_items: "{{groups['all']}}"
+  become: yes
+  become_user: "{{ usuario_become }}"
+
+- name: Make sure the known hosts file exists
+  file:
+    path: ~/.ssh/known_hosts
+    state: touch
+  become: yes
+  become_user: "{{ usuario_become }}"
+
+- name: Agregar hosts al fichero known_hosts
+  shell: ssh-keyscan -H {{ item }} >> ~/.ssh/known_hosts
+  with_items: "{{groups['all']}}"
+  become: yes
+  become_user: "{{ usuario_become }}"

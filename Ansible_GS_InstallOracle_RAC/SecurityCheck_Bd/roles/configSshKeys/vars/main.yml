@@ -1,0 +1,10 @@
+#Nombre / Ip del nodo 1
+ip_nombre_node1: 192.168.72.XXX
+#Nombre / Ip del nodo 2
+ip_nombre_node2: 192.168.72.XXX
+#Usuario Propietario de directorios BD Oracle
+usuario_oracle: oracle
+#Grupo Propietario de directorios BD Oracle
+grupo_oracle: oinstall
+#Usuario al que se escalan los permisos
+usuario_become: root

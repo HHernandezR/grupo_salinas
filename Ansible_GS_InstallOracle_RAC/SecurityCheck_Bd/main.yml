@@ -2,13 +2,13 @@
   hosts: all
   become: true
   roles:
-    - serviciosOff
-    - loginEncrypt
-    - configNtp
-    - usersUnix
-    - usersMonitor
-    - usersOracle
-    - configSelinux
-    - ipTables
-    - prerrequisitos
-    #- sshRoot
+    # - serviciosOff
+    # - loginEncrypt
+    # - configNtp
+    # - usersUnix
+    # - usersMonitor
+    # - usersOracle
+    # - configSelinux
+    # - ipTables
+    # - prerrequisitos
+    - configSshKeys

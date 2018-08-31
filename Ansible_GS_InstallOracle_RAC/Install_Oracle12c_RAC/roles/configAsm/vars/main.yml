@@ -22,3 +22,14 @@ grupo_asmexp: root
 permisos_asmexp: 0777
 #Path binario ASM
 path_asm: /usr/sbin/oracleasm
+
+#Nombre / Ip del nodo 1
+ip_nombre_node1: 192.168.72.XXX
+
+#Lista de Discos a Particionar
+discos_particionar:
+  - { device: "/dev/sdb", number: 1 }
+  - { device: "/dev/sdc", number: 2 }
+  - { device: "/dev/sdd", number: 3 }
+  - { device: "/dev/sde", number: 4 }
+  - { device: "/dev/sdf", number: 5 }
