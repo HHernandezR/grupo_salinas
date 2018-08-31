@@ -8,3 +8,5 @@ usuario_oracle: oracle
 grupo_oracle: oinstall
 #Usuario al que se escalan los permisos
 usuario_become: root
+#Path para llave publica usuario oracle
+path_oracle_key: /home/{{ usuario_oracle }}/.ssh/id_rsa.pub
