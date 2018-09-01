@@ -1,3 +1,25 @@
+- name: Iniciar Configuracion de Automatic Storage Management
+  debug:
+    msg: "Iniciar Configuracion de Automatic Storage Management"
+
+- name: Crear Directorios Necesarios
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: yes
+  loop:
+    - "{{ path_oracle_stage }}"
+
+- name: Cambiar Permisos Directorio
+  file:
+    path: "{{ item }}"
+    owner: "{{ usaurio_oracle }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+    recurse: yes
+  loop:
+    - "{{ path_oracle_stage }}"
+
 - name: Copiar RPM Oracleasm
   copy:
     src: "{{ path_recursos_maestro }}/{{ item }}"
@@ -35,6 +57,20 @@
   command: "expect {{ path_destino_rpm }}{{ nombre_oracleasm_exp }}"
 
 - name: Crear Discos ASM
+  become: true
   shell: "oracleasm createdisk disk{{ item.number }}  {{ item.device }}1"
   loop: "{{ discos_particionar }}"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+  run_once: true
+
+- name: Escanear Discos Para ASM
+  become: true
+  shell: "/etc/init.d/oracleasm scandisks"
+
+- name: Remover Archivos de Instalacion Temporales
+  file:
+    path: "{{ path_destino_rpm }}/{{ item }}"
+    state: absent
+  loop:
+    - "{{ nombre_oracleasm_lib }}"
+    - "{{ nombre_oracleasm_support }}"

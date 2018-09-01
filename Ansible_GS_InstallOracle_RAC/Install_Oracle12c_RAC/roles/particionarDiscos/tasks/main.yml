@@ -10,3 +10,4 @@
     unit: MB
   loop: "{{ discos_particionar }}"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+  run_once: true
