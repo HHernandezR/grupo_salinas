@@ -58,13 +58,13 @@
 
 - name: Crear Discos ASM
   become: true
-  shell: "oracleasm createdisk {{ etiqueta_dicos_asm }}{{ item.number }}  {{ item.device }}1"
+  command: "oracleasm createdisk {{ etiqueta_dicos_asm }}{{ item.number }}  {{ item.device }}1"
   loop: "{{ discos_particionar }}"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
 - name: Escanear Discos Para ASM
   become: true
-  shell: "oracleasm scandisks"
+  command: "oracleasm scandisks"
 
 - name: Remover Archivos de Instalacion Temporales
   file:
