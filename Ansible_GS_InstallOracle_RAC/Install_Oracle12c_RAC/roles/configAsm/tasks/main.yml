@@ -58,7 +58,7 @@
 
 - name: Crear Discos ASM
   become: true
-  shell: "/etc/init.d/oracleasm createdisk ASMDISK{{ item.number }}  {{ item.device }}1"
+  shell: "sudo /etc/init.d/oracleasm createdisk ASMDISK{{ item.number }}  {{ item.device }}1"
   loop: "{{ discos_particionar }}"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
