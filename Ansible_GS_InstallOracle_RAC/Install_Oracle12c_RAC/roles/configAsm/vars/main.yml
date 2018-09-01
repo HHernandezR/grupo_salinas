@@ -30,6 +30,8 @@ usuario_oracle: oracle
 grupo_oracle: oinstall
 #Permisos de directorios BD Oracle
 permisos_oracle: 0775
+#Etiqueta de los Discos ASM
+etiqueta_dicos_asm: ASMDISK
 
 
 #Nombre / Ip del nodo 1
