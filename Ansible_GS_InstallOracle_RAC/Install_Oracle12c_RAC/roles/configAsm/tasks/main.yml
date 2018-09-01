@@ -60,7 +60,7 @@
   become: true
   command: "/usr/sbin/oracleasm createdisk {{ etiqueta_dicos_asm }}{{ item.number }}  {{ item.device }}1"
   loop: "{{ discos_particionar }}"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+  # when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
 - name: Escanear Discos Para ASM
   become: true
