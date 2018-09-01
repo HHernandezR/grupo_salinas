@@ -13,7 +13,7 @@
 - name: Cambiar Permisos Directorio
   file:
     path: "{{ item }}"
-    owner: "{{ usaurio_oracle }}"
+    owner: "{{ usuario_oracle }}"
     group: "{{ grupo_oracle }}"
     mode: "{{ permisos_oracle }}"
     recurse: yes

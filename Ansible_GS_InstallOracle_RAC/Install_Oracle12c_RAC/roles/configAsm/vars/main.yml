@@ -24,6 +24,13 @@ permisos_asmexp: 0777
 path_asm: /usr/sbin/oracleasm
 #Path diectorio Stage
 path_oracle_stage: /stage
+#Usuario Propietario de directorios BD Oracle
+usuario_oracle: oracle
+#Grupo Propietario de directorios BD Oracle
+grupo_oracle: oinstall
+#Permisos de directorios BD Oracle
+permisos_oracle: 0775
+
 
 #Nombre / Ip del nodo 1
 ip_nombre_node1: 192.168.72.XXX
