@@ -32,8 +32,6 @@ grupo_oracle: oinstall
 permisos_oracle: 0775
 #Etiqueta de los Discos ASM
 etiqueta_dicos_asm: ASMDISK
-
-
 #Nombre / Ip del nodo 1
 ip_nombre_node1: 192.168.72.XXX
 #Nombre / Ip del nodo 2
