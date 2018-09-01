@@ -61,7 +61,6 @@
   shell: "oracleasm createdisk disk{{ item.number }}  {{ item.device }}1"
   loop: "{{ discos_particionar }}"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-  run_once: true
 
 - name: Escanear Discos Para ASM
   become: true
