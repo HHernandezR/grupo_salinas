@@ -1,28 +1,30 @@
-# - name: Iniciar Instalacion de Grid
-#   debug:
-#     msg: "Iniciar Instalacion de Grid"
-#
-# - name: Crear Directorios Necesarios
-#   file:
-#     path: "{{ item }}"
-#     state: directory
-#     force: yes
-#   loop:
-#     - "{{ path_oracle_grid }}"
-#     - "{{ path_oracle_inventory }}"
-#     - "{{ path_oracle_base }}"
-#
-# - name: Cambiar Permisos Directorio
-#   file:
-#     path: "{{ item }}"
-#     owner: "{{ usuario_oracle }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#     recurse: yes
-#   loop:
-#     - "{{ path_oracle_grid }}"
-#     - "{{ path_oracle_inventory }}"
-#     - "{{ path_oracle_base }}"
+- name: Iniciar Instalacion de Grid
+  debug:
+    msg: "Iniciar Instalacion de Grid"
+
+- name: Crear Directorios Necesarios
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: yes
+  loop:
+    - "{{ path_oracle_grid }}"
+    - "{{ path_oracle_inventory }}"
+    - "{{ path_oracle_base }}"
+      - "{{ path_oracle_home }}"
+
+- name: Cambiar Permisos Directorio
+  file:
+    path: "{{ item }}"
+    owner: "{{ usuario_oracle }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+    recurse: yes
+  loop:
+    - "{{ path_oracle_grid }}"
+    - "{{ path_oracle_inventory }}"
+    - "{{ path_oracle_base }}"
+      - "{{ path_oracle_home }}"
 #
 # - name: Copiar Fihero Grid ZIP
 #   copy:
