@@ -27,7 +27,7 @@ nombre_grid_zip2: p17694377_121020_Linux-x86-64_4of8.zip
 #Nombre fichero cvuqdisk RPM
 nombre_cvuqdisk_rpm: cvuqdisk-1.0.9-1.rpm
 #Path fichero cvuqdisk RPM
-path_cvuqdisk_rpm: {{ path_oracle_stage }}/grid/rpm/{{ nombre_cvuqdisk_rpm }}
+path_cvuqdisk_rpm: "{{ path_oracle_stage }}/grid/rpm/{{ nombre_cvuqdisk_rpm }}"
 #Nombre / Ip del nodo 1
 ip_nombre_node1: 192.168.72.XXX
 #Nombre / Ip del nodo 2
