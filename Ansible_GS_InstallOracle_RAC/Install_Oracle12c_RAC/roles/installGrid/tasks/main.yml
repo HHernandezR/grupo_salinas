@@ -25,32 +25,32 @@
 #     - "{{ path_oracle_inventory }}"
 #     - "{{ path_oracle_base }}"
 #     - "{{ path_oracle_home }}"
-#
-# - name: Copiar Fihero Grid ZIP
-#   copy:
-#     src: "{{ path_recursos_maestro }}/{{ item }}"
-#     dest: "{{ path_recursos_nodo }}"
-#     owner: "{{ usuario_oracle }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#   loop:
-#     - "{{ nombre_grid_zip1 }}"
-#     - "{{ nombre_grid_zip2 }}"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#
-# - name: Descomprimir Fihero Grid ZIP
-#   unarchive:
-#     src: "{{ path_recursos_nodo }}/{{ item }}"
-#     dest: "{{ path_oracle_stage }}"
-#     copy: false
-#     owner: "{{ usuario_oracle }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#   loop:
-#     - "{{ nombre_grid_zip1 }}"
-#     - "{{ nombre_grid_zip2 }}"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#
+
+- name: Copiar Fihero Grid ZIP
+  copy:
+    src: "{{ path_recursos_maestro }}/{{ item }}"
+    dest: "{{ path_recursos_nodo }}"
+    owner: "{{ usuario_oracle }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+  loop:
+    - "{{ nombre_grid_zip1 }}"
+    - "{{ nombre_grid_zip2 }}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+- name: Descomprimir Fihero Grid ZIP
+  unarchive:
+    src: "{{ path_recursos_nodo }}/{{ item }}"
+    dest: "{{ path_oracle_stage }}"
+    copy: false
+    owner: "{{ usuario_oracle }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+  loop:
+    - "{{ nombre_grid_zip1 }}"
+    - "{{ nombre_grid_zip2 }}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
 # - name: Setear Variable de Entorno SID Usuario Oracle
 #   lineinfile:
 #    dest: "{{ path_bashprofile_oracle }}"
@@ -148,21 +148,21 @@
 #     name: "{{ path_recursos_nodo }}/{{ nombre_cvuqdisk_rpm }}"
 #     state: present
 #
-- name: Preparar Template para Instalacion de Grid
-  template:
-    src: "{{ nombre_original_grid_template }}"
-    dest: "{{ path_oracle_stage }}/{{ nombre_grid_template }}"
-    owner: "{{ usuario_oracle }}"
-    group: "{{ grupo_oracle }}"
-    mode: "{{ permisos_oracle }}"
-  loop: "{{ network_interfaces }}"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
-
-- name: Instalar Infraestructura Grid
-  become: yes
-  become_user: "{{ usaurio_become_oracle }}"
-  shell: "{{ path_oracle_stage }}/grid/runInstaller -responseFile {{ path_oracle_stage }}/{{ nombre_grid_template }} -waitforcompletion -ignorePrereq -ignoreSysPrereqs -showProgress -silent"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+# - name: Preparar Template para Instalacion de Grid
+#   template:
+#     src: "{{ nombre_original_grid_template }}"
+#     dest: "{{ path_oracle_stage }}/{{ nombre_grid_template }}"
+#     owner: "{{ usuario_oracle }}"
+#     group: "{{ grupo_oracle }}"
+#     mode: "{{ permisos_oracle }}"
+#   loop: "{{ network_interfaces }}"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+#
+# - name: Instalar Infraestructura Grid
+#   become: yes
+#   become_user: "{{ usaurio_become_oracle }}"
+#   shell: "{{ path_oracle_stage }}/grid/runInstaller -responseFile {{ path_oracle_stage }}/{{ nombre_grid_template }} -waitforcompletion -ignorePrereq -ignoreSysPrereqs -showProgress -silent"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
 # - name: Ejecutar Fichero PostInstalacion oraInstroot en Nodo-1
 #   become: yes
