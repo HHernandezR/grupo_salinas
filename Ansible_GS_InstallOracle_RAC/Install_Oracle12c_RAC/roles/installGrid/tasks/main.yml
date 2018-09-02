@@ -135,15 +135,17 @@
 
 - name: Copiar Fihero cvuqdisk
   copy:
-    src: "{{ path_cvuqdisk_rpm }}"
-    dest: "{{ path_oracle_stage }}"
+    src: "{{ path_recursos_maestro }}/{{ item }}"
+    dest: "{{ path_recursos_nodo }}"
     owner: "{{ usuario_oracle }}"
     group: "{{ grupo_oracle }}"
     mode: "{{ permisos_oracle }}"
+  loop:
+    - "{{ nombre_cvuqdisk_rpm }}"
 
 - name: Instalar cvuqdisk
   yum:
-    name: "{{ path_oracle_stage }}/{{ nombre_cvuqdisk_rpm }}"
+    name: "{{ path_recursos_nodo }}/{{ nombre_cvuqdisk_rpm }}"
     state: present
 
 # - name: Preparar Template para Instalacion de Grid
