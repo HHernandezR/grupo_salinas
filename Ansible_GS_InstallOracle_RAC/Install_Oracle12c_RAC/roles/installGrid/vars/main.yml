@@ -37,7 +37,7 @@ path_oracle_base: /oracle12c/app/oracle
 #Parametro de configuracion para OS-ASM GROUP
 grupo_asm: dba
 #Parametro de configuracion para el Nombre del Scan
-nombre_scan: rac-cluster
+nombre_scan: oralab1
 #Parametro de configuracion para el Puerto del Scan
 puerto_scan: 1521
 #Parametro de configuracion para el Tipo de Cluster
@@ -67,6 +67,8 @@ discos_diskgroup_asm: "{{ path_discos_asm }}/{{ etiqueta_dicos_asm }}1,{{ path_d
 discos_diskgroup_asm_fra: "{{ path_discos_asm }}/{{ etiqueta_dicos_asm }}3,{{ path_discos_asm }}/{{ etiqueta_dicos_asm }}4"
 #Nombre fichero Template Instalacion Oracle Data Base
 nombre_original_config_grid_template: cfgrsp.properties.j2
+#Nombre fichero Template Instalacion Oracle Data Base
+nombre_config_grid_template: cfgrsp.properties
 
 asm_dbsnmp: oracle
 asm_sec_dg: FRA

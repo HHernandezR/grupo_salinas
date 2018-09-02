@@ -4,13 +4,13 @@ path_hosts: /etc/hosts
 #Lista de Sevidores a agregar al fichero Hosts
 lista_servidores:
   #IP´s Publicas
-  - 192.168.72.170
-  - 192.168.72.180
+  - 192.168.72.170  oralab1.localdomain   oralab1
+  - 192.168.72.180  oralab2.localdomain   oralab2
   #IP´s Privadas
-  - 192.168.72.171
-  - 192.168.72.181
+  - 192.168.72.171  oralab1-priv.localdomain   oralab1-priv
+  - 192.168.72.181  oralab2-priv.localdomain   oralab2-priv
   #IP´s Virtuales
-  - 192.168.72.172
-  - 192.168.72.182
+  - 192.168.72.172  oralab1-vip.localdomain    oralab1-vip
+  - 192.168.72.182  oralab1-vip.localdomain    oralab1-vip
   #IP´s SCAN
   #IP´s Heartbit

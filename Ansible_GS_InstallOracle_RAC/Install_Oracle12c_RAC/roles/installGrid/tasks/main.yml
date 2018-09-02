@@ -90,7 +90,7 @@
 # - name: Preparar Template para el Grid Response
 #   template:
 #     src: "{{ nombre_original_config_grid_template }}"
-#     dest: "{{ path_oracle_stage }}/{{ nombre_original_config_grid_template }}"
+#     dest: "{{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
 #     owner: "{{ usuario_oracle }}"
 #     group: "{{ grupo_oracle }}"
 #     mode: "{{ permisos_oracle }}"
@@ -99,7 +99,7 @@
 # - name: Ejecutar Script configToolAllCommands
 #   become: yes
 #   become_user: "{{ usuario_become }}"
-#   shell: "{{ path_oracle_grid }}/cfgtoollogs/configToolAllCommands RESPONSE_FILE={{ path_oracle_stage }}/{{ nombre_original_config_grid_template }}"
+#   shell: "{{ path_oracle_grid }}/cfgtoollogs/configToolAllCommands RESPONSE_FILE={{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
 #   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 #   ignore_errors: true
 #
