@@ -58,8 +58,8 @@
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
 - name: Instalar Infraestructura Grid
-  # become: yes
-  # become_user: "{{ usuario_become }}"
+  become: yes
+  become_user: "{{ usaurio_become_oracle }}"
   shell: "{{ path_oracle_stage }}/grid/runInstaller -responseFile {{ path_oracle_stage }}/{{ nombre_original_grid_template }} -waitforcompletion -ignorePrereq -ignoreSysPrereqs -showProgress -silent"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 

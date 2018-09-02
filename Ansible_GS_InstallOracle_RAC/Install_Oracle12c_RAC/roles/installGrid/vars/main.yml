@@ -1,5 +1,7 @@
-#Usuario Become
+#Usuario Become Root
 usuario_become: root
+#Usuario Become Oracle
+usaurio_become_oracle: oracle
 #Path del servidor maestro en el cual se obtienen los recursos zip
 path_recursos_maestro: /usr/databases_resources_rac
 #Path destino donde se copian los recursos del servidor maestro
