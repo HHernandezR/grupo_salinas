@@ -50,7 +50,7 @@
 - name: Preparar Template para Instalacion de Grid
   template:
     src: "{{ nombre_original_grid_template }}"
-    dest: "{{ path_oracle_stage }}/{{ nombre_original_grid_template }}"
+    dest: "{{ path_oracle_stage }}/{{ nombre_grid_template }}"
     owner: "{{ usuario_oracle }}"
     group: "{{ grupo_oracle }}"
     mode: "{{ permisos_oracle }}"
@@ -60,7 +60,7 @@
 - name: Instalar Infraestructura Grid
   become: yes
   become_user: "{{ usaurio_become_oracle }}"
-  shell: "{{ path_oracle_stage }}/grid/runInstaller -responseFile {{ path_oracle_stage }}/{{ nombre_original_grid_template }} -waitforcompletion -ignorePrereq -ignoreSysPrereqs -showProgress -silent"
+  shell: "{{ path_oracle_stage }}/grid/runInstaller -responseFile {{ path_oracle_stage }}/{{ nombre_grid_template }} -waitforcompletion -ignorePrereq -ignoreSysPrereqs -showProgress -silent"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
 # - name: Ejecutar Fichero PostInstalacion oraInstroot en Nodo-1

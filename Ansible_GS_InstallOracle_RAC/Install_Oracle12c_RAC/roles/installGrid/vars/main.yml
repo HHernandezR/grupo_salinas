@@ -12,6 +12,8 @@ path_oracle_stage: /stage
 path_oracle_grid: /grid
 #Nombre fichero Template Instalacion Oracle Data Base
 nombre_original_grid_template: grid.rsp.j2
+#Nombre fichero Template Instalacion Oracle Data Base
+nombre_grid_template: grid.rsp
 #Usuario Propietario de directorios BD Oracle
 usuario_oracle: oracle
 #Grupo Propietario de directorios BD Oracle
