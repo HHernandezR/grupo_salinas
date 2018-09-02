@@ -2,67 +2,67 @@
   debug:
     msg: "Iniciar Instalacion de Grid"
 
-# - name: Crear Directorios Necesarios
-#   file:
-#     path: "{{ item }}"
-#     state: directory
-#     force: yes
-#   loop:
-#     - "{{ path_oracle_grid }}"
-#     - "{{ path_oracle_inventory }}"
-#     - "{{ path_oracle_base }}"
-#
-# - name: Cambiar Permisos Directorio
-#   file:
-#     path: "{{ item }}"
-#     owner: "{{ usuario_oracle }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#     recurse: yes
-#   loop:
-#     - "{{ path_oracle_grid }}"
-#     - "{{ path_oracle_inventory }}"
-#     - "{{ path_oracle_base }}"
-#
-# - name: Copiar Fihero Grid ZIP
-#   copy:
-#     src: "{{ path_recursos_maestro }}/{{ item }}"
-#     dest: "{{ path_recursos_nodo }}"
-#     owner: "{{ usuario_oracle }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#   loop:
-#     - "{{ nombre_grid_zip1 }}"
-#     - "{{ nombre_grid_zip2 }}"
-#
-# - name: Descomprimir Fihero Grid ZIP
-#   unarchive:
-#     src: "{{ path_recursos_nodo }}/{{ item }}"
-#     dest: "{{ path_oracle_stage }}"
-#     copy: false
-#     owner: "{{ usuario_oracle }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#   loop:
-#     - "{{ nombre_grid_zip1 }}"
-#     - "{{ nombre_grid_zip2 }}"
+- name: Crear Directorios Necesarios
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: yes
+  loop:
+    - "{{ path_oracle_grid }}"
+    - "{{ path_oracle_inventory }}"
+    - "{{ path_oracle_base }}"
 
-- name: Preparar Template para Instalacion de Grid
-  template:
-    src: "{{ nombre_original_grid_template }}"
-    dest: "{{ path_oracle_stage }}/{{ nombre_grid_template }}"
+- name: Cambiar Permisos Directorio
+  file:
+    path: "{{ item }}"
     owner: "{{ usuario_oracle }}"
     group: "{{ grupo_oracle }}"
     mode: "{{ permisos_oracle }}"
-  loop: "{{ network_interfaces }}"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+    recurse: yes
+  loop:
+    - "{{ path_oracle_grid }}"
+    - "{{ path_oracle_inventory }}"
+    - "{{ path_oracle_base }}"
 
-- name: Instalar Infraestructura Grid
-  become: yes
-  become_user: "{{ usaurio_become_oracle }}"
-  shell: "{{ path_oracle_stage }}/grid/runInstaller -responseFile {{ path_oracle_stage }}/{{ nombre_grid_template }} -waitforcompletion -ignorePrereq -ignoreSysPrereqs -showProgress -silent"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+- name: Copiar Fihero Grid ZIP
+  copy:
+    src: "{{ path_recursos_maestro }}/{{ item }}"
+    dest: "{{ path_recursos_nodo }}"
+    owner: "{{ usuario_oracle }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+  loop:
+    - "{{ nombre_grid_zip1 }}"
+    - "{{ nombre_grid_zip2 }}"
 
+- name: Descomprimir Fihero Grid ZIP
+  unarchive:
+    src: "{{ path_recursos_nodo }}/{{ item }}"
+    dest: "{{ path_oracle_stage }}"
+    copy: false
+    owner: "{{ usuario_oracle }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+  loop:
+    - "{{ nombre_grid_zip1 }}"
+    - "{{ nombre_grid_zip2 }}"
+
+# - name: Preparar Template para Instalacion de Grid
+#   template:
+#     src: "{{ nombre_original_grid_template }}"
+#     dest: "{{ path_oracle_stage }}/{{ nombre_grid_template }}"
+#     owner: "{{ usuario_oracle }}"
+#     group: "{{ grupo_oracle }}"
+#     mode: "{{ permisos_oracle }}"
+#   loop: "{{ network_interfaces }}"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+#
+# - name: Instalar Infraestructura Grid
+#   become: yes
+#   become_user: "{{ usaurio_become_oracle }}"
+#   shell: "{{ path_oracle_stage }}/grid/runInstaller -responseFile {{ path_oracle_stage }}/{{ nombre_grid_template }} -waitforcompletion -ignorePrereq -ignoreSysPrereqs -showProgress -silent"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+# 
 # - name: Ejecutar Fichero PostInstalacion oraInstroot en Nodo-1
 #   become: yes
 #   become_user: "{{ usuario_become }}"

@@ -29,7 +29,7 @@ ip_nombre_node1: 192.168.72.XXX
 #Nombre / Ip del nodo 2
 ip_nombre_node2: 192.168.72.XXX
 
-hostname_oracle: oralab1.localdomain
+hostname_oracle: oralab1
 #Path diectorio Inventory
 path_oracle_inventory: /oracle12c/app/oraInventory
 #Path diectorio Oracle Base
