@@ -143,7 +143,7 @@
 
 - name: Instalar cvuqdisk
   yum:
-    name: {{ path_oracle_stage }}/{{ nombre_cvuqdisk_rpm }}
+    name: "{{ path_oracle_stage }}/{{ nombre_cvuqdisk_rpm }}"
     state: present
 
 # - name: Preparar Template para Instalacion de Grid
