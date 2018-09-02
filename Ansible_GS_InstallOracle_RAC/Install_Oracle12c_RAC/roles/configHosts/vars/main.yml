@@ -13,4 +13,6 @@ lista_servidores:
   - 192.168.72.172  oralab1-vip.localdomain    oralab1-vip
   - 192.168.72.182  oralab1-vip.localdomain    oralab1-vip
   #IP´s SCAN
+  - 192.168.72.173  oralab1-scan.localdomain    oralab1-scan
+  - 192.168.72.183  oralab1-scan.localdomain    oralab1-scan
   #IP´s Heartbit
