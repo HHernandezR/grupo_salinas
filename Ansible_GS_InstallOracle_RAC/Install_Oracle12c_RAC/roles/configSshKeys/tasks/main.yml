@@ -10,10 +10,12 @@
   loop: "{{ usuarios_ssh }}"
 
 - name: Copiar LLaves SSH para Usuario Oracle
+  become_user: oracle
   shell: "/usr/bin/ssh-copy-id -f oracle@{{ item }}"
   loop: "{{ lista_ips_rac }}"
 
 - name: Copiar LLaves SSH para Usuario Grid
+  become_user: grid
   shell: "/usr/bin/ssh-copy-id -f grid@{{ item }}"
   loop: "{{ lista_ips_rac }}"
 
@@ -23,6 +25,6 @@
   loop: "{{ lista_ips_rac }}"
 
 - name: Establecer Conexion Inicial Usuario Grid
-  become_user: oracle
+  become_user: grid
   shell: "/usr/bin/ssh -o StrictHostKeyChecking=no grid@{{ item }} date"
   loop: "{{ lista_ips_rac }}"
