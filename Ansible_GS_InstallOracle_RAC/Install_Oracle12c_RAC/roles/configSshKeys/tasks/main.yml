@@ -16,7 +16,7 @@
 
 - name: Copiar LLaves SSH para Usuario Grid
   become_user: grid
-  shell: "/usr/bin/ssh-copy-id -f -i /home/oracle/.ssh/id_rsa.pub  {{ item }}"
+  shell: "/usr/bin/ssh-copy-id -f -i /home/grid/.ssh/id_rsa.pub  {{ item }}"
   loop: "{{ lista_ips_rac }}"
 
 - name: Establecer Conexion Inicial Usuario Oracle
