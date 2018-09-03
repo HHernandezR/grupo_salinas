@@ -101,4 +101,4 @@ path_oracle_home: "{{ path_oracle_base }}/product/12.1.0/dbhome_1"
 #Path fichero bash_profile Grid
 path_bashprofile_grid: /home/grid/.bash_profile
 #Parametro de Configuracion SID Grid
-grid_sid_nombre: ASM1
+grid_sid_nombre: +ASM1
