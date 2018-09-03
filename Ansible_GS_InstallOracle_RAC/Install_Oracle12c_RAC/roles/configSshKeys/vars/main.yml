@@ -5,11 +5,12 @@ usuarios_ssh:
 
 #Lista de fully qualified domain name del RAC
 lista_ips_rac:
+  #Ips Publicas
   - 192.168.72.170
   - 192.168.72.180
+  #Ips Privadas
   - 192.168.1.170
   - 192.168.1.180
+  #IPs Virtuales
   - 192.168.72.171
   - 192.168.72.181
-  - 192.168.72.172
-  - 192.168.72.173
