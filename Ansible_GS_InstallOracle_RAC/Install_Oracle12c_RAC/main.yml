@@ -5,5 +5,5 @@
     # - configHosts
     # - particionarDiscos
     # - configAsm
-    # - configSshKeys
-    - installGrid
+    - configSshKeys
+    # - installGrid

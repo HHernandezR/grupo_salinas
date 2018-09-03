@@ -1,41 +1,18 @@
-- name: Generar llave para usuarios Oracle
+- name: Iniciar Configuracion de llaves SSH
+  debug:
+    msg: "Iniciar Configuracion de llaves SSH"
+
+- name: Generar llaves SSH para Usuarios
   user:
-    name: "{{ usuario_oracle }}"
+    name: "{{ item }}"
     generate_ssh_key: yes
     state: present
+  loop: "{{ usuarios_ssh }}"
 
-- name: Descargar llaves publicas Nodo 1
-  fetch:
-    src: "{{ path_keys_publicas }}"
-    dest: "oracle_id_rsa.{{ ip_nombre_node1 }}"
-    flat: yes
-  with_items: "{{groups['all']}}"
+- name: Copiar LLaves SSH para Usuario Oracle
+  shell: "/usr/bin/ssh-copy-id -f oracle@{{ item }}"
+  loop: "{{ lista_ips_rac }}"
 
-- name: Descargar llaves publicas Nodo 2
-  fetch:
-    src: "{{ path_keys_publicas }}"
-    dest: "oracle_id_rsa.{{ ip_nombre_node2 }}"
-    flat: yes
-  with_items: "{{groups['all']}}"
-
-- name: Copiar llaves Publicas a todos los nodos
-  become: yes
-  become_user: "{{ usuario_become }}"
-  authorized_key:
-    user: "{{ usuario_oracle }}"
-    key: "{{ lookup('file', 'oracle_id_rsa.{{ item }}') }}"
-    state: present
-  loop: "{{groups['all']}}"
-
-- name: Verificar existencia del fichero known hosts
-  become: yes
-  become_user: "{{ usuario_become }}"
-  file:
-    path: ~/.ssh/known_hosts
-    state: touch
-
-- name: Agregar hosts al fichero known_hosts
-  become: yes
-  become_user: "{{ usuario_become }}"
-  shell: "ssh-keyscan -H {{ item }} >> ~/.ssh/known_hosts"
-  loop: "{{groups['all']}}"
+- name: Copiar LLaves SSH para Usuario Grid
+  shell: "/usr/bin/ssh-copy-id -f grid@{{ item }}"
+  loop: "{{ lista_ips_rac }}"
