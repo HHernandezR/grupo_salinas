@@ -16,3 +16,8 @@
 - name: Copiar LLaves SSH para Usuario Grid
   shell: "/usr/bin/ssh-copy-id -f grid@{{ item }}"
   loop: "{{ lista_ips_rac }}"
+
+- name: Establecer Conexion Inicial Usuario Oracle
+  become_user: oracle
+  shell: "/usr/bin/ssh -o StrictHostKeyChecking=no oracle@{{ item }} date"
+  loop: "{{ lista_ips_rac }}"

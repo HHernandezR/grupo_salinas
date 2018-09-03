@@ -3,6 +3,7 @@ usuarios_ssh:
   - oracle
   - grid
 
+#Lista de fully qualified domain name del RAC
 lista_ips_rac:
   - 192.168.72.170
   - 192.168.1.170
