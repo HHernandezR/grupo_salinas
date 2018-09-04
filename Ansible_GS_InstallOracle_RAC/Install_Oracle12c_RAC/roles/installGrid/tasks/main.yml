@@ -5,7 +5,7 @@
 - name: Aplicar Unset a Variable SSH_AUTH_SOCK
   become: yes
   become_user: "{{ item }}"
-  command: unset SSH_AUTH_SOCK
+  shell: "unset SSH_AUTH_SOCK"
   loop:
     - "{{ usuario_grid }}"
     - "{{ usuario_root }}"
