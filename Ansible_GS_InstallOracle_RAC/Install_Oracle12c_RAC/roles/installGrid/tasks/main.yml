@@ -172,7 +172,7 @@
 
 - name: Preparar Template para Instalacion de Grid
   become: yes
-  become_user: "{{ usaurio_become_Grid }}"
+  become_user: "{{ usuario_grid }}"
   template:
     src: "{{ nombre_original_grid_template }}"
     dest: "{{ path_oracle_stage }}/{{ nombre_grid_template }}"
@@ -184,7 +184,7 @@
 
 - name: Instalar Infraestructura Grid
   become: yes
-  become_user: "{{ usaurio_become_Grid }}"
+  become_user: "{{ usuario_grid }}"
   shell: "{{ path_oracle_stage }}/grid/runInstaller -responseFile {{ path_oracle_stage }}/{{ nombre_grid_template }} -waitforcompletion -ignorePrereq -ignoreSysPrereqs -showProgress -silent"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
