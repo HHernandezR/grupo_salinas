@@ -211,6 +211,11 @@
 #   become_user: "{{ usuario_grid }}"
 #   shell: "source ~/.bash_profile"
 
+
+
+
+
+
 # - name: Setear Alias grid_env y db_env
 #   become: yes
 #   become_user: "{{ usuario_oracle }}"
@@ -220,7 +225,6 @@
 #   loop:
 #     - "{{ valor_gridenv }}"
 #     - "{{ valor_dbenv }}"
-#
 # - name: Copiar Ficheros ENV
 #   copy:
 #     src: "{{ item }}"
@@ -294,12 +298,22 @@
   become_user: "{{ usuario_root }}"
   shell: "/usr/bin/sh {{ path_oracle_grid }}/root.sh"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+  ignore_errors: true
+
+- name: Terminada Ejecuión del Fichero PostInstalacion root en Nodo-1
+  debug:
+    msg: "Ejecución del fichero root.sh en Nodo 1, comando nativo sin retorno"
 
 - name: Ejecutar Fichero PostInstalacion root en Nodo-2
   become: yes
   become_user: "{{ usuario_root }}"
   shell: "/usr/bin/sh {{ path_oracle_grid }}/root.sh"
   when: inventory_hostname == "{{ ip_nombre_node2 }}"
+  ignore_errors: true
+
+- name: Terminada Ejecuión del Fichero PostInstalacion root en Nodo-2
+  debug:
+    msg: "Ejecución del fichero root.sh en Nodo 2, comando nativo sin retorno"
 #
 # - name: Preparar Template para el Grid Response
 #   template:
