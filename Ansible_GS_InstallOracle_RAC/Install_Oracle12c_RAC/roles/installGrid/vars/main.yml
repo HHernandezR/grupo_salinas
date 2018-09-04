@@ -102,3 +102,11 @@ path_oracle_home: "{{ path_oracle_base }}/product/12.1.0/dbhome_1"
 path_bashprofile_grid: /home/grid/.bash_profile
 #Parametro de Configuracion SID Grid
 grid_sid_nombre: +ASM1
+#Alias grid_env
+valor_gridenv: alias grid_env='. /home/oracle/grid_env'
+#Alias db_env
+valor_dbenv: alias db_env='. /home/oracle/db_env'
+#Nombre Fichero grid_env:
+nombre_fichero_gridenv: db_env
+#Nombre Fichero db_env:
+nombre_fichero_dbenv: grid_env
