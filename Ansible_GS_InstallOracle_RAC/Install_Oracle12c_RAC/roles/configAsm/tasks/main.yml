@@ -65,7 +65,7 @@
     seconds: 3
 
 - name: Crear Discos ASM
-  become_user: grid
+  become_user: root
   command: "/usr/sbin/oracleasm createdisk {{ etiqueta_dicos_asm }}{{ item.number }}  {{ item.device }}1"
   loop: "{{ discos_particionar }}"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
