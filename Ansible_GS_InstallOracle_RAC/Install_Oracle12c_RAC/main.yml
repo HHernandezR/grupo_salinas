@@ -2,7 +2,7 @@
   hosts: all
   become: true
   roles:
-    # - particionarDiscos
+    - particionarDiscos
     # - configAsm
     # - configSshKeys
-    - installGrid
+    # - installGrid
