@@ -86,10 +86,10 @@ network_interfaces:
     #Nic IP Privada
   - device: ens34
     address: 192.168.1.170
-    grid_net: 2
-    #Nic IP Virtual
+    grid_net: 5
+    #Nic IP ASM
   # - device: ens35
-  #   address: 192.168.72.171
+  #   address: 192.168.1.171
   #   grid_net: 3
 
 #Path fichero bash_profile Oracle
