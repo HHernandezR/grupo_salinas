@@ -1,6 +1,6 @@
 #!/usr/bin/expect
 
-#Uso sshkeysadmin.expect <ip/host> <ssh password>
+#Uso sshkeysadmin.expect <ip/host> <ssh user> <ssh password>
 
-spawn /usr/bin/ssh-copy-id -i /home/oracle/.ssh/id_rsa.pub [lindex $argv 0]
-expect "*?assword" { send "[lindex $argv 1]\r" }
+spawn /usr/bin/ssh-copy-id -i /home/[lindex $argv 1]/.ssh/id_rsa.pub [lindex $argv 0]
+expect "*?assword" { send "[lindex $argv 2]\r" }

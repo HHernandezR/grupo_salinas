@@ -21,7 +21,11 @@
     seconds: 2
 
 - name: Copiar Llaves SSh Para Usuario Oracle
-  command: "expect {{ path_destino_exp }}/{{ nombre_expect_sshkeys }} {{ item }} {{ oracle_pwd }} "
+  command: "expect {{ path_destino_exp }}/{{ nombre_expect_sshkeys }} {{ item }} {{ usuario_oracle }} {{ oracle_pwd }} "
+  loop: "{{ lista_ips_rac }}"
+
+- name: Copiar Llaves SSh Para Usuario Grid
+  command: "expect {{ path_destino_exp }}/{{ nombre_expect_sshkeys }} {{ item }} {{ usuario_grid }} {{ grid_pwd }} "
   loop: "{{ lista_ips_rac }}"
 
 # - name: Copiar LLaves SSH para Usuario Oracle

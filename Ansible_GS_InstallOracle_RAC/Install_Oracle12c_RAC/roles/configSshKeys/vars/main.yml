@@ -2,22 +2,22 @@
 nombre_expect_sshkeys: sshkeysadmin.exp
 #Path destino Fichero sshkeysadmin.exp
 path_destino_exp: /tmp
-#Usuario oracle para Fichero sshkeysadmin.exp
-usuario_oracle: oracle
-#Grupo oracle para Fichero sshkeysadmin.exp
-grupo_oracle: oinstall
-#Modo para Fichero sshkeysadmin.exp
-modo_oracle: 0777
 #Pass SSH Oracle:
 oracle_pwd: 222
+#Pass SSH Grid:
+grid_pwd: 222
 #Nombre / Ip del nodo 1
 ip_nombre_node1: 192.168.72.XXX
 #Nombre / Ip del nodo 2
 ip_nombre_node2: 192.168.72.XXX
-#Usuario Propietario de directorios BD Oracle
+#Usuario Grid Para ejecucion de Expect
+usuario_grid: grid
+#Grupo Propietario de directorios BD Oracle
 usuario_oracle: oracle
 #Grupo Propietario de directorios BD Oracle
 grupo_oracle: oinstall
+#Modo para Fichero sshkeysadmin.exp
+modo_oracle: 0777
 #Usuario al que se escalan los permisos
 usuario_become: root
 #Path de llaves publicas usuario oracle
