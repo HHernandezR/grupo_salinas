@@ -137,7 +137,7 @@
 - name: Cargar Variables de Entorno Usuario Oracle
   become: yes
   become_user: "{{ usuario_oracle }}"
-  command: "source ~/.bash_profile"
+  shell: "source ~/.bash_profile"
 
 - name: Setear Variable de Entorno Oracle Hostname Usuario Grid
   become: yes
@@ -209,7 +209,7 @@
 - name: Cargar Variables de Entorno Usuario Grid
   become: yes
   become_user: "{{ usuario_grid }}"
-  command: "source ~/.bash_profile"
+  shell: "source ~/.bash_profile"
 
 # - name: Setear Alias grid_env y db_env
 #   become: yes
