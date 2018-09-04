@@ -2,6 +2,8 @@
 ip_nombre_node1: 192.168.72.XXX
 #Nombre / Ip del nodo 2
 ip_nombre_node2: 192.168.72.XXX
+#Usuario Root Para Generacion de Llaves SSH
+usuario_root: root
 #Usuario Grid Para Generacion de Llaves SSH
 usuario_grid: grid
 #Usuario Oracle Para Generacion de Llaves SSH
@@ -12,3 +14,17 @@ grupo_oracle: oinstall
 path_keys_publicas_oracle: /home/{{ usuario_oracle }}/.ssh/id_rsa.pub
 #Path de llaves publicas usuario Grid
 path_keys_publicas_grid: /home/{{ usuario_grid }}/.ssh/id_rsa.pub
+#Path de llaves publicas usuario Root
+path_keys_publicas_root: /{{ usuario_root }}/.ssh/id_rsa.pub
+
+#Lista Ips del RAC
+lista_ips_rac:
+  #Ips Publicas
+  - 192.168.72.170
+  - 192.168.72.180
+  #Ips Privadas
+  - 192.168.1.170
+  - 192.168.1.180
+  #IPs Virtuales
+  - 192.168.72.171
+  - 192.168.72.181

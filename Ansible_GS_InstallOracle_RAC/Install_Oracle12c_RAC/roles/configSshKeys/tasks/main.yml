@@ -27,6 +27,14 @@
   loop: "{{ groups['all'] }}"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
+- name: Descargar llaves publicas Nodo 1 Usuario Root
+  fetch:
+    src: "{{ path_keys_publicas_root }}"
+    dest: "{{ usuario_root }}_id_rsa.{{ ip_nombre_node1 }}"
+    flat: yes
+  loop: "{{ groups['all'] }}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
 - name: Descargar llaves publicas Nodo 2 Usuario Oracle
   fetch:
     src: "{{ path_keys_publicas_oracle }}"
@@ -42,6 +50,14 @@
     flat: yes
   loop: "{{ groups['all'] }}"
   when: inventory_hostname == "{{ ip_nombre_node2 }}"
+
+- name: Descargar llaves publicas Nodo 2 Usuario Root
+  fetch:
+    src: "{{ path_keys_publicas_root }}"
+    dest: "{{ usuario_root }}_id_rsa.{{ ip_nombre_node2 }}"
+    flat: yes
+  loop: "{{ groups['all'] }}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
 - name: Copiar llaves Publicas a todos los nodos Usuario Oracle
   become: yes
@@ -61,6 +77,15 @@
     state: present
   loop: "{{ groups['all'] }}"
 
+- name: Copiar llaves Publicas a todos los nodos Usuario Root
+  become: yes
+  become_user: "{{ usuario_root }}"
+  authorized_key:
+    user: "{{ usuario_root }}"
+    key: "{{ lookup('file', '{{ usuario_root }}_id_rsa.{{ item }}') }}"
+    state: present
+  loop: "{{ groups['all'] }}"
+
 - name: Verificar existencia del fichero known hosts Usuario Oracle
   become: yes
   become_user: "{{ usuario_oracle }}"
@@ -75,6 +100,13 @@
     path: ~/.ssh/known_hosts
     state: touch
 
+- name: Verificar existencia del fichero known hosts Usuario Root
+  become: yes
+  become_user: "{{ usuario_root }}"
+  file:
+    path: ~/.ssh/known_hosts
+    state: touch
+
 - name: Agregar hosts al fichero known_hosts Usuario Oracle
   become: yes
   become_user: "{{ usuario_oracle }}"
@@ -84,5 +116,11 @@
 - name: Agregar hosts al fichero known_hosts Usuario Grid
   become: yes
   become_user: "{{ usuario_grid }}"
+  shell: "ssh-keyscan -H {{ item }} >> ~/.ssh/known_hosts"
+  loop: "{{ groups['all'] }}"
+
+- name: Agregar hosts al fichero known_hosts Usuario Grid
+  become: yes
+  become_user: "{{ usuario_root }}"
   shell: "ssh-keyscan -H {{ item }} >> ~/.ssh/known_hosts"
   loop: "{{ groups['all'] }}"
