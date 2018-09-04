@@ -58,7 +58,7 @@ nombre_diskgroup_asm: DATA
 redundancia_asm: EXTERNAL
 
 #Parametro de configuracion para el Password del Monitor
-password_monitor: oracle
+password_monitor: 222
 #Parametro de configuracion para la Ubicacion de los Discos ASM
 path_discos_asm: /dev/oracleasm/disks
 #Etiqueta de los Discos ASM
