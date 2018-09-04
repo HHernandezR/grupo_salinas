@@ -28,3 +28,8 @@ lista_ips_rac:
   #IPs Virtuales
   - 192.168.72.171
   - 192.168.72.181
+
+#Lista FQDN del Rac Nodo1 y Nodo2
+lista_fqdn:
+  - oralab1
+  - oralab2
