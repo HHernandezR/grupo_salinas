@@ -12,6 +12,7 @@
     - "{{ path_oracle_inventory }}"
     - "{{ path_oracle_base }}"
     - "{{ path_oracle_home }}"
+    - "{{ path_oracle_stage }}"
 
 - name: Cambiar Permisos Directorio
   file:
@@ -25,6 +26,7 @@
     - "{{ path_oracle_inventory }}"
     - "{{ path_oracle_base }}"
     - "{{ path_oracle_home }}"
+    - "{{ path_oracle_stage }}"
 
 - name: Copiar Fihero Grid ZIP
   copy:
