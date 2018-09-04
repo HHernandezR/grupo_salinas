@@ -88,9 +88,9 @@ network_interfaces:
     address: 192.168.1.170
     grid_net: 2
     #Nic IP Virtual
-  - device: ens35
-    address: 192.168.72.171
-    grid_net: 3
+  # - device: ens35
+  #   address: 192.168.72.171
+  #   grid_net: 3
 
 #Path fichero bash_profile Oracle
 path_bashprofile_oracle: /home/oracle/.bash_profile
