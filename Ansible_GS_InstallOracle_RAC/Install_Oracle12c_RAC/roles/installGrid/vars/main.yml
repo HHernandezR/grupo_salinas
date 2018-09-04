@@ -1,7 +1,9 @@
 #Usuario Become Root
-usuario_become: root
+usuario_become_root: root
 #Usuario Become Oracle
 usaurio_become_oracle: oracle
+#Usuario Become Grid
+usaurio_become_Grid: grid
 #Path del servidor maestro en el cual se obtienen los recursos zip
 path_recursos_maestro: /usr/databases_resources_rac
 #Path destino donde se copian los recursos del servidor maestro
@@ -43,7 +45,7 @@ grupo_asm: dba
 #Parametro de configuracion para el Nombre del Scan
 nombre_scan: oralab1
 #Parametro de configuracion para el Puerto del Scan
-puerto_scan: 1521
+puerto_scan: 33200
 #Parametro de configuracion para el Tipo de Cluster
 tipo_cluster: STANDARD
 #Parametro de configuracion para el Nombre de Cluster

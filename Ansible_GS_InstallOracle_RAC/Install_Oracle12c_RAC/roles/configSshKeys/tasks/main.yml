@@ -81,7 +81,7 @@
   shell: "ssh-keyscan -H {{ item }} >> ~/.ssh/known_hosts"
   loop: "{{ groups['all'] }}"
 
-- name: Agregar hosts al fichero known_hosts Usuario Oracle
+- name: Agregar hosts al fichero known_hosts Usuario Grid
   become: yes
   become_user: "{{ usuario_grid }}"
   shell: "ssh-keyscan -H {{ item }} >> ~/.ssh/known_hosts"
