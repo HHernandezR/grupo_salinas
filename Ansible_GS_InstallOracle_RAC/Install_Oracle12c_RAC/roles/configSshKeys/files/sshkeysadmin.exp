@@ -3,4 +3,4 @@
 #Uso sshkeysadmin.expect <ip/host> <ssh user> <ssh password>
 
 spawn /usr/bin/ssh-copy-id -i /home/[lindex $argv 1]/.ssh/id_rsa.pub -o StrictHostKeyChecking=no [lindex $argv 0]
-expect "*?assword" { send "[lindex $argv 2]\r" }
+expect "*?assword" { send [lindex $argv 2]\r }
