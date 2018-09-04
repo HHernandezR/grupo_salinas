@@ -277,29 +277,29 @@
 #   debug:
 #     var: command_result
 #
-- name: Ejecutar Fichero PostInstalacion oraInstroot en Nodo-1
-  become: yes
-  become_user: "{{ usuario_root }}"
-  shell: "/usr/bin/sh {{ path_oracle_inventory }}/orainstRoot.sh"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
-
-- name: Ejecutar Fichero PostInstalacion oraInstroot en Nodo-2
-  become: yes
-  become_user: "{{ usuario_root }}"
-  shell: "/usr/bin/sh {{ path_oracle_inventory }}/orainstRoot.sh"
-  when: inventory_hostname == "{{ ip_nombre_node2 }}"
-#
-# - name: Ejecutar Fichero PostInstalacion root en Nodo-1
+# - name: Ejecutar Fichero PostInstalacion oraInstroot en Nodo-1
 #   become: yes
 #   become_user: "{{ usuario_root }}"
-#   shell: "/usr/bin/sh {{ path_oracle_grid }}/root.sh"
+#   shell: "/usr/bin/sh {{ path_oracle_inventory }}/orainstRoot.sh"
 #   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 #
-# - name: Ejecutar Fichero PostInstalacion root en Nodo-2
+# - name: Ejecutar Fichero PostInstalacion oraInstroot en Nodo-2
 #   become: yes
 #   become_user: "{{ usuario_root }}"
-#   shell: "/usr/bin/sh {{ path_oracle_grid }}/root.sh"
+#   shell: "/usr/bin/sh {{ path_oracle_inventory }}/orainstRoot.sh"
 #   when: inventory_hostname == "{{ ip_nombre_node2 }}"
+#
+- name: Ejecutar Fichero PostInstalacion root en Nodo-1
+  become: yes
+  become_user: "{{ usuario_root }}"
+  shell: "/usr/bin/sh {{ path_oracle_grid }}/root.sh"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+- name: Ejecutar Fichero PostInstalacion root en Nodo-2
+  become: yes
+  become_user: "{{ usuario_root }}"
+  shell: "/usr/bin/sh {{ path_oracle_grid }}/root.sh"
+  when: inventory_hostname == "{{ ip_nombre_node2 }}"
 #
 # - name: Preparar Template para el Grid Response
 #   template:
