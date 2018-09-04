@@ -1,7 +1,16 @@
-# - name: Iniciar Instalacion de Grid
-#   debug:
-#     msg: "Iniciar Instalacion de Grid"
-#
+- name: Iniciar Instalacion de Grid
+  debug:
+    msg: "Iniciar Instalacion de Grid"
+
+- name: Aplicar Unset a Variable SSH_AUTH_SOCK
+  become: yes
+  become_user: "{{ item }}"
+  command: unset SSH_AUTH_SOCK
+  loop:
+    - "{{ usuario_grid }}"
+    - "{{ usuario_root }}"
+
+
 # - name: Crear Directorios Necesarios
 #   file:
 #     path: "{{ item }}"
