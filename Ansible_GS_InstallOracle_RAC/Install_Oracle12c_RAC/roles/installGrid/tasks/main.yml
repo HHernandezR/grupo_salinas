@@ -176,7 +176,7 @@
   template:
     src: "{{ nombre_original_grid_template }}"
     dest: "{{ path_oracle_stage }}/{{ nombre_grid_template }}"
-    owner: "{{ usuario_oracle }}"
+    owner: "{{ usuario_grid }}"
     group: "{{ grupo_oracle }}"
     mode: "{{ permisos_oracle }}"
   loop: "{{ network_interfaces }}"
