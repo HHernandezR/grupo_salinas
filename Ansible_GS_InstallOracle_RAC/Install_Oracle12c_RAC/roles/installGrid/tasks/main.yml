@@ -310,7 +310,7 @@
 - name: Resultado de la Instalacion de Grid
   become: yes
   become_user: "{{ usuario_grid }}"
-  command: "crsctl status resource -t"
+  command: "/grid/bin/crsctl status resource -t"
   register: crsctl_result
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
