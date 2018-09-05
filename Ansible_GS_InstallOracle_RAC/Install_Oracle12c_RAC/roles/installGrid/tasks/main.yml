@@ -285,7 +285,7 @@
 
 - name: Ejecutar Script configToolAllCommands
   become: yes
-  become_user: "{{ usuario_root }}"
+  become_user: "{{ usuario_grid }}"
   shell: "{{ path_oracle_grid }}/cfgtoollogs/configToolAllCommands RESPONSE_FILE={{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
   ignore_errors: true
