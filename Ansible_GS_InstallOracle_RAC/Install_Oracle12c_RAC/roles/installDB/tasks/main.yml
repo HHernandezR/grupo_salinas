@@ -7,7 +7,7 @@
   register: rdbms_check
 
 - name: Check OCR
-  shell: "/grid/bin/crsctl stat resource -w ("TYPE = ora.database.type") and (NAME = ora.{{ nombre_database }}.db)" | wc -l"
+  shell: "/grid/bin/crsctl stat resource -w ('TYPE = ora.database.type') and (NAME = ora.{{ nombre_database }}.db) | wc -l"
   register: instance_check
 
 - name: Check if RDBMS software is installed
