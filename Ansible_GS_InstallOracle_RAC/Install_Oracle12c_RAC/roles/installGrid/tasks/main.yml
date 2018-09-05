@@ -274,27 +274,27 @@
 #   shell: "{{ path_oracle_grid }}/root.sh"
 #   when: inventory_hostname == "{{ ip_nombre_node2 }}"
 #
-- name: Preparar Template para el Grid Response
-  template:
-    src: "{{ nombre_original_config_grid_template }}"
-    dest: "{{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
-    owner: "{{ usuario_grid }}"
-    group: "{{ grupo_oracle }}"
-    mode: "{{ permisos_oracle }}"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
-
-- name: Ejecutar Script configToolAllCommands
-  become: yes
-  become_user: "{{ usuario_grid }}"
-  shell: "{{ path_oracle_grid }}/cfgtoollogs/configToolAllCommands RESPONSE_FILE={{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
-  ignore_errors: true
-
-- name: Terminada Configuracion del Fichero configToolAllCommands
-  debug:
-    msg: "Configuracion del fichero configToolAllCommands en Nodo 1 Terminada, comando nativo sin retorno"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
-
+# - name: Preparar Template para el Grid Response
+#   template:
+#     src: "{{ nombre_original_config_grid_template }}"
+#     dest: "{{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
+#     owner: "{{ usuario_grid }}"
+#     group: "{{ grupo_oracle }}"
+#     mode: "{{ permisos_oracle }}"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+#
+# - name: Ejecutar Script configToolAllCommands
+#   become: yes
+#   become_user: "{{ usuario_grid }}"
+#   shell: "{{ path_oracle_grid }}/cfgtoollogs/configToolAllCommands RESPONSE_FILE={{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+#   ignore_errors: true
+#
+# - name: Terminada Configuracion del Fichero configToolAllCommands
+#   debug:
+#     msg: "Configuracion del fichero configToolAllCommands en Nodo 1 Terminada, comando nativo sin retorno"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+#
 # - name: Crear +Fra Diskgroup
 #   become: yes
 #   become_user: "{{ usuario_grid }}"
@@ -306,3 +306,15 @@
 #   file:
 #     path: "{{ path_oracle_stage }}"
 #     state: absent
+
+- name: Resultado de la Instalacion de Grid
+  become: yes
+  become_user: "{{ usuario_grid }}"
+  command: "crsctl status resource -t"
+  register: crsctl_result
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+- name: Resultado de la Instalacion de Grid
+  debug:
+    msg: "crsctl_result.stdout_lines"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
