@@ -1,6 +1,6 @@
-- name: Iniciar Instalacion Base de Datos
+- name: Iniciar Instalacion Base de Datos Oracle 12c RAC
   debug:
-    msg: "Iniciar Instalacion de Base de Datos"
+    msg: "Iniciar Instalacion Base de Datos Oracle 12c RAC"
 
 - name: Check oraInventory
   shell: "cat {{ path_oracle_inventory }}/ContentsXML/inventory.xml | grep OraDB12Home1 | cut -d\" -f4"
