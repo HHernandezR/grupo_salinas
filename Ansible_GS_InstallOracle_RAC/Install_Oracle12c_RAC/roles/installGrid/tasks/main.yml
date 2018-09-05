@@ -42,7 +42,7 @@
     - "{{ path_oracle_home }}"
     - "{{ path_oracle_stage }}"
 
-- name: Copiar Fihero Grid ZIP
+- name: Copiar Fichero Grid ZIP
   copy:
     src: "{{ path_recursos_maestro }}/{{ item }}"
     dest: "{{ path_recursos_nodo }}"
@@ -54,7 +54,7 @@
     - "{{ nombre_grid_zip2 }}"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
-- name: Descomprimir Fihero Grid ZIP
+- name: Descomprimir Fichero Grid ZIP
   unarchive:
     src: "{{ path_recursos_nodo }}/{{ item }}"
     dest: "{{ path_oracle_stage }}"

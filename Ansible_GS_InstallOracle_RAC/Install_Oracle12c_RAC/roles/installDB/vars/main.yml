@@ -6,8 +6,33 @@ usuario_oracle: oracle
 grupo_oracle: oinstall
 #Permisos de directorios BD Oracle
 permisos_oracle: 0775
+#Path diectorio Oracle Base
+path_oracle_base: /oracle12c/app/oracle
+#Path del servidor maestro en el cual se obtienen los recursos zip
+path_recursos_maestro: /usr/databases_resources_rac
+#Path destino donde se copian los recursos del servidor maestro
+path_recursos_nodo: /var/tmp
+#Nombre fichero ZIP Data Base Parte 1
+nombre_db_zip1: p17694377_121020_Linux-x86-64_1of8.zip
+#Nombre fichero ZIP Data Base Parte 2
+nombre_db_zip2: p17694377_121020_Linux-x86-64_2of8.zip
 #Path diectorio Inventory
 path_oracle_inventory: /oracle12c/app/oraInventory
+#Nombre fichero Template Instalacion Oracle Data Base
+nombre_original_db_template: db.rsp.j2
+#Nombre fichero Template Instalacion Oracle Data Base
+nombre_db_template: db.rsp
+#Valor Oracle Hostname
+hostname_oracle: oralab1.localdomain
+#Parametro de configuracion para el Idioma del Grid
+oracle_idioma: en
+#Path diectorio Oracle Home
+path_oracle_home: "{{ path_oracle_base }}/product/12.1.0/dbhome_1"
+#Parametro de configuracion para OS-ASM GROUP
+grupo_dba: dba
+#Parametro de Configuracion Proposito Base de Datos
+proposito_bd: GENERAL_PURPOSE
+
 
 #Nomnbre de la Base de Datos Global
 nombre_database: orcl

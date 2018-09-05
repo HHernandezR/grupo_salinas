@@ -32,7 +32,7 @@ path_cvuqdisk_rpm: "{{ path_oracle_stage }}/grid/rpm/{{ nombre_cvuqdisk_rpm }}"
 ip_nombre_node1: 192.168.72.XXX
 #Nombre / Ip del nodo 2
 ip_nombre_node2: 192.168.72.XXX
-
+#Valor Oracle Hostname
 hostname_oracle: oralab1.localdomain
 #Path diectorio Inventory
 path_oracle_inventory: /oracle12c/app/oraInventory
