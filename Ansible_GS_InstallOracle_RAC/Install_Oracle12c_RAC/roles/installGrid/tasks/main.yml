@@ -250,42 +250,30 @@
 #   debug:
 #     var: command_result
 #
-- name: Ejecutar Fichero PostInstalacion oraInstroot en Nodo-1
+# - name: Ejecutar Fichero PostInstalacion oraInstroot en Nodo-1
+#   become: yes
+#   become_user: "{{ usuario_root }}"
+#   shell: "{{ path_oracle_inventory }}/orainstRoot.sh"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+#
+# - name: Ejecutar Fichero PostInstalacion oraInstroot en Nodo-2
+#   become: yes
+#   become_user: "{{ usuario_root }}"
+#   shell: "{{ path_oracle_inventory }}/orainstRoot.sh"
+#   when: inventory_hostname == "{{ ip_nombre_node2 }}"
+
+- name: Ejecutar Fichero PostInstalacion root en Nodo-1
   become: yes
   become_user: "{{ usuario_root }}"
-  shell: "{{ path_oracle_inventory }}/orainstRoot.sh"
+  shell: "{{ path_oracle_grid }}/root.sh"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
-- name: Ejecutar Fichero PostInstalacion oraInstroot en Nodo-2
+- name: Ejecutar Fichero PostInstalacion root en Nodo-2
   become: yes
   become_user: "{{ usuario_root }}"
-  shell: "{{ path_oracle_inventory }}/orainstRoot.sh"
+  shell: "{{ path_oracle_grid }}/root.sh"
   when: inventory_hostname == "{{ ip_nombre_node2 }}"
-#
-# - name: Ejecutar Fichero PostInstalacion root en Nodo-1
-#   become: yes
-#   become_user: "{{ usuario_root }}"
-#   shell: "/usr/bin/sh {{ path_oracle_grid }}/root.sh"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#   ignore_errors: true
-#
-# - name: Terminada Ejecuión del Fichero PostInstalacion root en Nodo-1
-#   debug:
-#     msg: "Ejecución del fichero root.sh en Nodo 1, comando nativo sin retorno"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#
-# - name: Ejecutar Fichero PostInstalacion root en Nodo-2
-#   become: yes
-#   become_user: "{{ usuario_root }}"
-#   shell: "/usr/bin/sh {{ path_oracle_grid }}/root.sh"
-#   when: inventory_hostname == "{{ ip_nombre_node2 }}"
-#   ignore_errors: true
-#
-# - name: Terminada Ejecuión del Fichero PostInstalacion root en Nodo-2
-#   debug:
-#     msg: "Ejecución del fichero root.sh en Nodo 2, comando nativo sin retorno"
-#   when: inventory_hostname == "{{ ip_nombre_node2 }}"
-#
+
 # - name: Preparar Template para el Grid Response
 #   template:
 #     src: "{{ nombre_original_config_grid_template }}"
