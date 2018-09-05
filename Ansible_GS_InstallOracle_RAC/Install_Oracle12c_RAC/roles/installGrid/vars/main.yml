@@ -75,7 +75,8 @@ nombre_original_config_grid_template: cfgrsp.properties.j2
 nombre_config_grid_template: cfgrsp.properties
 
 asm_dbsnmp: oracle
-asm_sec_dg: FRA
+#Nombre de DiskGroup FRA (Archuives de Backup)
+nombre_diskgroup_fra: FRA
 
 #Intarfaces a utizar para la instalacion del grid
 network_interfaces:

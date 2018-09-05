@@ -319,36 +319,35 @@
 #   debug:
 #     msg: "Ejecución del fichero root.sh en Nodo 2, comando nativo sin retorno"
 #   when: inventory_hostname == "{{ ip_nombre_node2 }}"
-
-- name: Preparar Template para el Grid Response
-  template:
-    src: "{{ nombre_original_config_grid_template }}"
-    dest: "{{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
-    owner: "{{ usuario_grid }}"
-    group: "{{ grupo_oracle }}"
-    mode: "{{ permisos_oracle }}"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
-
-- name: Ejecutar Script configToolAllCommands
-  become: yes
-  become_user: "{{ usuario_grid }}"
-  shell: "{{ path_oracle_grid }}/cfgtoollogs/configToolAllCommands RESPONSE_FILE={{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
-  ignore_errors: true
-
-- name: Terminada Configuracion del Fichero configToolAllCommands
-  debug:
-    msg: "Configuracion del fichero configToolAllCommands en Nodo 1 Terminada, comando nativo sin retorno"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
-
 #
-# - name: Crear +Fra Diskgroup
-#   become: yes
-#   become_user: "{{ usuario_become }}"
-#   shell: "{{ path_oracle_grid }}/bin/asmca -silent -sysAsmPassword {{ password_asm_sys }} -asmsnmpPassword {{ asm_dbsnmp }} -createDiskGroup -diskString {{ path_discos_asm }} -diskGroupName {{ asm_sec_dg }} -diskList {{ discos_diskgroup_asm_fra }} -redundancy {{ redundancia_asm }}"
+# - name: Preparar Template para el Grid Response
+#   template:
+#     src: "{{ nombre_original_config_grid_template }}"
+#     dest: "{{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
+#     owner: "{{ usuario_grid }}"
+#     group: "{{ grupo_oracle }}"
+#     mode: "{{ permisos_oracle }}"
 #   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 #
-# - name: Eliminar Archivos Temporales de Instalacion
-#   file:
-#     path: "{{ path_oracle_stage }}"
-#     state: absent
+# - name: Ejecutar Script configToolAllCommands
+#   become: yes
+#   become_user: "{{ usuario_grid }}"
+#   shell: "{{ path_oracle_grid }}/cfgtoollogs/configToolAllCommands RESPONSE_FILE={{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+#   ignore_errors: true
+#
+# - name: Terminada Configuracion del Fichero configToolAllCommands
+#   debug:
+#     msg: "Configuracion del fichero configToolAllCommands en Nodo 1 Terminada, comando nativo sin retorno"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+- name: Crear +Fra Diskgroup
+  become: yes
+  become_user: "{{ usuario_grid }}"
+  shell: "{{ path_oracle_grid }}/bin/asmca -silent -sysAsmPassword {{ password_asm_sys }} -asmsnmpPassword {{ asm_dbsnmp }} -createDiskGroup -diskString {{ path_discos_asm }} -diskGroupName {{ nombre_diskgroup_fra }} -diskList {{ discos_diskgroup_asm_fra }} -redundancy {{ redundancia_asm }}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+- name: Eliminar Archivos Temporales de Instalacion
+  file:
+    path: "{{ path_oracle_stage }}"
+    state: absent
