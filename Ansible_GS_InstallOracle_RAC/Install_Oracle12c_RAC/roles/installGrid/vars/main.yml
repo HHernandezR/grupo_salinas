@@ -43,11 +43,11 @@ grupo_asm: dba
 #Parametro de configuracion para el Nombre del Scan
 nombre_scan: oralab1
 #Parametro de configuracion para el Puerto del Scan
-puerto_scan: 33200
+puerto_scan: 1521
 #Parametro de configuracion para el Tipo de Cluster
 tipo_cluster: STANDARD
 #Parametro de configuracion para el Nombre de Cluster
-nombre_cluster: rac-cluster
+nombre_cluster: oralab1
 #Parametro de configuracion para el Tipo de Storage del Cluster
 tipo_rac_storage: FLEX_ASM_STORAGE
 #Parametro de configuracion para el Idioma del Grid
@@ -60,7 +60,8 @@ nombre_diskgroup_asm: DATA
 redundancia_asm: EXTERNAL
 
 #Parametro de configuracion para el Password del Monitor
-password_monitor: 222
+#password_monitor: 222
+password_monitor: oracle
 #Parametro de configuracion para la Ubicacion de los Discos ASM
 path_discos_asm: /dev/oracleasm/disks
 #Etiqueta de los Discos ASM
