@@ -285,7 +285,7 @@
 
 - name: Ejecutar Script configToolAllCommands
   become: yes
-  become_user: "{{ usuario_grid }}"
+  become_user: "{{ usuario_root }}"
   shell: "{{ path_oracle_grid }}/cfgtoollogs/configToolAllCommands RESPONSE_FILE={{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
   ignore_errors: true
@@ -295,14 +295,14 @@
     msg: "Configuracion del fichero configToolAllCommands en Nodo 1 Terminada, comando nativo sin retorno"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
-- name: Crear +Fra Diskgroup
-  become: yes
-  become_user: "{{ usuario_grid }}"
-  shell: "{{ path_oracle_grid }}/bin/asmca -silent -sysAsmPassword {{ password_asm_sys }} -asmsnmpPassword {{ asm_dbsnmp }} -createDiskGroup -diskString {{ path_discos_asm }} -diskGroupName {{ nombre_diskgroup_fra }} -diskList {{ discos_diskgroup_asm_fra }} -redundancy {{ redundancia_asm }}"
-  # shell: "{{gi_home}}/bin/asmca -silent -sysAsmPassword {{ asm_passwd }} -asmsnmpPassword {{ asm_dbsnmp }} -createDiskGroup -diskString {{ asm_diskprefix }} -diskGroupName {{ asm_sec_dg }} -diskList {{ asm_disklist_s }} -redundancy {{ asm_redundancy}}"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
-
-- name: Eliminar Archivos Temporales de Instalacion
-  file:
-    path: "{{ path_oracle_stage }}"
-    state: absent
+# - name: Crear +Fra Diskgroup
+#   become: yes
+#   become_user: "{{ usuario_grid }}"
+#   shell: "{{ path_oracle_grid }}/bin/asmca -silent -sysAsmPassword {{ password_asm_sys }} -asmsnmpPassword {{ asm_dbsnmp }} -createDiskGroup -diskString {{ path_discos_asm }} -diskGroupName {{ nombre_diskgroup_fra }} -diskList {{ discos_diskgroup_asm_fra }} -redundancy {{ redundancia_asm }}"
+#   # shell: "{{gi_home}}/bin/asmca -silent -sysAsmPassword {{ asm_passwd }} -asmsnmpPassword {{ asm_dbsnmp }} -createDiskGroup -diskString {{ asm_diskprefix }} -diskGroupName {{ asm_sec_dg }} -diskList {{ asm_disklist_s }} -redundancy {{ asm_redundancy}}"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+#
+# - name: Eliminar Archivos Temporales de Instalacion
+#   file:
+#     path: "{{ path_oracle_stage }}"
+#     state: absent
