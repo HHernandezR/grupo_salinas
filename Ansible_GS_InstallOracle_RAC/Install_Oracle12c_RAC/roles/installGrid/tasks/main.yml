@@ -1,320 +1,315 @@
-# - name: Iniciar Instalacion de Grid
-#   debug:
-#     msg: "Iniciar Instalacion de Grid"
-#
-# - name: Iniciar-Ntp
-#   service:
-#     name: ntpd
-#     enabled: true
-#     state: restarted
-#
-# - name: Aplicar Unset a Variable SSH_AUTH_SOCK
-#   become: yes
-#   become_user: "{{ item }}"
-#   shell: "unset SSH_AUTH_SOCK"
-#   loop:
-#     - "{{ usuario_grid }}"
-#     - "{{ usuario_root }}"
-#
-# - name: Crear Directorios Necesarios
-#   file:
-#     path: "{{ item }}"
-#     state: directory
-#     force: yes
-#   loop:
-#     - "{{ path_oracle_grid }}"
-#     - "{{ path_oracle_inventory }}"
-#     - "{{ path_oracle_base }}"
-#     - "{{ path_oracle_home }}"
-#     - "{{ path_oracle_stage }}"
-#
-# - name: Cambiar Permisos Directorio
-#   file:
-#     path: "{{ item }}"
-#     owner: "{{ usuario_grid }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#     recurse: yes
-#   loop:
-#     - "{{ path_oracle_grid }}"
-#     - "{{ path_oracle_inventory }}"
-#     - "{{ path_oracle_base }}"
-#     - "{{ path_oracle_home }}"
-#     - "{{ path_oracle_stage }}"
-#
-# - name: Copiar Fihero Grid ZIP
-#   copy:
-#     src: "{{ path_recursos_maestro }}/{{ item }}"
-#     dest: "{{ path_recursos_nodo }}"
-#     owner: "{{ usuario_grid }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#   loop:
-#     - "{{ nombre_grid_zip1 }}"
-#     - "{{ nombre_grid_zip2 }}"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#
-# - name: Descomprimir Fihero Grid ZIP
-#   unarchive:
-#     src: "{{ path_recursos_nodo }}/{{ item }}"
-#     dest: "{{ path_oracle_stage }}"
-#     copy: false
-#     owner: "{{ usuario_grid }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#   loop:
-#     - "{{ nombre_grid_zip1 }}"
-#     - "{{ nombre_grid_zip2 }}"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#
-# - name: Setear Variable de Entorno Oracle Hostname Usuario Oracle
-#   become: yes
-#   become_user: "{{ usuario_oracle }}"
-#   lineinfile:
-#    dest: "{{ path_bashprofile_oracle }}"
-#    line: "export ORACLE_HOSTNAME={{ hostname_oracle }}"
-#    insertbefore: "export PATH"
-#
-# - name: Setear Variable de Entorno Oracle UNQ Usuario Oracle
-#   become: yes
-#   become_user: "{{ usuario_oracle }}"
-#   lineinfile:
-#    dest: "{{ path_bashprofile_oracle }}"
-#    line: "export ORACLE_UNQNAME={{ oracle_sid_nombre }}"
-#    insertbefore: "export PATH"
-#
-# - name: Setear Variable de Entorno Oracle Base Usuario Oracle
-#   become: yes
-#   become_user: "{{ usuario_oracle }}"
-#   lineinfile:
-#    dest: "{{ path_bashprofile_oracle }}"
-#    line: "export ORACLE_BASE={{ path_oracle_base }}"
-#    insertbefore: "export PATH"
-#
-# - name: Setear Variable de Entorno Grid Home Usuario Oracle
-#   become: yes
-#   become_user: "{{ usuario_oracle }}"
-#   lineinfile:
-#    dest: "{{ path_bashprofile_oracle }}"
-#    line: "export GRID_HOME={{ path_oracle_grid }}"
-#    insertbefore: "export PATH"
-#
-# - name: Setear Variable de Entorno DB Home Usuario Oracle
-#   become: yes
-#   become_user: "{{ usuario_oracle }}"
-#   lineinfile:
-#    dest: "{{ path_bashprofile_oracle }}"
-#    line: "export DB_HOME={{ path_oracle_home }}"
-#    insertbefore: "export PATH"
-#
-# - name: Setear Variable de Entorno SID Usuario Oracle
-#   become: yes
-#   become_user: "{{ usuario_oracle }}"
-#   lineinfile:
-#    dest: "{{ path_bashprofile_oracle }}"
-#    line: "export ORACLE_SID={{ oracle_sid_nombre }}"
-#    insertbefore: "export PATH"
-#
-# - name: Setear Variable de Entorno Oracle Home Usuario Oracle
-#   become: yes
-#   become_user: "{{ usuario_oracle }}"
-#   lineinfile:
-#    dest: "{{ path_bashprofile_oracle }}"
-#    regexp: "{{ item.regexp }}"
-#    line: "{{ item.line }}"
-#    insertbefore: "export PATH"
-#   loop:
-#     -
-#       regexp: ^ORACLE_HOME=
-#       line: "ORACLE_HOME={{ path_oracle_home }}"
-#     -
-#       regexp: PATH=\$ORACLE_HOME/bin
-#       line: PATH=$ORACLE_HOME/bin:$PATH
-#     -
-#       regexp: ^export ORACLE_HOME
-#       line: export ORACLE_HOME
-#
-# - name: Cargar Variables de Entorno Usuario Oracle
-#   become: yes
-#   become_user: "{{ usuario_oracle }}"
-#   shell: "source ~/.bash_profile"
-#
-# - name: Setear Variable de Entorno Oracle Hostname Usuario Grid
-#   become: yes
-#   become_user: "{{ usuario_grid }}"
-#   lineinfile:
-#    dest: "{{ path_bashprofile_grid }}"
-#    line: "export ORACLE_HOSTNAME={{ hostname_oracle }}"
-#    insertbefore: "export PATH"
-#
-# - name: Setear Variable de Entorno Oracle UNQ NAME Usuario Grid
-#   become: yes
-#   become_user: "{{ usuario_grid }}"
-#   lineinfile:
-#    dest: "{{ path_bashprofile_grid }}"
-#    line: "export ORACLE_UNQNAME={{ grid_sid_nombre }}"
-#    insertbefore: "export PATH"
-#
-# - name: Setear Variable de Entorno Oracle Base Usuario Grid
-#   become: yes
-#   become_user: "{{ usuario_grid }}"
-#   lineinfile:
-#    dest: "{{ path_bashprofile_grid }}"
-#    line: "export ORACLE_BASE={{ path_oracle_grid }}"
-#    insertbefore: "export PATH"
-#
-# - name: Setear Variable de Entorno Grid Home Usuario Grid
-#   become: yes
-#   become_user: "{{ usuario_grid }}"
-#   lineinfile:
-#    dest: "{{ path_bashprofile_grid }}"
-#    line: "export GRID_HOME={{ path_oracle_grid }}"
-#    insertbefore: "export PATH"
-#
-# - name: Setear Variable de Entorno DB Home Usuario Grid
-#   become: yes
-#   become_user: "{{ usuario_grid }}"
-#   lineinfile:
-#    dest: "{{ path_bashprofile_grid }}"
-#    line: "export DB_HOME={{ path_oracle_home }}"
-#    insertbefore: "export PATH"
-#
-# - name: Setear Variable de Entorno SID Usuario Grid
-#   become: yes
-#   become_user: "{{ usuario_grid }}"
-#   lineinfile:
-#    dest: "{{ path_bashprofile_grid }}"
-#    line: "export ORACLE_SID={{ grid_sid_nombre }}"
-#    insertbefore: "export PATH"
-#
-# - name: Setear Variable de Entorno Oracle Home Usuario Grid
-#   become: yes
-#   become_user: "{{ usuario_grid }}"
-#   lineinfile:
-#    dest: "{{ path_bashprofile_grid }}"
-#    regexp: "{{ item.regexp }}"
-#    line: "{{ item.line }}"
-#    insertbefore: "export PATH"
-#   loop:
-#     -
-#       regexp: ^ORACLE_HOME=
-#       line: "ORACLE_HOME={{ path_oracle_grid }}"
-#     -
-#       regexp: PATH=\$ORACLE_HOME/bin
-#       line: PATH=$ORACLE_HOME/bin:$PATH
-#     -
-#       regexp: ^export ORACLE_HOME
-#       line: export ORACLE_HOME
-#
-# - name: Cargar Variables de Entorno Usuario Grid
-#   become: yes
-#   become_user: "{{ usuario_grid }}"
-#   shell: "source ~/.bash_profile"
-#
-# - name: Copiar Paquete cvuqdisk
-#   copy:
-#     src: "{{ path_recursos_maestro }}/{{ item }}"
-#     dest: "{{ path_recursos_nodo }}"
-#     owner: "{{ usuario_grid }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#   loop:
-#     - "{{ nombre_cvuqdisk_rpm }}"
-#
-# - name: Instalar cvuqdisk
-#   yum:
-#     name: "{{ path_recursos_nodo }}/{{ nombre_cvuqdisk_rpm }}"
-#     state: present
-#
-# - name: Preparar Template para Instalacion de Grid
-#   become: yes
-#   become_user: "{{ usuario_grid }}"
-#   template:
-#     src: "{{ nombre_original_grid_template }}"
-#     dest: "{{ path_oracle_stage }}/{{ nombre_grid_template }}"
-#     owner: "{{ usuario_grid }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#   loop: "{{ network_interfaces }}"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#
-# - name: Instalar Infraestructura Grid
-#   become: yes
-#   become_user: "{{ usuario_grid }}"
-#   shell: "{{ path_oracle_stage }}/grid/runInstaller -responseFile {{ path_oracle_stage }}/{{ nombre_grid_template }} -waitforcompletion -ignorePrereq -ignoreSysPrereqs -showProgress -silent"
-#   register: command_result
-#   failed_when: "'Successfully Setup Software.' not in command_result.stdout_lines"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#
-# - name: Resultado de la Instalacion de Grid
-#   debug:
-#     var: command_result
-#
-# - name: Ejecutar Fichero PostInstalacion oraInstroot en Nodo-1
-#   become: yes
-#   become_user: "{{ usuario_root }}"
-#   shell: "{{ path_oracle_inventory }}/orainstRoot.sh"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#
-# - name: Ejecutar Fichero PostInstalacion oraInstroot en Nodo-2
-#   become: yes
-#   become_user: "{{ usuario_root }}"
-#   shell: "{{ path_oracle_inventory }}/orainstRoot.sh"
-#   when: inventory_hostname == "{{ ip_nombre_node2 }}"
-#
-# - name: Ejecutar Fichero PostInstalacion root en Nodo-1
-#   become: yes
-#   become_user: "{{ usuario_root }}"
-#   shell: "{{ path_oracle_grid }}/root.sh"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#
-# - name: Ejecutar Fichero PostInstalacion root en Nodo-2
-#   become: yes
-#   become_user: "{{ usuario_root }}"
-#   shell: "{{ path_oracle_grid }}/root.sh"
-#   when: inventory_hostname == "{{ ip_nombre_node2 }}"
-#
-# - name: Preparar Template para el Grid Response
-#   template:
-#     src: "{{ nombre_original_config_grid_template }}"
-#     dest: "{{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
-#     owner: "{{ usuario_grid }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#
-# - name: Ejecutar Script configToolAllCommands
-#   become: yes
-#   become_user: "{{ usuario_grid }}"
-#   shell: "{{ path_oracle_grid }}/cfgtoollogs/configToolAllCommands RESPONSE_FILE={{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#   ignore_errors: true
-#
-# - name: Terminada Configuracion del Fichero configToolAllCommands
-#   debug:
-#     msg: "Configuracion del fichero configToolAllCommands en Nodo 1 Terminada, comando nativo sin retorno"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#
-# - name: Crear +Fra Diskgroup
-#   become: yes
-#   become_user: "{{ usuario_grid }}"
-#   shell: "{{ path_oracle_grid }}/bin/asmca -silent -sysAsmPassword {{ password_asm_sys }} -asmsnmpPassword {{ asm_dbsnmp }} -createDiskGroup -diskString {{ path_discos_asm }} -diskGroupName {{ nombre_diskgroup_fra }} -diskList {{ discos_diskgroup_asm_fra }} -redundancy {{ redundancia_asm }}"
-#   # shell: "{{gi_home}}/bin/asmca -silent -sysAsmPassword {{ asm_passwd }} -asmsnmpPassword {{ asm_dbsnmp }} -createDiskGroup -diskString {{ asm_diskprefix }} -diskGroupName {{ asm_sec_dg }} -diskList {{ asm_disklist_s }} -redundancy {{ asm_redundancy}}"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#
-# - name: Eliminar Archivos Temporales de Instalacion
-#   file:
-#     path: "{{ path_oracle_stage }}"
-#     state: absent
+- name: Iniciar Instalacion de Infraestructura Grid
+  debug:
+    msg: "Iniciar Instalacion de Grid"
+
+- name: Iniciar-Ntp
+  service:
+    name: ntpd
+    enabled: true
+    state: restarted
+
+- name: Aplicar Unset a Variable SSH_AUTH_SOCK
+  become: yes
+  become_user: "{{ item }}"
+  shell: "unset SSH_AUTH_SOCK"
+  loop:
+    - "{{ usuario_grid }}"
+    - "{{ usuario_root }}"
+
+- name: Crear Directorios Necesarios
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: yes
+  loop:
+    - "{{ path_oracle_grid }}"
+    - "{{ path_oracle_inventory }}"
+    - "{{ path_oracle_base }}"
+    - "{{ path_oracle_home }}"
+    - "{{ path_oracle_stage }}"
+
+- name: Cambiar Permisos Directorio
+  file:
+    path: "{{ item }}"
+    owner: "{{ usuario_grid }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+    recurse: yes
+  loop:
+    - "{{ path_oracle_grid }}"
+    - "{{ path_oracle_inventory }}"
+    - "{{ path_oracle_base }}"
+    - "{{ path_oracle_home }}"
+    - "{{ path_oracle_stage }}"
+
+- name: Copiar Fihero Grid ZIP
+  copy:
+    src: "{{ path_recursos_maestro }}/{{ item }}"
+    dest: "{{ path_recursos_nodo }}"
+    owner: "{{ usuario_grid }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+  loop:
+    - "{{ nombre_grid_zip1 }}"
+    - "{{ nombre_grid_zip2 }}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+- name: Descomprimir Fihero Grid ZIP
+  unarchive:
+    src: "{{ path_recursos_nodo }}/{{ item }}"
+    dest: "{{ path_oracle_stage }}"
+    copy: false
+    owner: "{{ usuario_grid }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+  loop:
+    - "{{ nombre_grid_zip1 }}"
+    - "{{ nombre_grid_zip2 }}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+- name: Setear Variable de Entorno Oracle Hostname Usuario Oracle
+  become: yes
+  become_user: "{{ usuario_oracle }}"
+  lineinfile:
+   dest: "{{ path_bashprofile_oracle }}"
+   line: "export ORACLE_HOSTNAME={{ hostname_oracle }}"
+   insertbefore: "export PATH"
+
+- name: Setear Variable de Entorno Oracle UNQ Usuario Oracle
+  become: yes
+  become_user: "{{ usuario_oracle }}"
+  lineinfile:
+   dest: "{{ path_bashprofile_oracle }}"
+   line: "export ORACLE_UNQNAME={{ oracle_sid_nombre }}"
+   insertbefore: "export PATH"
+
+- name: Setear Variable de Entorno Oracle Base Usuario Oracle
+  become: yes
+  become_user: "{{ usuario_oracle }}"
+  lineinfile:
+   dest: "{{ path_bashprofile_oracle }}"
+   line: "export ORACLE_BASE={{ path_oracle_base }}"
+   insertbefore: "export PATH"
+
+- name: Setear Variable de Entorno Grid Home Usuario Oracle
+  become: yes
+  become_user: "{{ usuario_oracle }}"
+  lineinfile:
+   dest: "{{ path_bashprofile_oracle }}"
+   line: "export GRID_HOME={{ path_oracle_grid }}"
+   insertbefore: "export PATH"
+
+- name: Setear Variable de Entorno DB Home Usuario Oracle
+  become: yes
+  become_user: "{{ usuario_oracle }}"
+  lineinfile:
+   dest: "{{ path_bashprofile_oracle }}"
+   line: "export DB_HOME={{ path_oracle_home }}"
+   insertbefore: "export PATH"
+
+- name: Setear Variable de Entorno SID Usuario Oracle
+  become: yes
+  become_user: "{{ usuario_oracle }}"
+  lineinfile:
+   dest: "{{ path_bashprofile_oracle }}"
+   line: "export ORACLE_SID={{ oracle_sid_nombre }}"
+   insertbefore: "export PATH"
+
+- name: Setear Variable de Entorno Oracle Home Usuario Oracle
+  become: yes
+  become_user: "{{ usuario_oracle }}"
+  lineinfile:
+   dest: "{{ path_bashprofile_oracle }}"
+   regexp: "{{ item.regexp }}"
+   line: "{{ item.line }}"
+   insertbefore: "export PATH"
+  loop:
+    -
+      regexp: ^ORACLE_HOME=
+      line: "ORACLE_HOME={{ path_oracle_home }}"
+    -
+      regexp: PATH=\$ORACLE_HOME/bin
+      line: PATH=$ORACLE_HOME/bin:$PATH
+    -
+      regexp: ^export ORACLE_HOME
+      line: export ORACLE_HOME
+
+- name: Cargar Variables de Entorno Usuario Oracle
+  become: yes
+  become_user: "{{ usuario_oracle }}"
+  shell: "source ~/.bash_profile"
+
+- name: Setear Variable de Entorno Oracle Hostname Usuario Grid
+  become: yes
+  become_user: "{{ usuario_grid }}"
+  lineinfile:
+   dest: "{{ path_bashprofile_grid }}"
+   line: "export ORACLE_HOSTNAME={{ hostname_oracle }}"
+   insertbefore: "export PATH"
+
+- name: Setear Variable de Entorno Oracle UNQ NAME Usuario Grid
+  become: yes
+  become_user: "{{ usuario_grid }}"
+  lineinfile:
+   dest: "{{ path_bashprofile_grid }}"
+   line: "export ORACLE_UNQNAME={{ grid_sid_nombre }}"
+   insertbefore: "export PATH"
+
+- name: Setear Variable de Entorno Oracle Base Usuario Grid
+  become: yes
+  become_user: "{{ usuario_grid }}"
+  lineinfile:
+   dest: "{{ path_bashprofile_grid }}"
+   line: "export ORACLE_BASE={{ path_oracle_grid }}"
+   insertbefore: "export PATH"
+
+- name: Setear Variable de Entorno Grid Home Usuario Grid
+  become: yes
+  become_user: "{{ usuario_grid }}"
+  lineinfile:
+   dest: "{{ path_bashprofile_grid }}"
+   line: "export GRID_HOME={{ path_oracle_grid }}"
+   insertbefore: "export PATH"
+
+- name: Setear Variable de Entorno DB Home Usuario Grid
+  become: yes
+  become_user: "{{ usuario_grid }}"
+  lineinfile:
+   dest: "{{ path_bashprofile_grid }}"
+   line: "export DB_HOME={{ path_oracle_home }}"
+   insertbefore: "export PATH"
+
+- name: Setear Variable de Entorno SID Usuario Grid
+  become: yes
+  become_user: "{{ usuario_grid }}"
+  lineinfile:
+   dest: "{{ path_bashprofile_grid }}"
+   line: "export ORACLE_SID={{ grid_sid_nombre }}"
+   insertbefore: "export PATH"
+
+- name: Setear Variable de Entorno Oracle Home Usuario Grid
+  become: yes
+  become_user: "{{ usuario_grid }}"
+  lineinfile:
+   dest: "{{ path_bashprofile_grid }}"
+   regexp: "{{ item.regexp }}"
+   line: "{{ item.line }}"
+   insertbefore: "export PATH"
+  loop:
+    -
+      regexp: ^ORACLE_HOME=
+      line: "ORACLE_HOME={{ path_oracle_grid }}"
+    -
+      regexp: PATH=\$ORACLE_HOME/bin
+      line: PATH=$ORACLE_HOME/bin:$PATH
+    -
+      regexp: ^export ORACLE_HOME
+      line: export ORACLE_HOME
+
+- name: Cargar Variables de Entorno Usuario Grid
+  become: yes
+  become_user: "{{ usuario_grid }}"
+  shell: "source ~/.bash_profile"
+
+- name: Copiar Paquete cvuqdisk
+  copy:
+    src: "{{ path_recursos_maestro }}/{{ item }}"
+    dest: "{{ path_recursos_nodo }}"
+    owner: "{{ usuario_grid }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+  loop:
+    - "{{ nombre_cvuqdisk_rpm }}"
+
+- name: Instalar cvuqdisk
+  yum:
+    name: "{{ path_recursos_nodo }}/{{ nombre_cvuqdisk_rpm }}"
+    state: present
+
+- name: Preparar Template para Instalacion de Grid
+  become: yes
+  become_user: "{{ usuario_grid }}"
+  template:
+    src: "{{ nombre_original_grid_template }}"
+    dest: "{{ path_oracle_stage }}/{{ nombre_grid_template }}"
+    owner: "{{ usuario_grid }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+  loop: "{{ network_interfaces }}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+- name: Instalar Infraestructura Grid
+  become: yes
+  become_user: "{{ usuario_grid }}"
+  shell: "{{ path_oracle_stage }}/grid/runInstaller -responseFile {{ path_oracle_stage }}/{{ nombre_grid_template }} -waitforcompletion -ignorePrereq -ignoreSysPrereqs -showProgress -silent"
+  register: command_result
+  failed_when: "'Successfully Setup Software.' not in command_result.stdout_lines"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+- name: Resultado de la Instalacion de Grid
+  debug:
+    var: command_result
+
+- name: Ejecutar Fichero PostInstalacion oraInstroot en Nodo-1
+  become: yes
+  become_user: "{{ usuario_root }}"
+  shell: "{{ path_oracle_inventory }}/orainstRoot.sh"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+- name: Ejecutar Fichero PostInstalacion oraInstroot en Nodo-2
+  become: yes
+  become_user: "{{ usuario_root }}"
+  shell: "{{ path_oracle_inventory }}/orainstRoot.sh"
+  when: inventory_hostname == "{{ ip_nombre_node2 }}"
+
+- name: Ejecutar Fichero PostInstalacion root en Nodo-1
+  become: yes
+  become_user: "{{ usuario_root }}"
+  shell: "{{ path_oracle_grid }}/root.sh"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+- name: Ejecutar Fichero PostInstalacion root en Nodo-2
+  become: yes
+  become_user: "{{ usuario_root }}"
+  shell: "{{ path_oracle_grid }}/root.sh"
+  when: inventory_hostname == "{{ ip_nombre_node2 }}"
+
+- name: Preparar Template para el Grid Response
+  template:
+    src: "{{ nombre_original_config_grid_template }}"
+    dest: "{{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
+    owner: "{{ usuario_grid }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+- name: Ejecutar Script configToolAllCommands
+  become: yes
+  become_user: "{{ usuario_grid }}"
+  shell: "{{ path_oracle_grid }}/cfgtoollogs/configToolAllCommands RESPONSE_FILE={{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+  ignore_errors: true
+
+- name: Terminada Configuracion del Fichero configToolAllCommands
+  debug:
+    msg: "Configuracion del fichero configToolAllCommands en Nodo 1 Terminada, comando nativo sin retorno"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+- name: Crear +Fra Diskgroup
+  become: yes
+  become_user: "{{ usuario_grid }}"
+  shell: "{{ path_oracle_grid }}/bin/asmca -silent -sysAsmPassword {{ password_asm_sys }} -asmsnmpPassword {{ asm_dbsnmp }} -createDiskGroup -diskString {{ path_discos_asm }} -diskGroupName {{ nombre_diskgroup_fra }} -diskList {{ discos_diskgroup_asm_fra }} -redundancy {{ redundancia_asm }}"
+  # shell: "{{gi_home}}/bin/asmca -silent -sysAsmPassword {{ asm_passwd }} -asmsnmpPassword {{ asm_dbsnmp }} -createDiskGroup -diskString {{ asm_diskprefix }} -diskGroupName {{ asm_sec_dg }} -diskList {{ asm_disklist_s }} -redundancy {{ asm_redundancy}}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+- name: Eliminar Archivos Temporales de Instalacion
+  file:
+    path: "{{ path_oracle_stage }}"
+    state: absent
 
 - name: Resultado de la Instalacion de Grid
   become: yes
   become_user: "{{ usuario_grid }}"
   command: "/grid/bin/crsctl status resource -t"
   register: crsctl_result
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
-
-- name: Resultado de la Instalacion de Grid
-  debug:
-    msg: crsctl_result.stdout_lines
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
