@@ -36,6 +36,10 @@ etiqueta_dicos_asm: ASMDISK
 ip_nombre_node1: 192.168.72.XXX
 #Nombre / Ip del nodo 2
 ip_nombre_node2: 192.168.72.XXX
+#Usuario Root para Crear los Discos ASM
+usuario_root: root
+#Usuario Root para Crear los Discos ASM
+usuario_grid: grid
 
 #Lista de Discos a Particionar
 discos_particionar:

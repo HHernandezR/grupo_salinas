@@ -1,6 +1,6 @@
 - name: Particionar Discos
   become: yes
-  become_user: "{{ usuario_become }}"
+  become_user: "{{ usuario_root }}"
   parted:
     device: "{{ item.device }}"
     number: "{{ item.number }}"

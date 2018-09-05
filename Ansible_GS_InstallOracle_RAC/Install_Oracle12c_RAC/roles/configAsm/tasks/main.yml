@@ -65,13 +65,13 @@
     seconds: 3
 
 - name: Crear Discos ASM
-  become_user: root
+  become_user: "{{ usuario_root }}"
   command: "/usr/sbin/oracleasm createdisk {{ etiqueta_dicos_asm }}{{ item.number }}  {{ item.device }}1"
   loop: "{{ discos_particionar }}"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
 - name: Escanear Discos Para ASM
-  become_user: grid
+  become_user: "{{ usuario_grid }}"
   command: "/usr/sbin/oracleasm scandisks"
 
 - name: Remover Archivos de Instalacion Temporales

@@ -1,7 +1,7 @@
 #Nombre / Ip del nodo 1
 ip_nombre_node1: 192.168.72.XXX
 #Usuario al que se escalan los permisos
-usuario_become: root
+usuario_root: root
 
 #Lista de Discos a Particionar
 discos_particionar:
