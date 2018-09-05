@@ -3,6 +3,6 @@
   become: true
   roles:
     # - particionarDiscos
-    - configAsm
+    # - configAsm
     # - configSshKeys
-    # - installGrid
+    - installGrid

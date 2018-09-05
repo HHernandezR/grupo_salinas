@@ -225,30 +225,30 @@
   yum:
     name: "{{ path_recursos_nodo }}/{{ nombre_cvuqdisk_rpm }}"
     state: present
-#
-# - name: Preparar Template para Instalacion de Grid
-#   become: yes
-#   become_user: "{{ usuario_grid }}"
-#   template:
-#     src: "{{ nombre_original_grid_template }}"
-#     dest: "{{ path_oracle_stage }}/{{ nombre_grid_template }}"
-#     owner: "{{ usuario_grid }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#   loop: "{{ network_interfaces }}"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#
-# - name: Instalar Infraestructura Grid
-#   become: yes
-#   become_user: "{{ usuario_grid }}"
-#   shell: "{{ path_oracle_stage }}/grid/runInstaller -responseFile {{ path_oracle_stage }}/{{ nombre_grid_template }} -waitforcompletion -ignorePrereq -ignoreSysPrereqs -showProgress -silent"
-#   register: command_result
-#   failed_when: "'Successfully Setup Software.' not in command_result.stdout_lines"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#
-# - name: Resultado de la Instalacion de Grid
-#   debug:
-#     var: command_result
+
+- name: Preparar Template para Instalacion de Grid
+  become: yes
+  become_user: "{{ usuario_grid }}"
+  template:
+    src: "{{ nombre_original_grid_template }}"
+    dest: "{{ path_oracle_stage }}/{{ nombre_grid_template }}"
+    owner: "{{ usuario_grid }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+  loop: "{{ network_interfaces }}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+- name: Instalar Infraestructura Grid
+  become: yes
+  become_user: "{{ usuario_grid }}"
+  shell: "{{ path_oracle_stage }}/grid/runInstaller -responseFile {{ path_oracle_stage }}/{{ nombre_grid_template }} -waitforcompletion -ignorePrereq -ignoreSysPrereqs -showProgress -silent"
+  register: command_result
+  failed_when: "'Successfully Setup Software.' not in command_result.stdout_lines"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+- name: Resultado de la Instalacion de Grid
+  debug:
+    var: command_result
 #
 # - name: Ejecutar Fichero PostInstalacion oraInstroot en Nodo-1
 #   become: yes
@@ -306,15 +306,15 @@
 #   debug:
 #     msg: "Configuracion del fichero configToolAllCommands en Nodo 1 Terminada, comando nativo sin retorno"
 #   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-
-- name: Crear +Fra Diskgroup
-  become: yes
-  become_user: "{{ usuario_grid }}"
-  # shell: "{{ path_oracle_grid }}/bin/asmca -silent -sysAsmPassword {{ password_asm_sys }} -asmsnmpPassword {{ asm_dbsnmp }} -createDiskGroup -diskString {{ path_discos_asm }} -diskGroupName {{ nombre_diskgroup_fra }} -diskList {{ discos_diskgroup_asm_fra }} -redundancy {{ redundancia_asm }}"
-  shell: "{{ path_oracle_grid }}/bin/asmca -silent -createDiskGroup -diskString {{ path_discos_asm }}/* -diskGroupName {{ nombre_diskgroup_fra }} -diskList {{ discos_diskgroup_asm_fra }} -redundancy {{ redundancia_asm }}"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
-
-- name: Eliminar Archivos Temporales de Instalacion
-  file:
-    path: "{{ path_oracle_stage }}"
-    state: absent
+#
+# - name: Crear +Fra Diskgroup
+#   become: yes
+#   become_user: "{{ usuario_grid }}"
+#   # shell: "{{ path_oracle_grid }}/bin/asmca -silent -sysAsmPassword {{ password_asm_sys }} -asmsnmpPassword {{ asm_dbsnmp }} -createDiskGroup -diskString {{ path_discos_asm }} -diskGroupName {{ nombre_diskgroup_fra }} -diskList {{ discos_diskgroup_asm_fra }} -redundancy {{ redundancia_asm }}"
+#   shell: "{{ path_oracle_grid }}/bin/asmca -silent -createDiskGroup -diskString {{ path_discos_asm }}/* -diskGroupName {{ nombre_diskgroup_fra }} -diskList {{ discos_diskgroup_asm_fra }} -redundancy {{ redundancia_asm }}"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+#
+# - name: Eliminar Archivos Temporales de Instalacion
+#   file:
+#     path: "{{ path_oracle_stage }}"
+#     state: absent

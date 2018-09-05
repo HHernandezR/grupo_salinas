@@ -1,74 +1,74 @@
-# - name: Iniciar Configuracion de Automatic Storage Management
-#   debug:
-#     msg: "Iniciar Configuracion de Automatic Storage Management"
-#
-# - name: Crear Directorios Necesarios
-#   file:
-#     path: "{{ item }}"
-#     state: directory
-#     force: yes
-#   loop:
-#     - "{{ path_oracle_stage }}"
-#
-# - name: Cambiar Permisos Directorio
-#   file:
-#     path: "{{ item }}"
-#     owner: "{{ usuario_oracle }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#     recurse: yes
-#   loop:
-#     - "{{ path_oracle_stage }}"
-#
-# - name: Copiar RPM Oracleasm
-#   copy:
-#     src: "{{ path_recursos_maestro }}/{{ item }}"
-#     dest: "{{ path_destino_rpm }}"
-#     owner: "{{ usuario_asm_rpm }}"
-#     group: "{{ grupo_asm_rpm }}"
-#     mode: "{{ permisos_asm_rpm }}"
-#     force: yes
-#   loop:
-#     - "{{ nombre_oracleasm_lib }}"
-#     - "{{ nombre_oracleasm_support }}"
-# - pause:
-#     seconds: 2
-#
-# - name: Instalar Oracleasm
-#   yum:
-#     name: "{{ item }}"
-#     state: present
-#   loop:
-#     - "{{ path_destino_rpm }}{{ nombre_oracleasm_lib }}"
-#     - "{{ path_destino_rpm }}{{ nombre_oracleasm_support }}"
-#
-# - name: Copiar Expect Oracleasm Config
-#   copy:
-#     src: "{{ nombre_oracleasm_exp }}"
-#     dest: "{{ path_destino_rpm }}"
-#     owner: "{{ usaurio_asmexp }}"
-#     group: "{{ grupo_asmexp }}"
-#     mode: "{{ permisos_asmexp }}"
-#     force: yes
-# - pause:
-#     seconds: 2
-#
-# - name: Ejecutar Oracleasm Config
-#   command: "expect {{ path_destino_rpm }}{{ nombre_oracleasm_exp }}"
-#
-# - name: Iniciar Servicio Oracmeasm
-#   service:
-#     name: oracleasm
-#     enabled: true
-#     state: restarted
-# - pause:
-#     seconds: 3
-#
-# - name: Crear Discos ASM
-#   become_user: "{{ usuario_root }}"
-#   command: "/usr/sbin/oracleasm createdisk {{ etiqueta_dicos_asm }}{{ item.number }}  {{ item.device }}1"
-#   loop: "{{ discos_particionar }}"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+- name: Iniciar Configuracion de Automatic Storage Management
+  debug:
+    msg: "Iniciar Configuracion de Automatic Storage Management"
+
+- name: Crear Directorios Necesarios
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: yes
+  loop:
+    - "{{ path_oracle_stage }}"
+
+- name: Cambiar Permisos Directorio
+  file:
+    path: "{{ item }}"
+    owner: "{{ usuario_oracle }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+    recurse: yes
+  loop:
+    - "{{ path_oracle_stage }}"
+
+- name: Copiar RPM Oracleasm
+  copy:
+    src: "{{ path_recursos_maestro }}/{{ item }}"
+    dest: "{{ path_destino_rpm }}"
+    owner: "{{ usuario_asm_rpm }}"
+    group: "{{ grupo_asm_rpm }}"
+    mode: "{{ permisos_asm_rpm }}"
+    force: yes
+  loop:
+    - "{{ nombre_oracleasm_lib }}"
+    - "{{ nombre_oracleasm_support }}"
+- pause:
+    seconds: 2
+
+- name: Instalar Oracleasm
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - "{{ path_destino_rpm }}{{ nombre_oracleasm_lib }}"
+    - "{{ path_destino_rpm }}{{ nombre_oracleasm_support }}"
+
+- name: Copiar Expect Oracleasm Config
+  copy:
+    src: "{{ nombre_oracleasm_exp }}"
+    dest: "{{ path_destino_rpm }}"
+    owner: "{{ usaurio_asmexp }}"
+    group: "{{ grupo_asmexp }}"
+    mode: "{{ permisos_asmexp }}"
+    force: yes
+- pause:
+    seconds: 2
+
+- name: Ejecutar Oracleasm Config
+  command: "expect {{ path_destino_rpm }}{{ nombre_oracleasm_exp }}"
+
+- name: Iniciar Servicio Oracmeasm
+  service:
+    name: oracleasm
+    enabled: true
+    state: restarted
+- pause:
+    seconds: 3
+
+- name: Crear Discos ASM
+  become_user: "{{ usuario_root }}"
+  command: "/usr/sbin/oracleasm createdisk {{ etiqueta_dicos_asm }}{{ item.number }}  {{ item.device }}1"
+  loop: "{{ discos_particionar }}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
 - name: Escanear Discos Para ASM Nodo 1
   become: yes
@@ -82,10 +82,10 @@
   command: "/etc/init.d/oracleasm scandisks"
   when: inventory_hostname == "{{ ip_nombre_node2 }}"
 
-# - name: Remover Archivos de Instalacion Temporales
-#   file:
-#     path: "{{ path_destino_rpm }}/{{ item }}"
-#     state: absent
-#   loop:
-#     - "{{ nombre_oracleasm_lib }}"
-#     - "{{ nombre_oracleasm_support }}"
+- name: Remover Archivos de Instalacion Temporales
+  file:
+    path: "{{ path_destino_rpm }}/{{ item }}"
+    state: absent
+  loop:
+    - "{{ nombre_oracleasm_lib }}"
+    - "{{ nombre_oracleasm_support }}"
