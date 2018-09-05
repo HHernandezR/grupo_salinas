@@ -71,11 +71,15 @@
 #   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
 - name: Escanear Discos Para ASM Nodo 1
+  become: yes
   become_user: "{{ usuario_root }}"
   command: "/usr/sbin/oracleasm scandisks"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+- pause:
+    seconds: 3
 
 - name: Escanear Discos Para ASM Nodo 2
+  become: yes
   become_user: "{{ usuario_root }}"
   command: "/usr/sbin/oracleasm scandisks"
   when: inventory_hostname == "{{ ip_nombre_node2 }}"
