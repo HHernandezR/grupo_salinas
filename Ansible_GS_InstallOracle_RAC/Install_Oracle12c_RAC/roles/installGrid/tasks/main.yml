@@ -316,5 +316,5 @@
 
 - name: Resultado de la Instalacion de Grid
   debug:
-    msg: "crsctl_result.stdout_lines"
+    msg: crsctl_result.stdout_lines
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
