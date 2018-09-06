@@ -270,7 +270,7 @@
   become: yes
   become_user: "{{ usuario_root }}"
   shell: "sleep 10 && reboot"
-  # when: inventory_hostname == "{{ ip_nombre_node1 }}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
   ignore_errors: true
 - pause:
     minutes: 3
@@ -281,7 +281,7 @@
     module: wait_for
       host={{ ip_nombre_node1 }}
       port=22
-      delay=1
+      delay=10
       timeout=300
 
 - name: Servidores Listos
