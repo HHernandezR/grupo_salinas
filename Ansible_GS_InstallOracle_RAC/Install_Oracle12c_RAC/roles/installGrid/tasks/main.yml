@@ -16,31 +16,31 @@
 #     - "{{ usuario_grid }}"
 #     - "{{ usuario_root }}"
 #
-- name: Crear Directorios Necesarios
-  file:
-    path: "{{ item }}"
-    state: directory
-    force: yes
-  loop:
+# - name: Crear Directorios Necesarios
+#   file:
+#     path: "{{ item }}"
+#     state: directory
+#     force: yes
+#   loop:
     # - "{{ path_oracle_grid }}"
     # - "{{ path_oracle_inventory }}"
     # - "{{ path_oracle_base }}"
     # - "{{ path_oracle_home }}"
-    - "{{ path_oracle_stage }}"
-
-- name: Cambiar Permisos Directorio
-  file:
-    path: "{{ item }}"
-    owner: "{{ usuario_grid }}"
-    group: "{{ grupo_oracle }}"
-    mode: "{{ permisos_oracle }}"
-    recurse: yes
-  loop:
+    # - "{{ path_oracle_stage }}"
+#
+# - name: Cambiar Permisos Directorio
+#   file:
+#     path: "{{ item }}"
+#     owner: "{{ usuario_grid }}"
+#     group: "{{ grupo_oracle }}"
+#     mode: "{{ permisos_oracle }}"
+#     recurse: yes
+#   loop:
     # - "{{ path_oracle_grid }}"
     # - "{{ path_oracle_inventory }}"
     # - "{{ path_oracle_base }}"
     # - "{{ path_oracle_home }}"
-    - "{{ path_oracle_stage }}"
+    # - "{{ path_oracle_stage }}"
 #
 # - name: Copiar Fichero Grid ZIP
 #   copy:
@@ -279,7 +279,8 @@
   become: false
   local_action:
     module: wait_for
-      host={{ inventory_hostname }}
+      state=started
+      host="{{ ip_nombre_node1 }}"
       port=22
       delay=10
       timeout=300
