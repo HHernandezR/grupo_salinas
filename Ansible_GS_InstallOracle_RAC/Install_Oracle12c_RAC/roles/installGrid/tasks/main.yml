@@ -274,11 +274,13 @@
   ignore_errors: true
 
 - name: Esperar a que Nodo-1 Inicie
+  become: yes
+  become_user: "{{ usuario_root }}"
   local_action:
     module: wait_for
       host={{ ip_nombre_node1 }}
       port=22
-      delay=20
+      delay=60
       timeout=300
 
 - name: Servidores Listos
