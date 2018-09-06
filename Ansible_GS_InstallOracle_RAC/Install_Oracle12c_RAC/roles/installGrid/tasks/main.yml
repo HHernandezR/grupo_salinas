@@ -272,6 +272,8 @@
   shell: "sleep 10 && reboot"
   # when: inventory_hostname == "{{ ip_nombre_node1 }}"
   ignore_errors: true
+  pause:
+    minutes: 3
 
 - name: Esperar a que Nodo-1 Inicie
   become: false
@@ -279,7 +281,7 @@
     module: wait_for
       host={{ ip_nombre_node1 }}
       port=22
-      delay=60
+      delay=1
       timeout=300
 
 - name: Servidores Listos
