@@ -46,6 +46,7 @@
     - "{{ path_oracle_stage }}"
     - "{{ path_oracle_stage }}/database"
     - "{{ path_oracle_base }}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
 - name: Preparar Template para Instalacion
   template:

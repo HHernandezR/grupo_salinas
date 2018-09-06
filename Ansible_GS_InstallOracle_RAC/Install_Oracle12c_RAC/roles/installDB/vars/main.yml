@@ -1,3 +1,7 @@
+#Nombre / Ip del nodo 1
+ip_nombre_node1: 192.168.72.XXX
+#Nombre / Ip del nodo 2
+ip_nombre_node2: 192.168.72.XXX
 #Path diectorio Stage
 path_oracle_stage: /stage
 #Usuario Propietario de directorios BD Oracle
