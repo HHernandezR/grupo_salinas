@@ -21,33 +21,33 @@
 #     - "{{ nombre_db_zip1 }}"
 #     - "{{ nombre_db_zip2 }}"
 #   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-
-- name: Descomprimir Fichero Data Base ZIP
-  unarchive:
-    src: "{{ path_recursos_nodo }}/{{ item }}"
-    dest: "{{ path_oracle_stage }}"
-    copy: false
-    owner: "{{ usuario_oracle }}"
-    group: "{{ grupo_oracle }}"
-    mode: "{{ permisos_oracle }}"
-  loop:
-    - "{{ nombre_db_zip1 }}"
-    - "{{ nombre_db_zip2 }}"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
-
-- name: Cambiar Permisos Directorio
-  file:
-    path: "{{ item }}"
-    owner: "{{ usuario_oracle }}"
-    group: "{{ grupo_oracle }}"
-    mode: "{{ permisos_oracle }}"
-    recurse: yes
-  loop:
-    - "{{ path_oracle_stage }}"
-    - "{{ path_oracle_stage }}/database"
-    - "{{ path_oracle_base }}"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
-
+#
+# - name: Descomprimir Fichero Data Base ZIP
+#   unarchive:
+#     src: "{{ path_recursos_nodo }}/{{ item }}"
+#     dest: "{{ path_oracle_stage }}"
+#     copy: false
+#     owner: "{{ usuario_oracle }}"
+#     group: "{{ grupo_oracle }}"
+#     mode: "{{ permisos_oracle }}"
+#   loop:
+#     - "{{ nombre_db_zip1 }}"
+#     - "{{ nombre_db_zip2 }}"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+#
+# - name: Cambiar Permisos Directorio
+#   file:
+#     path: "{{ item }}"
+#     owner: "{{ usuario_oracle }}"
+#     group: "{{ grupo_oracle }}"
+#     mode: "{{ permisos_oracle }}"
+#     recurse: yes
+#   loop:
+#     - "{{ path_oracle_stage }}"
+#     - "{{ path_oracle_stage }}/database"
+#     - "{{ path_oracle_base }}"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+#
 - name: Preparar Template para Instalacion
   template:
     src: "{{ nombre_original_db_template }}"
