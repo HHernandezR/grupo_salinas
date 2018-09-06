@@ -16,31 +16,31 @@
 #     - "{{ usuario_grid }}"
 #     - "{{ usuario_root }}"
 #
-# - name: Crear Directorios Necesarios
-#   file:
-#     path: "{{ item }}"
-#     state: directory
-#     force: yes
-#   loop:
-#     - "{{ path_oracle_grid }}"
-#     - "{{ path_oracle_inventory }}"
-#     - "{{ path_oracle_base }}"
-#     - "{{ path_oracle_home }}"
-#     - "{{ path_oracle_stage }}"
-#
-# - name: Cambiar Permisos Directorio
-#   file:
-#     path: "{{ item }}"
-#     owner: "{{ usuario_grid }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#     recurse: yes
-#   loop:
-#     - "{{ path_oracle_grid }}"
-#     - "{{ path_oracle_inventory }}"
-#     - "{{ path_oracle_base }}"
-#     - "{{ path_oracle_home }}"
-#     - "{{ path_oracle_stage }}"
+- name: Crear Directorios Necesarios
+  file:
+    path: "{{ item }}"
+    state: directory
+    force: yes
+  loop:
+    # - "{{ path_oracle_grid }}"
+    # - "{{ path_oracle_inventory }}"
+    # - "{{ path_oracle_base }}"
+    # - "{{ path_oracle_home }}"
+    - "{{ path_oracle_stage }}"
+
+- name: Cambiar Permisos Directorio
+  file:
+    path: "{{ item }}"
+    owner: "{{ usuario_grid }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+    recurse: yes
+  loop:
+    # - "{{ path_oracle_grid }}"
+    # - "{{ path_oracle_inventory }}"
+    # - "{{ path_oracle_base }}"
+    # - "{{ path_oracle_home }}"
+    - "{{ path_oracle_stage }}"
 #
 # - name: Copiar Fichero Grid ZIP
 #   copy:
@@ -279,7 +279,7 @@
   become: false
   local_action:
     module: wait_for
-      host={{ ip_nombre_node1 }}
+      host={{ inventory_hostname }}
       port=22
       delay=10
       timeout=300
@@ -322,10 +322,10 @@
   # shell: "{{gi_home}}/bin/asmca -silent -sysAsmPassword {{ asm_passwd }} -asmsnmpPassword {{ asm_dbsnmp }} -createDiskGroup -diskString {{ asm_diskprefix }} -diskGroupName {{ asm_sec_dg }} -diskList {{ asm_disklist_s }} -redundancy {{ asm_redundancy}}"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
-- name: Eliminar Archivos Temporales de Instalacion
-  file:
-    path: "{{ path_oracle_stage }}"
-    state: absent
+# - name: Eliminar Archivos Temporales de Instalacion
+#   file:
+#     path: "{{ path_oracle_stage }}"
+#     state: absent
 
 - name: Resultado de la Instalacion de Grid
   become: yes
