@@ -266,6 +266,8 @@
 #   shell: "{{ path_oracle_grid }}/root.sh"
 #   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
+######################################################
+############# INICIO REINICIO DEL NODO 1 #############
 - name: Reiniciar Nodo-1
   become: yes
   become_user: "{{ usuario_root }}"
@@ -286,8 +288,7 @@
       timeout=300
 
 - name: Restablecer Conexion
-  become: yes
-  become_user: "{{ usuario_root }}"
+  become: false
   hosts: 127.0.0.1
   connection: local
   shell: "/usr/bin/ssh {{ usuario_root }}@{{ ip_nombre_node1 }}"
@@ -297,6 +298,9 @@
 - name: Servidores Listos
   debug:
     msg: "Servidores Listos"
+
+############# FIN REINICIO DEL NODO 1 #############
+###################################################
 
 # - name: Ejecutar Fichero PostInstalacion root en Nodo-2
 #   become: yes
