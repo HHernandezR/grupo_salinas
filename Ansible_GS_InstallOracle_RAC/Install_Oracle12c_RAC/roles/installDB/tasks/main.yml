@@ -1,26 +1,26 @@
-- name: Instalacion Oracle Data Base 12c RAC
-  debug:
-    msg: "Iniciar Instalacion Oracle Data Base 12c: RAC"
-
-- name: Crear Directorios Necesarios
-  file:
-    path: "{{ item }}"
-    state: directory
-    force: yes
-  loop:
-    - "{{ path_oracle_stage }}"
-
-- name: Copiar Fichero Data Base ZIP
-  copy:
-    src: "{{ path_recursos_maestro }}/{{ item }}"
-    dest: "{{ path_recursos_nodo }}"
-    owner: "{{ usuario_oracle }}"
-    group: "{{ grupo_oracle }}"
-    mode: "{{ permisos_oracle }}"
-  loop:
-    - "{{ nombre_db_zip1 }}"
-    - "{{ nombre_db_zip2 }}"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+# - name: Instalacion Oracle Data Base 12c RAC
+#   debug:
+#     msg: "Iniciar Instalacion Oracle Data Base 12c: RAC"
+#
+# - name: Crear Directorios Necesarios
+#   file:
+#     path: "{{ item }}"
+#     state: directory
+#     force: yes
+#   loop:
+#     - "{{ path_oracle_stage }}"
+#
+# - name: Copiar Fichero Data Base ZIP
+#   copy:
+#     src: "{{ path_recursos_maestro }}/{{ item }}"
+#     dest: "{{ path_recursos_nodo }}"
+#     owner: "{{ usuario_oracle }}"
+#     group: "{{ grupo_oracle }}"
+#     mode: "{{ permisos_oracle }}"
+#   loop:
+#     - "{{ nombre_db_zip1 }}"
+#     - "{{ nombre_db_zip2 }}"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
 - name: Descomprimir Fichero Data Base ZIP
   unarchive:
