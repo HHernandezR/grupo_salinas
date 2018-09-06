@@ -5,5 +5,5 @@
     - particionarDiscos
     - configAsm
     - configSshKeys
-    # - installGrid
+    - installGrid
     # - installDB

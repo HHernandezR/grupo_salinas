@@ -245,6 +245,8 @@
   register: command_result
   failed_when: "'Successfully Setup Software.' not in command_result.stdout_lines"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+- pause:
+    seconds: 15
 
 - name: Ejecutar Fichero PostInstalacion oraInstroot en Nodo-1
   become: yes
