@@ -268,37 +268,36 @@
 
 ######################################################
 ############# INICIO REINICIO DEL NODO 1 #############
-- name: Reiniciar Nodo-1
-  become: yes
-  become_user: "{{ usuario_root }}"
-  shell: "sleep 10 && reboot"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
-  ignore_errors: true
-- pause:
-    minutes: 3
-
-- name: Esperar a que Nodo-1 Inicie
-  become: false
-  local_action:
-    module: wait_for
-      state=started
-      host="{{ ip_nombre_node1 }}"
-      port=22
-      delay=10
-      timeout=300
-
-- name: Restablecer Conexion
-  become: false
-  hosts: 127.0.0.1
-  connection: local
-  shell: "/usr/bin/ssh {{ usuario_root }}@{{ ip_nombre_node1 }}"
-- pause:
-    minutes: 1
-
-- name: Servidores Listos
-  debug:
-    msg: "Servidores Listos"
-
+# - name: Reiniciar Nodo-1
+#   become: yes
+#   become_user: "{{ usuario_root }}"
+#   shell: "sleep 10 && reboot"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+#   ignore_errors: true
+# - pause:
+#     minutes: 3
+#
+# - name: Esperar a que Nodo-1 Inicie
+#   become: false
+#   local_action:
+#     module: wait_for
+#       state=started
+#       host="{{ ip_nombre_node1 }}"
+#       port=22
+#       delay=10
+#       timeout=300
+#
+# - name: Restablecer Conexion
+#   become: false
+#   hosts: 127.0.0.1
+#   connection: local
+#   shell: "/usr/bin/ssh {{ usuario_root }}@{{ ip_nombre_node1 }}"
+# - pause:
+#     minutes: 1
+#
+# - name: Servidores Listos
+#   debug:
+#     msg: "Servidores Listos"
 ############# FIN REINICIO DEL NODO 1 #############
 ###################################################
 
@@ -308,42 +307,42 @@
 #   shell: "{{ path_oracle_grid }}/root.sh"
 #   when: inventory_hostname == "{{ ip_nombre_node2 }}"
 #
-# - name: Preparar Template para el Grid Response
-#   template:
-#     src: "{{ nombre_original_config_grid_template }}"
-#     dest: "{{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
-#     owner: "{{ usuario_grid }}"
-#     group: "{{ grupo_oracle }}"
-#     mode: "{{ permisos_oracle }}"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#
-# - name: Ejecutar Script configToolAllCommands
-#   become: yes
-#   become_user: "{{ usuario_grid }}"
-#   shell: "{{ path_oracle_grid }}/cfgtoollogs/configToolAllCommands RESPONSE_FILE={{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#   ignore_errors: true
-#
-# - name: Terminada Configuracion del Fichero configToolAllCommands
-#   debug:
-#     msg: "Configuracion del fichero configToolAllCommands en Nodo 1 Terminada, comando nativo sin retorno"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#
-# - name: Crear +Fra Diskgroup
-#   become: yes
-#   become_user: "{{ usuario_grid }}"
-#   shell: "{{ path_oracle_grid }}/bin/asmca -silent -sysAsmPassword {{ password_asm_sys }} -asmsnmpPassword {{ asm_dbsnmp }} -createDiskGroup -diskString {{ path_discos_asm }} -diskGroupName {{ nombre_diskgroup_fra }} -diskList {{ discos_diskgroup_asm_fra }} -redundancy {{ redundancia_asm }}"
-#   # shell: "{{gi_home}}/bin/asmca -silent -sysAsmPassword {{ asm_passwd }} -asmsnmpPassword {{ asm_dbsnmp }} -createDiskGroup -diskString {{ asm_diskprefix }} -diskGroupName {{ asm_sec_dg }} -diskList {{ asm_disklist_s }} -redundancy {{ asm_redundancy}}"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#
-# # - name: Eliminar Archivos Temporales de Instalacion
-# #   file:
-# #     path: "{{ path_oracle_stage }}"
-# #     state: absent
-#
-# - name: Resultado de la Instalacion de Grid
-#   become: yes
-#   become_user: "{{ usuario_grid }}"
-#   command: "/grid/bin/crsctl status resource -t"
-#   register: crsctl_result
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+- name: Preparar Template para el Grid Response
+  template:
+    src: "{{ nombre_original_config_grid_template }}"
+    dest: "{{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
+    owner: "{{ usuario_grid }}"
+    group: "{{ grupo_oracle }}"
+    mode: "{{ permisos_oracle }}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+- name: Ejecutar Script configToolAllCommands
+  become: yes
+  become_user: "{{ usuario_grid }}"
+  shell: "{{ path_oracle_grid }}/cfgtoollogs/configToolAllCommands RESPONSE_FILE={{ path_oracle_stage }}/{{ nombre_config_grid_template }}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+  ignore_errors: true
+
+- name: Terminada Configuracion del Fichero configToolAllCommands
+  debug:
+    msg: "Configuracion del fichero configToolAllCommands en Nodo 1 Terminada, comando nativo sin retorno"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+- name: Crear +Fra Diskgroup
+  become: yes
+  become_user: "{{ usuario_grid }}"
+  shell: "{{ path_oracle_grid }}/bin/asmca -silent -sysAsmPassword {{ password_asm_sys }} -asmsnmpPassword {{ asm_dbsnmp }} -createDiskGroup -diskString {{ path_discos_asm }} -diskGroupName {{ nombre_diskgroup_fra }} -diskList {{ discos_diskgroup_asm_fra }} -redundancy {{ redundancia_asm }}"
+  # shell: "{{gi_home}}/bin/asmca -silent -sysAsmPassword {{ asm_passwd }} -asmsnmpPassword {{ asm_dbsnmp }} -createDiskGroup -diskString {{ asm_diskprefix }} -diskGroupName {{ asm_sec_dg }} -diskList {{ asm_disklist_s }} -redundancy {{ asm_redundancy}}"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+# - name: Eliminar Archivos Temporales de Instalacion
+#   file:
+#     path: "{{ path_oracle_stage }}"
+#     state: absent
+
+- name: Resultado de la Instalacion de Grid
+  become: yes
+  become_user: "{{ usuario_grid }}"
+  command: "/grid/bin/crsctl status resource -t"
+  register: crsctl_result
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
