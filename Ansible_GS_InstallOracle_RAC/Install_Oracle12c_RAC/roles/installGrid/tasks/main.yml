@@ -274,8 +274,9 @@
 #   ignore_errors: true
 
 - name: Esperar a que Nodo-1 Inicie
-  become: yes
-  become_user: "{{ usuario_root }}"
+  become: false
+  # become: yes
+  # become_user: "{{ usuario_root }}"
   local_action:
     module: wait_for
       host={{ ip_nombre_node1 }}
