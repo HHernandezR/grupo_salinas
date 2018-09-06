@@ -1,76 +1,76 @@
-- name: Instalacion Oracle Data Base 12c RAC
-  debug:
-    msg: "Iniciar Instalacion Oracle Data Base 12c: RAC"
-
-- name: Crear Directorios Necesarios
-  file:
-    path: "{{ item }}"
-    state: directory
-    force: yes
-  loop:
-    - "{{ path_oracle_stage }}"
-
-- name: Copiar Fichero Data Base ZIP
-  copy:
-    src: "{{ path_recursos_maestro }}/{{ item }}"
-    dest: "{{ path_recursos_nodo }}"
-    owner: "{{ usuario_oracle }}"
-    group: "{{ grupo_oracle }}"
-    mode: "{{ permisos_oracle }}"
-  loop:
-    - "{{ nombre_db_zip1 }}"
-    - "{{ nombre_db_zip2 }}"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
-
-- name: Descomprimir Fichero Data Base ZIP
-  unarchive:
-    src: "{{ path_recursos_nodo }}/{{ item }}"
-    dest: "{{ path_oracle_stage }}"
-    copy: false
-    owner: "{{ usuario_oracle }}"
-    group: "{{ grupo_oracle }}"
-    mode: "{{ permisos_oracle }}"
-  loop:
-    - "{{ nombre_db_zip1 }}"
-    - "{{ nombre_db_zip2 }}"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
-
-- name: Cambiar Permisos Directorio
-  file:
-    path: "{{ item }}"
-    owner: "{{ usuario_oracle }}"
-    group: "{{ grupo_oracle }}"
-    mode: "{{ permisos_oracle }}"
-    recurse: yes
-  loop:
-    - "{{ path_oracle_stage }}"
-    - "{{ path_oracle_stage }}/database"
-    - "{{ path_oracle_base }}"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
-
-- name: Preparar Template para Instalacion
-  template:
-    src: "{{ nombre_original_db_template }}"
-    dest: "{{ path_oracle_stage }}/{{ nombre_db_template }}"
-    owner: "{{ usuario_oracle }}"
-    group: "{{ grupo_oracle }}"
-    mode: "{{ permisos_oracle }}"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
-
-# - name: Instalar Software Base de Datos
-#   become: yes
-#   become_user: "{{ usuario_oracle }}"
-#   shell: "{{ path_oracle_stage }}/database/runInstaller -responseFile {{ path_oracle_stage }}/{{ nombre_db_template }} -ignorePrereq -ignoreSysPrereqs -silent -waitforcompletion"
-##  shell: "{{ ora_stage }}/database/runInstaller -responseFile {{ ora_stage }}/{{ rdbms_response }} -ignorePrereq -ignoreSysPrereqs -silent -waitforcompletion"
-#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
-#   register: command_result
-#   failed_when: "'Successfully Setup Software.' not in command_result.stdout_lines"
+# - name: Instalacion Oracle Data Base 12c RAC
+#   debug:
+#     msg: "Iniciar Instalacion Oracle Data Base 12c: RAC"
 #
-# - name: Ejecutar Fichero PostInstalacion root en Nodo-1
-#   become: yes
-#   become_user: "{{ usuario_root }}"
-#   shell: "{{ path_oracle_home }}/root.sh"
+# - name: Crear Directorios Necesarios
+#   file:
+#     path: "{{ item }}"
+#     state: directory
+#     force: yes
+#   loop:
+#     - "{{ path_oracle_stage }}"
+#
+# - name: Copiar Fichero Data Base ZIP
+#   copy:
+#     src: "{{ path_recursos_maestro }}/{{ item }}"
+#     dest: "{{ path_recursos_nodo }}"
+#     owner: "{{ usuario_oracle }}"
+#     group: "{{ grupo_oracle }}"
+#     mode: "{{ permisos_oracle }}"
+#   loop:
+#     - "{{ nombre_db_zip1 }}"
+#     - "{{ nombre_db_zip2 }}"
 #   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+#
+# - name: Descomprimir Fichero Data Base ZIP
+#   unarchive:
+#     src: "{{ path_recursos_nodo }}/{{ item }}"
+#     dest: "{{ path_oracle_stage }}"
+#     copy: false
+#     owner: "{{ usuario_oracle }}"
+#     group: "{{ grupo_oracle }}"
+#     mode: "{{ permisos_oracle }}"
+#   loop:
+#     - "{{ nombre_db_zip1 }}"
+#     - "{{ nombre_db_zip2 }}"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+#
+# - name: Cambiar Permisos Directorio
+#   file:
+#     path: "{{ item }}"
+#     owner: "{{ usuario_oracle }}"
+#     group: "{{ grupo_oracle }}"
+#     mode: "{{ permisos_oracle }}"
+#     recurse: yes
+#   loop:
+#     - "{{ path_oracle_stage }}"
+#     - "{{ path_oracle_stage }}/database"
+#     - "{{ path_oracle_base }}"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+#
+# - name: Preparar Template para Instalacion
+#   template:
+#     src: "{{ nombre_original_db_template }}"
+#     dest: "{{ path_oracle_stage }}/{{ nombre_db_template }}"
+#     owner: "{{ usuario_oracle }}"
+#     group: "{{ grupo_oracle }}"
+#     mode: "{{ permisos_oracle }}"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+- name: Instalar Software Base de Datos
+  become: yes
+  become_user: "{{ usuario_oracle }}"
+  shell: "{{ path_oracle_stage }}/database/runInstaller -responseFile {{ path_oracle_stage }}/{{ nombre_db_template }} -ignorePrereq -ignoreSysPrereqs -silent -waitforcompletion"
+#  shell: "{{ ora_stage }}/database/runInstaller -responseFile {{ ora_stage }}/{{ rdbms_response }} -ignorePrereq -ignoreSysPrereqs -silent -waitforcompletion"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+  register: command_result
+  failed_when: "'Successfully Setup Software.' not in command_result.stdout_lines"
+
+- name: Ejecutar Fichero PostInstalacion root en Nodo-1
+  become: yes
+  become_user: "{{ usuario_root }}"
+  shell: "{{ path_oracle_home }}/root.sh"
+  when: inventory_hostname == "{{ ip_nombre_node1 }}"
 #
 # - name: Ejecutar Fichero PostInstalacion root en Nodo-2
 #   become: yes
