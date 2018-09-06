@@ -271,9 +271,15 @@
   become_user: "{{ usuario_root }}"
   shell: "sleep 10 && reboot"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+  ignore_errors: true
 
 - name: Esperar a que Nodo-1 Inicie
-  local_action: wait_for host={{ ip_nombre_node1 }} state=started
+  local_action:
+    module: wait_for
+      host={{ ip_nombre_node1 }}
+      port=22
+      delay=20
+      timeout=300
 
 - name: Servidores Listos
   debug:
