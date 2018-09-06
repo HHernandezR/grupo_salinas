@@ -267,14 +267,13 @@
 #   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
 - name: Reiniciar Nodo-1
+  become: yes
+  become_user: "{{ usuario_root }}"
   shell: "sleep 10 && reboot"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
 - name: Esperar a que Nodo-1 Inicie
-  local_action: wait_for
-    host: {{ ansible_ssh_host }}
-    state: started
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
+  local_action: wait_for host={{ ip_nombre_node1 }} state=started
 
 - name: Servidores Listos
   debug:
