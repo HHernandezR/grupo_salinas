@@ -12,7 +12,6 @@
   loop:
     - "{{ path_oracle_stage }}"
     - "{{ path_oracle }}"
-  when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
 # - name: Preparar Template para Instalacion
 #   template:
