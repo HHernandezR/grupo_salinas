@@ -6,4 +6,5 @@
     # - configAsm
     # - configSshKeys
     # - installGrid
-    - installDB
+    # - installDB
+    - createDB

@@ -1,0 +1,50 @@
+#Nombre / Ip del nodo 1
+ip_nombre_node1: 192.168.72.XXX
+#Nombre / Ip del nodo 2
+ip_nombre_node2: 192.168.72.XXX
+#Path diectorio Stage
+path_oracle_stage: /stage
+#Usuario Propietario de directorios BD Oracle
+usuario_oracle: oracle
+#Usuario Become Root
+usuario_root: root
+#Grupo Propietario de directorios BD Oracle
+grupo_oracle: oinstall
+#Permisos de directorios BD Oracle
+permisos_oracle: 0775
+#Path diectorio Oracle Base
+path_oracle_base: /oracle12c/app/oracle
+#Path destino donde se copian los recursos del servidor maestro
+path_recursos_nodo: /var/tmp
+#Path diectorio Inventory
+path_oracle_inventory: /oracle12c/app/oraInventory
+#Nombre fichero Template Instalacion Oracle Data Base
+nombre_original_db_ca_template: dbca.rsp.j2
+#Nombre fichero Template Instalacion Oracle Data Base
+nombre_db_ca_template: dbca.rsp
+#Valor Oracle Hostname
+path_oracle_home: "{{ path_oracle_base }}/product/12.1.0/dbhome_1"
+#Valor Nombre Base de Datos
+nombre_database: dbtest
+#Valor Tipo de Base de Datos:
+tipo_database: RAC
+#Valor PDB_Prefijo
+prefijo_pdb: pdb
+#Valor PDB_Password
+passwd_pdb  : oracle
+#Valor Password Base de Datos
+passwd_database: oracle
+#Valor DBSNMP_Password
+passwd_dbsnmp : oracle
+#Valor Tipo STORAGE
+tipo_storage: ASM
+#Valor Disk Group Name
+nombre_diskgroup: DATA
+#Valor Nombre Recovery
+nombre_recovery: FRA
+#Valor Charset
+valor_charset: AL32UTF8
+#Valor Automatic Memory Management
+valor_amm: FALSE
+#Valor Total de Memoria
+valor_totalmemoria: 800
