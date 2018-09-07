@@ -1,0 +1,7 @@
+- name: "Ejecucion de Install Oracle Data Base 12c RAC Parte-2"
+  hosts: all
+  become: true
+  roles:
+    - installGrid
+    - installDB
+    # - createDB

@@ -1,0 +1,8 @@
+- name: "Ejecucion de Install Oracle Data Base 12c RAC Parte-1"
+  hosts: all
+  become: true
+  roles:
+    - particionarDiscos
+    - configAsm
+    - configSshKeys
+    - installGrid

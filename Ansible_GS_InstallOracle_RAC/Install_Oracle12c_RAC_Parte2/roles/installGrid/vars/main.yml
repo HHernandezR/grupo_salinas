@@ -1,0 +1,114 @@
+#Usuario Become Grid
+usuario_grid: grid
+#Usuario Become Root
+usuario_root: root
+#Path del servidor maestro en el cual se obtienen los recursos zip
+path_recursos_maestro: /usr/databases_resources_rac
+#Path destino donde se copian los recursos del servidor maestro
+path_recursos_nodo: /var/tmp
+#Path diectorio Stage
+path_oracle_stage: /stage
+#Path diectorio Grid
+path_oracle_grid: /grid
+#Nombre fichero Template Instalacion Oracle Data Base
+nombre_original_grid_template: grid.rsp.j2
+#Nombre fichero Template Instalacion Oracle Data Base
+nombre_grid_template: grid.rsp
+#Usuario Propietario de directorios BD Oracle
+usuario_oracle: oracle
+#Grupo Propietario de directorios BD Oracle
+grupo_oracle: oinstall
+#Permisos de directorios BD Oracle
+permisos_oracle: 0775
+#Nombre fichero ZIP Grid Parte 1
+nombre_grid_zip1: p17694377_121020_Linux-x86-64_3of8.zip
+#Nombre fichero ZIP Grid Parte 2
+nombre_grid_zip2: p17694377_121020_Linux-x86-64_4of8.zip
+#Nombre fichero cvuqdisk RPM
+nombre_cvuqdisk_rpm: cvuqdisk-1.0.9-1.rpm
+#Path fichero cvuqdisk RPM
+path_cvuqdisk_rpm: "{{ path_oracle_stage }}/grid/rpm/{{ nombre_cvuqdisk_rpm }}"
+#Nombre / Ip del nodo 1
+ip_nombre_node1: 192.168.72.XXX
+#Nombre / Ip del nodo 2
+ip_nombre_node2: 192.168.72.XXX
+#Valor Oracle Hostname
+hostname_oracle: oralab1.localdomain
+#Path diectorio Inventory
+path_oracle_inventory: /oracle12c/app/oraInventory
+#Path diectorio Oracle Base
+path_oracle_base: /oracle12c/app/oracle
+#Parametro de configuracion para OS-ASM GROUP
+grupo_asm: dba
+#Parametro de configuracion para el Nombre del Scan
+nombre_scan: oralab1
+#Parametro de configuracion para el Puerto del Scan
+puerto_scan: 1521
+#Parametro de configuracion para el Tipo de Cluster
+tipo_cluster: STANDARD
+#Parametro de configuracion para el Nombre de Cluster
+nombre_cluster: oralab1
+#Parametro de configuracion para el Tipo de Storage del Cluster
+tipo_rac_storage: FLEX_ASM_STORAGE
+#Parametro de configuracion para el Idioma del Grid
+oracle_idioma: en
+#Parametro de configuracion para el Pasword del SYS ASM
+password_asm_sys: oracle
+#Parametro de configuracion para el ASM DiskGroup
+nombre_diskgroup_asm: DATA
+#Parametro de configuracion para la Redunndancia del DiskGroup del ASM
+redundancia_asm: EXTERNAL
+
+#Parametro de configuracion para el Password del Monitor
+#password_monitor: 222
+password_monitor: oracle
+#Parametro de configuracion para la Ubicacion de los Discos ASM
+path_discos_asm: /dev/oracleasm/disks
+#Etiqueta de los Discos ASM
+etiqueta_dicos_asm: ASMDISK
+#Parametro de configuracion para el Grupo de Discos ASM
+discos_diskgroup_asm: "{{ path_discos_asm }}/{{ etiqueta_dicos_asm }}1,{{ path_discos_asm }}/{{ etiqueta_dicos_asm }}2"
+#Parametro de configuracion para el Grupo de Discos ASM
+discos_diskgroup_asm_fra: "{{ path_discos_asm }}/{{ etiqueta_dicos_asm }}3,{{ path_discos_asm }}/{{ etiqueta_dicos_asm }}4"
+#Nombre fichero Template Instalacion Oracle Data Base
+nombre_original_config_grid_template: cfgrsp.properties.j2
+#Nombre fichero Template Instalacion Oracle Data Base
+nombre_config_grid_template: cfgrsp.properties
+
+asm_dbsnmp: oracle
+#Nombre de DiskGroup FRA (Archuives de Backup)
+nombre_diskgroup_fra: FRA
+
+#Intarfaces a utizar para la instalacion del grid
+network_interfaces:
+    #Nic IP Publica
+  - device: ens33
+    address: 192.168.72.170
+    grid_net: 1
+    #Nic IP Privada
+  - device: ens34
+    address: 192.168.1.170
+    grid_net: 5
+    #Nic IP ASM
+  # - device: ens35
+  #   address: 192.168.1.171
+  #   grid_net: 3
+
+#Path fichero bash_profile Oracle
+path_bashprofile_oracle: /home/oracle/.bash_profile
+#Parametro de Configuracion Oracle Data Base Nombre SID
+oracle_sid_nombre: db
+#Path diectorio Oracle Home
+path_oracle_home: "{{ path_oracle_base }}/product/12.1.0/dbhome_1"
+#Path fichero bash_profile Grid
+path_bashprofile_grid: /home/grid/.bash_profile
+#Parametro de Configuracion SID Grid
+grid_sid_nombre: +ASM1
+#Alias grid_env
+valor_gridenv: alias grid_env='. /home/oracle/grid_env'
+#Alias db_env
+valor_dbenv: alias db_env='. /home/oracle/db_env'
+#Nombre Fichero grid_env:
+nombre_fichero_gridenv: db_env
+#Nombre Fichero db_env:
+nombre_fichero_dbenv: grid_env
