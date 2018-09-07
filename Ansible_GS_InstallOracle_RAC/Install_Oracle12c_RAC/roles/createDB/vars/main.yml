@@ -27,7 +27,7 @@ nombre_db_ca_template: dbca.rsp
 #Valor Oracle Hostname
 path_oracle_home: "{{ path_oracle_base }}/product/12.1.0/dbhome_1"
 #Valor Nombre Base de Datos
-nombre_database: dbtest
+nombre_database: db
 #Valor Tipo de Base de Datos:
 tipo_database: RAC
 #Valor PDB_Prefijo
