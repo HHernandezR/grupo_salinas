@@ -1,15 +1,27 @@
-- name: Instalacion Oracle Data Base 12c RAC
+- name: Creacion de Base de Datos
   debug:
-    msg: "Iniciar Instalacion Oracle Data Base 12c: RAC"
+    msg: "Creacion de Base de Datos"
 
-- name: Preparar Template para Instalacion
-  template:
-    src: "{{ nombre_original_db_ca_template }}"
-    dest: "{{ path_oracle_stage }}/{{ nombre_db_ca_template }}"
+- name: Cambiar Permisos Directorio
+  file:
+    path: "{{ item }}"
     owner: "{{ usuario_oracle }}"
     group: "{{ grupo_oracle }}"
     mode: "{{ permisos_oracle }}"
+    recurse: yes
+  loop:
+    - "{{ path_oracle_stage }}"
+    - "{{ path_oracle_base }}"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
+
+# - name: Preparar Template para Instalacion
+#   template:
+#     src: "{{ nombre_original_db_ca_template }}"
+#     dest: "{{ path_oracle_stage }}/{{ nombre_db_ca_template }}"
+#     owner: "{{ usuario_oracle }}"
+#     group: "{{ grupo_oracle }}"
+#     mode: "{{ permisos_oracle }}"
+#   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
 - name: Crear Base de Datos
   become: true
