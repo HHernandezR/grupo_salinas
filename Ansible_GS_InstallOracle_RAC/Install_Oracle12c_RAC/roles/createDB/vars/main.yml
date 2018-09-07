@@ -12,6 +12,8 @@ usuario_root: root
 grupo_oracle: oinstall
 #Permisos de directorios BD Oracle
 permisos_oracle: 0775
+#Path diectorio Oracle
+path_oracle: /oracle12c
 #Path diectorio Oracle Base
 path_oracle_base: /oracle12c/app/oracle
 #Path destino donde se copian los recursos del servidor maestro
