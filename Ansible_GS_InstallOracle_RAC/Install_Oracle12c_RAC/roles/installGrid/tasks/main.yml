@@ -335,11 +335,6 @@
   # shell: "{{gi_home}}/bin/asmca -silent -sysAsmPassword {{ asm_passwd }} -asmsnmpPassword {{ asm_dbsnmp }} -createDiskGroup -diskString {{ asm_diskprefix }} -diskGroupName {{ asm_sec_dg }} -diskList {{ asm_disklist_s }} -redundancy {{ asm_redundancy}}"
   when: inventory_hostname == "{{ ip_nombre_node1 }}"
 
-# - name: Eliminar Archivos Temporales de Instalacion
-#   file:
-#     path: "{{ path_oracle_stage }}"
-#     state: absent
-
 - name: Resultado de la Instalacion de Grid
   become: yes
   become_user: "{{ usuario_grid }}"

@@ -6,6 +6,8 @@ ip_nombre_node2: 192.168.72.XXX
 path_oracle_stage: /stage
 #Usuario Propietario de directorios BD Oracle
 usuario_oracle: oracle
+#Usuario Become Root
+usuario_root: root
 #Grupo Propietario de directorios BD Oracle
 grupo_oracle: oinstall
 #Permisos de directorios BD Oracle
