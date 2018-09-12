@@ -1,3 +1,11 @@
+#Datos de la cadena Conexion
+nombre_maquinavirtual:
+usuario_servidor:
+password_servidor:
+nombre_ip_servidor:
+nombre_cluster:
+nombre_datacenter:
+
 #Path directorio sshd_config
 path_ssh: /etc/ssh/sshd_config
 #Valor para permitir el login de usuario root

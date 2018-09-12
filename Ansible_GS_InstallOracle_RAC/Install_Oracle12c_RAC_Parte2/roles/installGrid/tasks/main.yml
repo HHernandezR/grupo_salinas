@@ -1,3 +1,12 @@
+- name: "Cadena de Conexion"
+  rhevm:
+    name: "{{ nombre_maquinavirtual }}"
+    user: "{{ usuario_servidor }}"
+    password: "{{ password_servidor }}"
+    server: "{{ nombre_ip_servidor }}"
+    cluster: "{{ nombre_cluster }}"
+    datacenter: "{{ nombre_datacenter }}"
+
 - name: Ejecutar Fichero PostInstalacion root en Nodo-2
   become: yes
   become_user: "{{ usuario_root }}"

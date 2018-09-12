@@ -1,3 +1,12 @@
+- name: "Cadena de Conexion"
+  rhevm:
+    name: "{{ nombre_maquinavirtual }}"
+    user: "{{ usuario_servidor }}"
+    password: "{{ password_servidor }}"
+    server: "{{ nombre_ip_servidor }}"
+    cluster: "{{ nombre_cluster }}"
+    datacenter: "{{ nombre_datacenter }}"
+
 - name: Copiar Archivo CSV de Grupos Oracle
   copy:
     src: oracleGroups.csv
@@ -34,7 +43,7 @@
 - name: Leer Archivo CSV de Usuarios Oracle
   command: /usr/bin/awk -F',' '!/^#/ && !/^$/ { print $1 }' /var/tmp/oracleUsers.csv
   register: oracleUsers_out
-  
+
 - name: Crear Usuarios Oracle
   user:
     uid: "{{ lookup('csvfile', item + ' file=oracleUsers.csv col=0 delimiter=,') }}"

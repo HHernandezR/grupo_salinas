@@ -1,3 +1,11 @@
+#Datos de la cadena Conexion
+nombre_maquinavirtual:
+usuario_servidor:
+password_servidor:
+nombre_ip_servidor:
+nombre_cluster:
+nombre_datacenter:
+
 #Path Directorio sysconfig
 path_iptables: /etc/sysconfig/
 #Grupo propietario fichero IpTables

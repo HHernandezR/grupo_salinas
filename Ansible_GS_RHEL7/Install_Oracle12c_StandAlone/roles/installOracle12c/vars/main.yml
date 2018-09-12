@@ -1,3 +1,11 @@
+#Datos de la cadena Conexion
+nombre_maquinavirtual:
+usuario_servidor:
+password_servidor:
+nombre_ip_servidor:
+nombre_cluster:
+nombre_datacenter:
+
 # punto_montaje_nfs: /var/tmp/nfs
 # path_fstab: /etc/fstab
 # ip_servidor_maestro: 192.168.72.150

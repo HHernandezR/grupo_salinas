@@ -1,3 +1,11 @@
+#Datos de la cadena Conexion
+nombre_maquinavirtual:
+usuario_servidor:
+password_servidor:
+nombre_ip_servidor:
+nombre_cluster:
+nombre_datacenter:
+
 #Path fichero Selinux config
 path_selinux: /etc/selinux/config
 #Estatus SELINUX

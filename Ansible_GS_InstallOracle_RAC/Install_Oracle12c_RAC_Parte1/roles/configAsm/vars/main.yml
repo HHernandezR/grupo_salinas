@@ -1,3 +1,11 @@
+#Datos de la cadena Conexion
+nombre_maquinavirtual:
+usuario_servidor:
+password_servidor:
+nombre_ip_servidor:
+nombre_cluster:
+nombre_datacenter:
+
 #Path del servidor maestro en el cual se obtienen los recursos rpm
 path_recursos_maestro: /usr/databases_resources_rac
 #Path destino copiado ficheros RPM

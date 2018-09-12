@@ -1,3 +1,12 @@
+- name: "Cadena de Conexion"
+  rhevm:
+    name: "{{ nombre_maquinavirtual }}"
+    user: "{{ usuario_servidor }}"
+    password: "{{ password_servidor }}"
+    server: "{{ nombre_ip_servidor }}"
+    cluster: "{{ nombre_cluster }}"
+    datacenter: "{{ nombre_datacenter }}"
+
 - name: Version Jboss 7
   debug:
     msg: "Iniciar Ejecución de JBoss EAP Version: 7"
